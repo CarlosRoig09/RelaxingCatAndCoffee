@@ -40,6 +40,7 @@ public class LevelManager : MonoBehaviour
         _punC = GameObjectLibrary.Instance.PuntuationControllerScript;
         _enC = GameObjectLibrary.Instance.EnergyControllerScript;
         UIManager.Instance.ModifyPunHUD(_punC.Value);
+        UIManager.Instance.ModifyEnergyHUD(_enC.Value);
     }
 
     // Update is called once per frame

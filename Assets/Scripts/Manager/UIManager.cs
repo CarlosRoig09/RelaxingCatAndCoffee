@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-    private Text _textPuntuation;
-    private Slider _energySlider;
     private GameObject[] _cofees;
     private int _cofeesCount;
     private void Awake()
@@ -34,8 +32,6 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _textPuntuation = GameObjectLibrary.Instance.Puntuation.GetComponent<Text>();
-        _energySlider = GameObjectLibrary.Instance.Energy.GetComponent<Slider>();
         _cofees = new GameObject[GameObjectLibrary.Instance.CofeePanel.transform.childCount];
         for(int i = 0; i < _cofees.Length; i++)
         {
@@ -53,13 +49,13 @@ public class UIManager : MonoBehaviour
 
     public void ModifyPunHUD(int puntuation)
     {
-        _textPuntuation.text = puntuation.ToString();
+        GameObjectLibrary.Instance.PuntuationText.text = puntuation.ToString();
     }
 
     public void ModifyEnergyHUD(float energy)
     {
         energy /= 100;
-        _energySlider.value += energy;
+        GameObjectLibrary.Instance.EnergySlider.value += energy;
     }
 
     public void AddCofeeHUD()
