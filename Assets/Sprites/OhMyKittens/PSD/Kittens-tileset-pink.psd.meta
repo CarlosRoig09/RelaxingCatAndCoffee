@@ -1,0 +1,1003 @@
+fileFormatVersion: 2
+guid: 2a27ca14b13b7b44b83510a3b75efb78
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8f0d65e2dae98f49a5e88daf0ec02aa
+      internalID: 400942998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 106
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d96fde891469944b6b30e5dca5e1b8
+      internalID: -1511816822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_2
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dbf8b5ae717c7643bfff8c8b3eb8aed
+      internalID: 1547267042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_3
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 279e88ef12fc9ef4eb75d3123598e5bb
+      internalID: -2081824690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_4
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8596b5ba9be56a458b31ff742e5b48b
+      internalID: -1266912917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_5
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 106
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21a0797e0da5b66458c3ba1112651b16
+      internalID: -1546013014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_6
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d925e01a18b121046a97997f36b34e7c
+      internalID: 1137905733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_7
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 106
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72fdb7edb7bef1740aa832ab96ac586e
+      internalID: 80655433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 85
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a25ca69be8286f408ac7bf702b6f501
+      internalID: 477503792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_9
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 85
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe4b1d4c26cb87c49afce243b1c37a65
+      internalID: -1381185649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_10
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 86
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ce0ace864d4c44b907cc0c1372aea3
+      internalID: 51740889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 85
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a62ab23ff1803f47abb92aee1bc46f1
+      internalID: -684957203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_12
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 85
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 593b0b818bc23334f8c59952df3bc8dd
+      internalID: -448997073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_13
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 86
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46c65fa74091f974da56878df9af54f5
+      internalID: -1481831866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_14
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 64
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c68c93e62e385943b04255936ff1040
+      internalID: 2038451659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_15
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 64
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b6f01bd1b601ac49acc6efd2a0061c8
+      internalID: 1320781760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_16
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 64
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e74a50120f2fe438b158dadf722bec
+      internalID: 193463230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_17
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 67
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 669d8555e34800f4faeac7e813df170d
+      internalID: -1670897470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_18
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 67
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 424d9f8fc1f63774e81e4ca19880a5de
+      internalID: -1085527833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_19
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 66
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad06f6ff8b533a469b493ab7384c7d4
+      internalID: 552018056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_20
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 64
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76f4437ff3dc9664c8492d2f3ced0052
+      internalID: -1286845669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_21
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 64
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ba81bcf899f0ec4c9c2b871aa3c8a70
+      internalID: 1213181023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_22
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 64
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c3656c62b7668b49bd382e6eb13c2e8
+      internalID: 781357545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_23
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 43
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3690f3207c65f2341a7399561524a688
+      internalID: -501310788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_24
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 43
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6dd487d252bea24998e28e46affa259
+      internalID: -284371469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_25
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 43
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe295f47cda55be4c893dacff5099236
+      internalID: 1584423852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_26
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 47
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e92a344a25aca1f42b7a81100a9a9930
+      internalID: -36824866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_27
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 46
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fe1d5aa2aa482f4c9a5bccab20fc78b
+      internalID: 2009360034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_28
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 45
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a45e67b6e46b22043b785b5f18515668
+      internalID: -1026605598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_29
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 44
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f2f7d461927c74d8f3c14c5a661af1
+      internalID: 1104133627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_30
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 43
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e2479235d90b964da06b3faf7cb315e
+      internalID: -327144796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_31
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 43
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85b1f5847b2bf874387f196cef5c334d
+      internalID: -186473858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_32
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 22
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333502955f9ba7942800b22902cc37ba
+      internalID: 1662685624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_33
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 22
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbb4925fa210f654d8eccd3f1944aa5b
+      internalID: 280088253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_34
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 22
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f2f58215a9b64a4d86de3daf28b5850
+      internalID: -1634879226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_35
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 22
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7154c84bdec098a438cc29cceba5c66f
+      internalID: 757544599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_36
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1841802222bc07545a388dfabbc5aa9a
+      internalID: -1664823243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_37
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8d7ddb3fdfa5bf44b8e91bad0824683
+      internalID: -1959511072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_38
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 1
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b69c529d18f270347824fde79573313f
+      internalID: 1040328708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittens-tileset-pink_39
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 1
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d39d2c5b22203843af66cbe4ba9fc96
+      internalID: -54222750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Kittens-tileset-pink_26: -36824866
+      Kittens-tileset-pink_34: -1634879226
+      Kittens-tileset-pink_8: 477503792
+      Kittens-tileset-pink_18: -1085527833
+      Kittens-tileset-pink_5: -1546013014
+      Kittens-tileset-pink_16: 193463230
+      Kittens-tileset-pink_7: 80655433
+      Kittens-tileset-pink_25: 1584423852
+      Kittens-tileset-pink_37: -1959511072
+      Kittens-tileset-pink_14: 2038451659
+      Kittens-tileset-pink_36: -1664823243
+      Kittens-tileset-pink_2: 1547267042
+      Kittens-tileset-pink_0: 400942998
+      Kittens-tileset-pink_12: -448997073
+      Kittens-tileset-pink_32: 1662685624
+      Kittens-tileset-pink_1: -1511816822
+      Kittens-tileset-pink_4: -1266912917
+      Kittens-tileset-pink_17: -1670897470
+      Kittens-tileset-pink_20: -1286845669
+      Kittens-tileset-pink_13: -1481831866
+      Kittens-tileset-pink_23: -501310788
+      Kittens-tileset-pink_10: 51740889
+      Kittens-tileset-pink_24: -284371469
+      Kittens-tileset-pink_27: 2009360034
+      Kittens-tileset-pink_3: -2081824690
+      Kittens-tileset-pink_30: -327144796
+      Kittens-tileset-pink_33: 280088253
+      Kittens-tileset-pink_39: -54222750
+      Kittens-tileset-pink_31: -186473858
+      Kittens-tileset-pink_6: 1137905733
+      Kittens-tileset-pink_15: 1320781760
+      Kittens-tileset-pink_28: -1026605598
+      Kittens-tileset-pink_35: 757544599
+      Kittens-tileset-pink_11: -684957203
+      Kittens-tileset-pink_29: 1104133627
+      Kittens-tileset-pink_9: -1381185649
+      Kittens-tileset-pink_19: 552018056
+      Kittens-tileset-pink_38: 1040328708
+      Kittens-tileset-pink_22: 781357545
+      Kittens-tileset-pink_21: 1213181023
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
