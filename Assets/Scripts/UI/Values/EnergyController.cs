@@ -13,7 +13,6 @@ public class EnergyController : MonoBehaviour, IModificableValue
     void Start()
     {
         Value= _maxEnergy;
-        UIManager.Instance.ModifyEnergyHUD(Value);
     }
 
     public bool IsEnergyExahusted()
