@@ -1,18 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GameObjectLibrary : MonoBehaviour
+namespace personalLibrary
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameObjectLibrary : MonoBehaviour
     {
-        
-    }
+        private static GameObjectLibrary _instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public static GameObjectLibrary Instance
+        {
+            get
+            {
+                if(_instance==null)
+                {
+                    Debug.Log("GameObjectLibrary is NULL");
+                }
+                return _instance;
+            }
+        }
+        public  GameObject Cat { get; private set; }
+        public  CatBehaivour CatBehaivourScript {get; private set;}
+
+        public GameObject Energy { get; private set; }
+        public EnergyController EnergyControllerScript { get; private set; }
+        public GameObject Puntuation { get; private set; }
+        public PuntuationController PuntuationControllerScript { get; private set; }
+
+        public GameObject CofeePanel { get; private set; }
+        public GestionInventory GestionInventory { get; private set; }
+        private void Awake()
+        {
+            if (_instance != null)
+                Destroy(gameObject);
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+                _instance= this;
+            }
+            //Not in awake, this library have to wait to GameManager Orders.
+            Cat = GameObject.FindGameObjectWithTag("Cat");
+            CatBehaivourScript = Cat.GetComponent<CatBehaivour>();
+            Energy = GameObject.FindGameObjectWithTag("Energy");
+            EnergyControllerScript = Energy.GetComponent<EnergyController>();
+            Puntuation = GameObject.FindGameObjectWithTag("Puntuation");
+            PuntuationControllerScript = Puntuation.GetComponent<PuntuationController>();
+            CofeePanel = GameObject.FindGameObjectWithTag("Cofee");
+            GestionInventory = CofeePanel.GetComponent<GestionInventory>();
+        }
     }
 }
