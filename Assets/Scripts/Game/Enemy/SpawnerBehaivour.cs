@@ -16,6 +16,14 @@ public class SpawnerBehaivour : MonoBehaviour
     {
         _time = 0;
         _maxTime = 0;
+        foreach(var specialBlossom in blossoms)
+        {
+            if (specialBlossom.Name == "Special")
+            {
+                specialBlossom.SpawnPercentage = 30;
+                LevelManager.Instance.GetSpecialBlossom(specialBlossom);
+            }
+        }
     }
 
     // Update is called once per frame

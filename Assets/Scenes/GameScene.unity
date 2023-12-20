@@ -407,7 +407,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blossoms:
+  - {fileID: 11400000, guid: a0257a97f2ae10140810275a602a021d, type: 2}
+  - {fileID: 11400000, guid: ec734db1541adde498e9ef66db887f06, type: 2}
+  - {fileID: 11400000, guid: 005fcc0e4d341294cb65fc2f0b441af9, type: 2}
   - {fileID: 11400000, guid: a31bdbc5bcb3a8d498f4dedd59775cb7, type: 2}
+  - {fileID: 11400000, guid: 0854bf71354bc6748918427b2e5e9bf1, type: 2}
   _spawnPoints:
   - {fileID: 463031052}
   - {fileID: 1326239635}
