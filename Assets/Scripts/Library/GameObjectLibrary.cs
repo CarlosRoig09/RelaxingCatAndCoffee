@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 namespace personalLibrary
 {
     public class GameObjectLibrary : MonoBehaviour
@@ -22,8 +21,10 @@ namespace personalLibrary
         public  CatBehaivour CatBehaivourScript {get; private set;}
 
         public GameObject Energy { get; private set; }
+        public Slider EnergySlider { get; private set; }
         public EnergyController EnergyControllerScript { get; private set; }
         public GameObject Puntuation { get; private set; }
+        public Text PuntuationText { get; private set; }
         public PuntuationController PuntuationControllerScript { get; private set; }
 
         public GameObject CofeePanel { get; private set; }
@@ -41,8 +42,10 @@ namespace personalLibrary
             Cat = GameObject.FindGameObjectWithTag("Cat");
             CatBehaivourScript = Cat.GetComponent<CatBehaivour>();
             Energy = GameObject.FindGameObjectWithTag("Energy");
+            EnergySlider = Energy.GetComponent<Slider>();
             EnergyControllerScript = Energy.GetComponent<EnergyController>();
             Puntuation = GameObject.FindGameObjectWithTag("Puntuation");
+            PuntuationText = Puntuation.GetComponent<Text>();
             PuntuationControllerScript = Puntuation.GetComponent<PuntuationController>();
             CofeePanel = GameObject.FindGameObjectWithTag("Cofee");
             GestionInventory = CofeePanel.GetComponent<GestionInventory>();
