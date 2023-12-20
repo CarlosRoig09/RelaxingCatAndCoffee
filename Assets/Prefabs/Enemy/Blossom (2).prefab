@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 978252621803486374}
   - component: {fileID: 978252621803486375}
   - component: {fileID: 978252621803486372}
+  - component: {fileID: 8857282976543416749}
   m_Layer: 6
   m_Name: Blossom (2)
   m_TagString: Untagged
@@ -149,3 +150,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4224787, y: 1.2527655}
   m_EdgeRadius: 0
+--- !u!95 &8857282976543416749
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978252621803486371}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82a23ad1f688ac540a1b928774308aea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

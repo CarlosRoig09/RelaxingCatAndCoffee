@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa86ad8183a01cb41b7e59b696ecbf52, type: 3}
   m_Name: BlossomData
   m_EditorClassIdentifier: 
-  Name: Special Blossom
+  Name: Special
   BlossomGameObject: {fileID: 4365370125793198595, guid: 278f67fd64c0b8b4bb5e5f26b1b95dec, type: 3}
   PositivePuntuation: 50
   NegativePuntuation: -20
   EnergyLose: -30
-  MaxSpeedX: 3
-  MinSpeedX: -3
-  MaxSpeedY: -0.9
-  SpawnPercentage: 30
+  MaxSpeedX: 2
+  MinSpeedX: -2
+  MaxSpeedY: -1.5
+  SpawnPercentage: 40

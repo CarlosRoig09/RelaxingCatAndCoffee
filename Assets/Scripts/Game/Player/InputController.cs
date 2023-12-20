@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private InputAction _onLeftClick;
     private InputAction _onRightClick;
     private CatBehaivour _catBehaivour;
+    private GestionInventory _gestionInventory;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.AttackFinish;
 
@@ -32,6 +33,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         GameManager.Instance.SubscribeEvent(this);
         SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
         _catBehaivour = GameObjectLibrary.Instance.CatBehaivourScript;
+        _gestionInventory = GameObjectLibrary.Instance.GestionInventory;
     }
     // Update is called once per frame
     void Update()
@@ -105,6 +107,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     void OnRightClick(InputAction.CallbackContext context)
     {
         Debug.Log("RightClick");
+        _gestionInventory.UseCofee();
     }
 
     void OnLeftClick(InputAction.CallbackContext context)

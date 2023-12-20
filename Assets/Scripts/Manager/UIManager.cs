@@ -34,8 +34,6 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _textPuntuation = GameObjectLibrary.Instance.Puntuation.GetComponent<Text>();
-        _energySlider = GameObjectLibrary.Instance.Energy.GetComponent<Slider>();
         _cofees = new GameObject[GameObjectLibrary.Instance.CofeePanel.transform.childCount];
         for(int i = 0; i < _cofees.Length; i++)
         {
@@ -59,7 +57,7 @@ public class UIManager : MonoBehaviour
     public void ModifyEnergyHUD(float energy)
     {
         energy /= 100;
-        GameObjectLibrary.Instance.EnergySlider.value += energy;
+        GameObjectLibrary.Instance.EnergySlider.value = energy;
     }
 
     public void AddCofeeHUD()
