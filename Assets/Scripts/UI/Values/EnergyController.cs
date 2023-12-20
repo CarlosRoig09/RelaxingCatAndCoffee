@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
-public class EnergyBehaivour : MonoBehaviour, IModificableValue
+public class EnergyController : MonoBehaviour, IModificableValue
 {
     [SerializeField]
     private int _maxEnergy;
@@ -15,5 +15,8 @@ public class EnergyBehaivour : MonoBehaviour, IModificableValue
         Value= _maxEnergy;
     }
 
-    
+    public bool IsEnergyExahusted()
+    {
+        return _energy <= 0;
+    }
 }

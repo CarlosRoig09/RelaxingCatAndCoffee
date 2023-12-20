@@ -34,7 +34,7 @@ public class CatForce : MonoBehaviour
 
     private void Expand()
     {
-        if (transform.localScale.x < 5.23f)
+        if (transform.localScale.x < 15.36f)
         {
             transform.localScale = new Vector3(transform.localScale.x + 0.1f, transform.localScale.y + 0.06f);
         }
@@ -43,14 +43,13 @@ public class CatForce : MonoBehaviour
         {
             if (!_startedCoroutine)
             {
-                StartCoroutine(WaitTime(0.1f));
+                StartCoroutine(WaitTime(0.5f));
             }
         }
     }
 
     private void Destroy()
     {
-        Debug.Log("Me estoy destruyendo");
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a - 0.01f);
         transform.localScale = new Vector3(transform.localScale.x + 0.1f*Time.deltaTime, transform.localScale.y + 0.06f*Time.deltaTime);
         if (_spriteRenderer.color.a <= 0)

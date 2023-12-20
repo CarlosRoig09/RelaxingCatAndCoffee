@@ -53,13 +53,13 @@ public class UIManager : MonoBehaviour
 
     public void ModifyPunHUD(int puntuation)
     {
-        _textPuntuation.text = puntuation.ToString();
+        GameObjectLibrary.Instance.PuntuationText.text = puntuation.ToString();
     }
 
     public void ModifyEnergyHUD(float energy)
     {
         energy /= 100;
-        _energySlider.value += energy;
+        GameObjectLibrary.Instance.EnergySlider.value += energy;
     }
 
     public void AddCofeeHUD()

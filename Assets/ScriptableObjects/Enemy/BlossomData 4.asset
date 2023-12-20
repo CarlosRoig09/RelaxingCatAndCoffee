@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa86ad8183a01cb41b7e59b696ecbf52, type: 3}
+  m_Name: BlossomData 4
+  m_EditorClassIdentifier: 
+  Name: 
+  BlossomGameObject: {fileID: 3375384278130931022, guid: 43a80fb317cc8ef41b4dcc71a4474531, type: 3}
+  PositivePuntuation: 10
+  NegativePuntuation: -6
+  EnergyLose: -10
+  MaxSpeedX: 3
+  MinSpeedX: -3
+  MaxSpeedY: -0.7
+  SpawnPercentage: 50

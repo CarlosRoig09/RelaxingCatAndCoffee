@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cat
+  - Puntuation
+  - Energy
+  - Cofee
   layers:
   - Default
   - TransparentFX
@@ -11,12 +15,12 @@ TagManager:
   - Manager
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Blossom
+  - PlayerAttack
+  - Pushed
+  - MapBorder
+  - Basket
+  - EndScreen
   - 
   - 
   - 

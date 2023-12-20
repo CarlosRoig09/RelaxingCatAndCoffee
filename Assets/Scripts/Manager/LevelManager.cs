@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private PercentagesAndTime _pAndTime;
     private static LevelManager _instance;
+    private BlossomData _specialBlossom;
 
     public static LevelManager Instance
     {
@@ -40,12 +41,18 @@ public class LevelManager : MonoBehaviour
         _punC = GameObjectLibrary.Instance.PuntuationControllerScript;
         _enC = GameObjectLibrary.Instance.EnergyControllerScript;
         UIManager.Instance.ModifyPunHUD(_punC.Value);
+        UIManager.Instance.ModifyEnergyHUD(_enC.Value);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void GetSpecialBlossom(BlossomData blossomData)
+    {
+        _specialBlossom = blossomData;
     }
 
     public float SpawnTimeByPun()
@@ -68,6 +75,7 @@ public class LevelManager : MonoBehaviour
 
     private PercentagesAndTime CurrenOrderByIterations(int iterations)
     {
+        _specialBlossom.SpawnPercentage = 30;
         var clonePAndTime = Instantiate(_pAndTime);
         for (int i = clonePAndTime.Percentages.Count - 1; i > 0; i--)
         {
@@ -77,6 +85,7 @@ public class LevelManager : MonoBehaviour
                 {
                     (clonePAndTime.Percentages[i], clonePAndTime.Percentages[y]) = (clonePAndTime.Percentages[y], clonePAndTime.Percentages[i]);
                     iterations -= 1;
+                    _specialBlossom.SpawnPercentage += 10;
                 }
                 else
                     return clonePAndTime;
