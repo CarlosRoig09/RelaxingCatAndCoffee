@@ -15,6 +15,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     private float _reduceSpeedValue;
     [SerializeField]
     private GameObject _catAttack;
+    private CatAnimationController _catAnimCon;
 
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
@@ -25,6 +26,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     {
         _rb2D= GetComponent<Rigidbody2D>();
         _reduceSpeed = false;
+        _catAnimCon= GetComponent<CatAnimationController>();
     }
 
     // Update is called once per frame
@@ -72,6 +74,11 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     public void Attack()
     {
         Debug.Log("Miau Attack");
+        _catAnimCon.StartMiauAttack();
+    }
+
+    public void SpawnExplosion()
+    {
         Instantiate(_catAttack, transform.GetChild(0).transform);
     }
 
