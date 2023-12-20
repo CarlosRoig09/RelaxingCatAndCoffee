@@ -12,7 +12,10 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private int _obtainCofee;
     [SerializeField]
     private CofeeData _cofeeData;
-
+    [SerializeField]
+    private Sprite[] _sprites;
+    private int _spritecount;
+    private SpriteRenderer _spriteRenderer;
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.StopCofeeProduction;
@@ -25,6 +28,8 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
         cofeeCount= 0;
         countCofee= true;
         GameManager.Instance.SubscribeEvent(this);
+        _spritecount = 0;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,6 +43,10 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
         if(collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
             SendPuntuation(blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive));
+            _spritecount += blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive)/10;
+            if (_spritecount < _sprites.Length)
+                _spriteRenderer.sprite = _sprites[_spritecount];
+
             blossomBehaivour.Destroy();
             CountCofee();
             if(cofeeCount==_obtainCofee)

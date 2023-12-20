@@ -19,5 +19,5 @@ MonoBehaviour:
   EnergyLose: -10
   MaxSpeedX: 3
   MinSpeedX: -3
-  MaxSpeedY: -0.7
+  MaxSpeedY: -1
   SpawnPercentage: 90

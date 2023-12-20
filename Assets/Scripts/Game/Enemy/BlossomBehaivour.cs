@@ -102,6 +102,12 @@ public class BlossomBehaivour : MonoBehaviour
         _rb2D.velocity = new Vector2(speedX, speedY);
         _stop = false;
     }
+
+    public IEnumerator WaitTillChangeLayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        gameObject.layer = 6;
+    }
     public int GivePuntuation(EnumLibrary.PunType punType)
     {
         return punType switch
@@ -119,7 +125,7 @@ public class BlossomBehaivour : MonoBehaviour
 
     public void Destroy()
     {
-        Debug.Log("Animación de desaparecer AAAAA. Hacerla con particle system");
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 }

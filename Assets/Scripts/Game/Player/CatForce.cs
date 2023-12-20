@@ -75,9 +75,23 @@ public class CatForce : MonoBehaviour
         if (collision.TryGetComponent<BlossomBehaivour>(out var blossomBehaivour))
         {
             blossomBehaivour.StopAllForce(0.3f);
-            var force = (MaxForce / (Mathf.Sqrt(Mathf.Pow(blossomBehaivour.transform.position.x - transform.position.x,2)+Mathf.Pow(blossomBehaivour.transform.position.y - transform.position.y,2)))) * new Vector2(blossomBehaivour.transform.position.x - transform.position.x, blossomBehaivour.transform.position.y - transform.position.y);
+            var vectorDistance = Mathf.Sqrt(Mathf.Pow(blossomBehaivour.transform.position.x - transform.position.x, 2) + Mathf.Pow(blossomBehaivour.transform.position.y - transform.position.y, 2));
+            Debug.Log(vectorDistance.ToString());
+            float potencia;
+            if (vectorDistance < 0.7f)
+                potencia = 2.5f;
+
+            else if (vectorDistance > 0.7f && vectorDistance < 1.3f)
+                potencia = 2f;
+            else if (vectorDistance > 1.3 && vectorDistance < 1.9f)
+                potencia = 1.5f;
+            else
+                potencia = 1f;
+            
+            var force = (MaxForce / (vectorDistance/potencia)) * new Vector2(blossomBehaivour.transform.position.x - transform.position.x, blossomBehaivour.transform.position.y - transform.position.y);
             blossomBehaivour.Rb2D.AddForce(force);
             blossomBehaivour.gameObject.layer = 8;
+            StartCoroutine(blossomBehaivour.WaitTillChangeLayer(0.3f));
         }
     }
 

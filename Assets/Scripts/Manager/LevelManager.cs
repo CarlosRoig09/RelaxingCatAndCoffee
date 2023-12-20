@@ -40,6 +40,7 @@ public class LevelManager : MonoBehaviour
     {
         _punC = GameObjectLibrary.Instance.PuntuationControllerScript;
         _enC = GameObjectLibrary.Instance.EnergyControllerScript;
+        _enC.Value = 100;
         UIManager.Instance.ModifyPunHUD(_punC.Value);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
     }
@@ -56,16 +57,22 @@ public class LevelManager : MonoBehaviour
     }
     public float SpawnTimeByPun()
     {
-        int iteration = 0;
-        int comparePuntuation = _punC.Value/50;
-        int[] marge = new int[] { 0, 1, 2, 8, 20, 40 };
+        _specialBlossom.SpawnPercentage = 30;
+       int iteration = 0;
+        float comparePuntuation = _punC.Value/50;
+        int[] marge = new int[] { 0, 1, 2, 4, 16, 24};
         bool endFor = false;
-        for (int i = 0; i < marge.Length-1&&!endFor;i++)
+        for (int i = 1; i < marge.Length-1&&!endFor;i++)
         {
             if (comparePuntuation >= marge[i] && comparePuntuation < marge[i + 1])
             {
-                iteration += i + 1;
+                iteration += i;
+                _specialBlossom.SpawnPercentage += 10;
                 endFor = true;
+            }
+            else if (marge[i] == marge[marge.Length-1])
+            {
+                iteration+= i;
             }
         }
         var orderedPercentagesAndTime = CurrenOrderByIterations(iteration);
@@ -74,17 +81,14 @@ public class LevelManager : MonoBehaviour
 
     private PercentagesAndTime CurrenOrderByIterations(int iterations)
     {
-        _specialBlossom.SpawnPercentage = 30;
         var clonePAndTime = Instantiate(_pAndTime);
-        for (int i = clonePAndTime.Percentages.Count - 1; i > 0; i--)
+        for (int i = clonePAndTime.Percentages.Count - (iterations + 1); i < clonePAndTime.Percentages.Count; i++)
         {
-            for (int y = i -1; y >= 0;)
+            for (int y = i + 1; y < clonePAndTime.Percentages.Count;y++)
             {
-                if (iterations > 0)
+                if (clonePAndTime.Percentages[i] < clonePAndTime.Percentages[y])
                 {
                     (clonePAndTime.Percentages[i], clonePAndTime.Percentages[y]) = (clonePAndTime.Percentages[y], clonePAndTime.Percentages[i]);
-                    iterations -= 1;
-                    _specialBlossom.SpawnPercentage += 10;
                 }
                 else
                     return clonePAndTime;

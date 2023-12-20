@@ -22,9 +22,7 @@ namespace personalLibrary
 
         public GameObject Energy { get; private set; }
         public Slider EnergySlider { get; private set; }
-        public EnergyController EnergyControllerScript { get; private set; }
-        public GameObject Puntuation { get; private set; }
-        public Text PuntuationText { get; private set; }
+        public TMPro.TMP_Text PuntuationText { get; private set; }
         public PuntuationController PuntuationControllerScript { get; private set; }
 
         public GameObject CofeePanel { get; private set; }
@@ -45,7 +43,7 @@ namespace personalLibrary
             EnergySlider = Energy.GetComponent<Slider>();
             EnergyControllerScript = Energy.GetComponent<EnergyController>();
             Puntuation = GameObject.FindGameObjectWithTag("Puntuation");
-            PuntuationText = Puntuation.GetComponent<Text>();
+            PuntuationText = Puntuation.GetComponent<TMPro.TMP_Text>();
             PuntuationControllerScript = Puntuation.GetComponent<PuntuationController>();
             CofeePanel = GameObject.FindGameObjectWithTag("Cofee");
             GestionInventory = CofeePanel.GetComponent<GestionInventory>();

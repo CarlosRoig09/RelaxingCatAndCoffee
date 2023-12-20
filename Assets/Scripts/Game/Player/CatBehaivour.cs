@@ -58,7 +58,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     public void Movement(Vector2 direction)
     {
         _reduceSpeed = false;
-        _rb2D.velocity = new Vector2(_speed*direction.y,0);
+        _rb2D.velocity = new Vector2(_speed*direction.x,0);
         if (_rb2D.velocity.x < 0)
         {
             _velSign= false;
@@ -73,6 +73,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
 
     public void Attack()
     {
+        StopMovement();
         Debug.Log("Miau Attack");
         _catAnimCon.StartMiauAttack();
     }

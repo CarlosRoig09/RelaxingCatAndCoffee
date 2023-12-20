@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     public void ModifyEnergyHUD(float energy)
     {
         energy /= 100;
-        GameObjectLibrary.Instance.EnergySlider.value += energy;
+        GameObjectLibrary.Instance.EnergySlider.value = energy;
     }
 
     public void AddCofeeHUD()
