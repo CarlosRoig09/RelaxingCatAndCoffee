@@ -9,6 +9,7 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 {
     [SerializeField]
     private Inventory _inventory;
+    private Inventory _cloneInventory;
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.AddACofee;
 
     EnumLibrary.TypeOfEvent IHaveTheEvent.Type { get => EnumLibrary.TypeOfEvent.StopCofeeProduction; set => throw new System.NotImplementedException(); }
@@ -23,8 +24,8 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     // Start is called before the first frame update
     void Start()
     {
-        _inventory= new Inventory();
-        _inventory.Cofees = new Queue<CofeeData>();
+         _cloneInventory = Instantiate(_inventory);
+        _cloneInventory.Cofees = new Queue<CofeeData>();
         GameManager.Instance.SubscribeEvent(this);
     }
 
@@ -36,9 +37,9 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     private void AddCofee(CofeeData cofeeData)
     {
-        if (_inventory.Cofees.Count < _inventory.Limit)
+        if (_cloneInventory.Cofees.Count < _cloneInventory.Limit)
         {
-            _inventory.Cofees.Enqueue(cofeeData);
+            _cloneInventory.Cofees.Enqueue(cofeeData);
             UIManager.Instance.AddCofeeHUD();
         }
         else
@@ -50,10 +51,10 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     public void UseCofee()
     {
-        if (_inventory.Cofees.Count > 0)
+        if (_cloneInventory.Cofees.Count > 0)
         {
-            LevelManager.Instance.ModifyEnergy(_inventory.Cofees.Peek().Energy);
-            var destroyCofee = _inventory.Cofees.Dequeue();
+            LevelManager.Instance.ModifyEnergy(_cloneInventory.Cofees.Peek().Energy);
+            var destroyCofee = _cloneInventory.Cofees.Dequeue();
             Destroy(destroyCofee);
         }
     }
