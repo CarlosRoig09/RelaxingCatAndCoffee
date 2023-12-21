@@ -42,8 +42,14 @@ public class CatAnimationController : MonoBehaviour
         _anim.SetBool("Attack",true);
     }
 
+    public void RegulateAttack()
+    {
+        _anim.SetBool("CalledAttack", true);
+    }
+
     public void EndMiauAttack()
     {
+        _anim.SetBool("CalledAttack",false);
         _anim.SetBool("Attack", false);
     }
 }

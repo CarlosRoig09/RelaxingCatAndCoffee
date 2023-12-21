@@ -30,7 +30,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(_reduceSpeed)
         {
@@ -74,7 +74,6 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     public void Attack()
     {
         StopMovement();
-        Debug.Log("Miau Attack");
         _catAnimCon.StartMiauAttack();
     }
 

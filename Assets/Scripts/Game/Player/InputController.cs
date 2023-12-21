@@ -31,7 +31,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private void Start()
     {
         GameManager.Instance.SubscribeEvent(this);
-        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
+        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
         _catBehaivour = GameObjectLibrary.Instance.CatBehaivourScript;
         _gestionInventory = GameObjectLibrary.Instance.GestionInventory;
     }
@@ -43,7 +43,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     public void SubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
-        Debug.Log("EventSub");
         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
@@ -69,7 +68,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     public void DesubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
-        Debug.Log("EventSub");
         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
@@ -106,19 +104,19 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     void OnRightClick(InputAction.CallbackContext context)
     {
-        Debug.Log("RightClick");
         _gestionInventory.UseCofee();
     }
 
     void OnLeftClick(InputAction.CallbackContext context)
     {
-        Debug.Log("LeftClick");
-        _catBehaivour.Attack();
-        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
+            Debug.Log("LeftClick");
+            DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
+            _catBehaivour.Attack();
     }
 
     public void MethodForEvent(object value)
     {
-        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
+        Debug.Log("SuscribeteAAAAAAAAA");
+        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnLeftClick});
     }
 }

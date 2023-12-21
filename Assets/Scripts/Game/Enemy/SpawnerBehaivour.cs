@@ -38,11 +38,10 @@ public class SpawnerBehaivour : MonoBehaviour
     }
     private void SpawnBlossom(BlossomData blossom)
     {
-     GameObject gameObject = Instantiate(blossom.BlossomGameObject, _spawnPoints[Random.Range(0,_spawnPoints.Length)].transform.position, Quaternion.identity);
+     GameObject gameObject = Instantiate(blossom.BlossomGameObject, new Vector3(Random.Range(_spawnPoints[0].transform.position.x, _spawnPoints[1].transform.position.x), _spawnPoints[0].transform.position.y), Quaternion.identity);
         gameObject.GetComponent<BlossomBehaivour>().BlossomData= Instantiate(blossom);
         _time = 0;
        _maxTime = LevelManager.Instance.SpawnTimeByPun();
-        Debug.Log("MaxTime: " + _maxTime);
     }
 
     private BlossomData BlossomRandomizer()

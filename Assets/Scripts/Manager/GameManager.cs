@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
             {
                 _menuActions = true;
                 GameObject.Find("Game").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
+                GameObject.Find("Exit").GetComponent<Button>().onClick.AddListener(UIManager.Instance.ExitGame);
             }
         }
     }
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
             case "demo":
                 _scene = EnumLibrary.Scene.GameScreen;
                 break;
-            case "GameMenu":
+            case "Menú":
                 _scene = EnumLibrary.Scene.GameMenu;
                 break;
             case "GameOver":

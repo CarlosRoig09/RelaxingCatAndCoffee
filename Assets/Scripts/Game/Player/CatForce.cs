@@ -17,7 +17,7 @@ public class CatForce : MonoBehaviour
     {
         _spriteRenderer= GetComponent<SpriteRenderer>();
         _state = EnumLibrary.CatForceState.Expand;
-        MaxForce = 500;
+        MaxForce = 300;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _startedCoroutine = false;
         OnFinishedTheAttack += GameObjectLibrary.Instance.CatBehaivourScript.WaitTillAtackFinish;
@@ -36,22 +36,22 @@ public class CatForce : MonoBehaviour
     {
         if (transform.localScale.x < 15.36f)
         {
-            transform.localScale = new Vector3(transform.localScale.x + 0.1f, transform.localScale.y + 0.06f);
+            transform.localScale = new Vector3(transform.localScale.x + 1f, transform.localScale.y + 0.6f);
         }
         
         else 
         {
             if (!_startedCoroutine)
             {
-                StartCoroutine(WaitTime(0.03f));
+                StartCoroutine(WaitTime(0.3f));
             }
         }
     }
 
     private void Destroy()
     {
-        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a - 0.01f);
-        transform.localScale = new Vector3(transform.localScale.x + 0.1f*Time.deltaTime, transform.localScale.y + 0.06f*Time.deltaTime);
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteRenderer.color.a - 0.1f);
+        transform.localScale = new Vector3(transform.localScale.x + 0.1f * Time.deltaTime, transform.localScale.y + 0.06f*Time.deltaTime);
         if (_spriteRenderer.color.a <= 0)
         {
             Destroy(gameObject);
@@ -76,7 +76,6 @@ public class CatForce : MonoBehaviour
         {
             blossomBehaivour.StopAllForce(0.3f);
             var vectorDistance = Mathf.Sqrt(Mathf.Pow(blossomBehaivour.transform.position.x - transform.position.x, 2) + Mathf.Pow(blossomBehaivour.transform.position.y - transform.position.y, 2));
-            Debug.Log(vectorDistance.ToString());
             float potencia;
             if (vectorDistance < 0.7f)
                 potencia = 2.5f;
