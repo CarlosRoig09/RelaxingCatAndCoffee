@@ -5,7 +5,7 @@ using UnityEngine;
 using Interfaces;
 using Newtonsoft.Json.Linq;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour, IHaveTheEvent
 {
     private PuntuationController _punC;
     private EnergyController _enC;
@@ -13,6 +13,9 @@ public class LevelManager : MonoBehaviour
     private PercentagesAndTime _pAndTime;
     private static LevelManager _instance;
     private BlossomData _specialBlossom;
+    private CatAnimationController _catAnimationController;
+
+    public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
     public static LevelManager Instance
     {
@@ -25,13 +28,16 @@ public class LevelManager : MonoBehaviour
             return _instance;
         }
     }
+
+    public EnumLibrary.TypeOfEvent Type { get => EnumLibrary.TypeOfEvent.EmergencyState; set => throw new System.NotImplementedException(); }
+
     private void Awake()
     {
         if (_instance != null)
             Destroy(gameObject);
         else
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             _instance = this;
         }
     }
@@ -51,13 +57,23 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    public void EmergencyState()
+    {
+
+    }
+
+    public void NotifyHitToThePlayer(float damage)
+    {
+
+    }
+
     public void GetSpecialBlossom(BlossomData blossomData)
     {
         _specialBlossom = blossomData;
     }
     public float SpawnTimeByPun()
     {
-        _specialBlossom.SpawnPercentage = 30;
+        _specialBlossom.SpawnPercentage = 10;
        int iteration = 0;
         float comparePuntuation = _punC.Value/50;
         int[] marge = new int[] { 0, 1, 2, 4, 16, 24};

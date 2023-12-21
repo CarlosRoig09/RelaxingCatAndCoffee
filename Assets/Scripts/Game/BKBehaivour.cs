@@ -6,6 +6,8 @@ using Interfaces;
 
 public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 {
+    [SerializeField]
+    private int _id;
     private int cofeeCount;
     private bool countCofee;
     [SerializeField]
@@ -16,6 +18,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private Sprite[] _sprites;
     private int _spritecount;
     private SpriteRenderer _spriteRenderer;
+    private bool _special;
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.StopCofeeProduction;
@@ -35,7 +38,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,7 +51,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
                 _spriteRenderer.sprite = _sprites[_spritecount];
 
             blossomBehaivour.Destroy();
-            CountCofee();
+            CountCofee(blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive));
             if(cofeeCount==_obtainCofee)
             {
                 SendCofee();
@@ -61,12 +64,13 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
         LevelManager.Instance.ModifyPuntuation(pun);
     }
 
-    private void CountCofee()
+    private void CountCofee(int puntuation)
     {
         if(countCofee)
         {
-            cofeeCount += 1;
+            cofeeCount += puntuation/10;
         }
+        UIManager.Instance.CountCofee(_id,cofeeCount,_obtainCofee);
     }
 
     private void SendCofee()
@@ -77,8 +81,9 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     private void StopCofeeCount(bool limit)
     {
-        countCofee = limit;
-        cofeeCount= 0; 
+        countCofee = !limit;
+        cofeeCount= 0;
+        UIManager.Instance.CountCofee(_id, cofeeCount, _obtainCofee);
     }
 
     public void MethodForEvent(object value)

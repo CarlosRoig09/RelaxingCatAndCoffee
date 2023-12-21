@@ -17,6 +17,8 @@ public class EnergyController : MonoBehaviour, IModificableValue
 
     public bool IsEnergyExahusted()
     {
+        if(_energy>_maxEnergy)
+            _energy = _maxEnergy;
         return _energy <= 0;
     }
 }

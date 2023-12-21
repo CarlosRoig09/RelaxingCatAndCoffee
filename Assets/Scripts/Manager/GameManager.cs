@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using personalLibrary;
 using Interfaces;
 using System.Linq;
+using UnityEngine.UI;
 
 public enum GameFinish
 {
@@ -26,11 +27,12 @@ public class GameManager : MonoBehaviour
     }
     public delegate void StartGame();
     public event StartGame OnStartGame;
-    //private personalLibrary.EnumLibrary. _scene;
+    private EnumLibrary.Scene _scene;
     private bool _calledStartGame;
-    private GameObject _playerData;
-    //public delegate void ChangeScene(string scene);
-    //public event ChangeScene OnChangeScene;
+    public delegate void ChangeScene(string scene);
+    public event ChangeScene OnChangeScene;
+    private bool _menuActions;
+    private bool _gameOverActions;
     private void Awake()
     {
         if (_instance != null)
@@ -45,37 +47,57 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _calledStartGame = false;
+        _menuActions = false;
+        _gameOverActions = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         ChangeBetweenScene();
-        //if (_scene == Escenas.GameScreen)
-        //{
-
-        //    if (!_calledStartGame)
-        //    {
-        //        _playerData = GameObject.Find("Player");
-        //        UIManager.Instance.AtStartGameScene();
-        //        _calledStartGame = true;
-        //    }
-        //}
+        if (_scene == EnumLibrary.Scene.GameScreen)
+        {
+           if (!_calledStartGame)
+           {
+               _calledStartGame = true;
+                OnStartGame();
+           }
+        }
+        else if (_scene== EnumLibrary.Scene.GameOverScreen)
+        {
+            if (!_gameOverActions)
+            {
+                _gameOverActions = true;
+                GameObject.Find("Retry").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
+                GameObject.Find("Menu").GetComponent<Button>().onClick.AddListener(UIManager.Instance.MenuButton);
+            }
+        }
+        else if (_scene == EnumLibrary.Scene.GameMenu)
+        {
+            if (!_menuActions)
+            {
+                _menuActions = true;
+                GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
+            }
+        }
     }
     void ChangeBetweenScene()
     {
-        //switch (SceneManager.GetActiveScene().name)
-        //{
-        //    case "GameScreen":
-        //    case "demo":
-        //        _scene = Escenas.GameScreen;
-        //        break;
-        //    case "GameStart":
-        //        _scene = Escenas.StartScreen;
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "GameScene":
+            case "demo":
+                _scene = EnumLibrary.Scene.GameScreen;
+                break;
+            case "GameMenu":
+                _scene = EnumLibrary.Scene.GameMenu;
+                break;
+            case "GameOver":
+                _scene= EnumLibrary.Scene.GameOverScreen;
+                break;
+            default:
+                break;
+        }
     }
     public void SubscribeEvent(IWaitTheEvent waitTheEvent)
     {
@@ -92,30 +114,28 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over");
-        //UIManager.Instance.ShowGameOverText(death ? "You lose" : "You win");
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = true;
+        LoadScene(EnumLibrary.Scene.GameOverScreen);
     }
 
-    //public void LoadScene(Escenas escena)
-    //{
-    //    switch (escena)
-    //    {
-    //        case Escenas.GameScreen:
-    //            _calledStartGame = false;
-    //            SceneManager.LoadScene("GameScreen");
-    //            break;
-    //        case Escenas.StartScreen:
-    //            SceneManager.LoadScene("StartScreen");
-    //            break;
-    //        default:
-    //            break;
-    //    }
+    public void LoadScene(EnumLibrary.Scene escena)
+    {
+        switch (escena)
+        {
+            case EnumLibrary.Scene.GameScreen:
+                _calledStartGame = false;
+                SceneManager.LoadScene("GameScene");
+                break;
+            case EnumLibrary.Scene.GameMenu:
+                _menuActions = false;
+                SceneManager.LoadScene("Menú");
+                break;
+            case EnumLibrary.Scene.GameOverScreen:
+                _gameOverActions= false;
+                SceneManager.LoadScene("GameOver");
+                break;
+            default:
+                break;
+       }
 
-    //}
-
-    //public void ApplyAudioClipForInteraction(AudioClip audioClip)
-    //{
-    //    _playerData.GetComponent<AudioSource>().clip = audioClip;
-    //}
+    }
 }

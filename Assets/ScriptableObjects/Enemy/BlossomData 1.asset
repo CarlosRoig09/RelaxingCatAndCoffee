@@ -16,7 +16,7 @@ MonoBehaviour:
   BlossomGameObject: {fileID: 6066535154501333564, guid: 2bc281729462f6f44b89908f31d147dd, type: 3}
   PositivePuntuation: 10
   NegativePuntuation: -6
-  EnergyLose: -10
+  EnergyLose: -20
   MaxSpeedX: 3
   MinSpeedX: -3
   MaxSpeedY: -1
