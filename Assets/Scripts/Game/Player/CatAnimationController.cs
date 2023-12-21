@@ -37,6 +37,11 @@ public class CatAnimationController : MonoBehaviour
         _anim.SetFloat("Time", _idleTime);
     }
 
+    public void ChangeLayer(int layer, float weight)
+    {
+        _anim.SetLayerWeight(layer, weight);
+    }
+
     public void StartMiauAttack()
     {
         _anim.SetBool("Attack",true);

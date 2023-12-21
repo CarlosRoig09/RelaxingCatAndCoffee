@@ -5,7 +5,7 @@ using UnityEngine;
 using Interfaces;
 using Newtonsoft.Json.Linq;
 
-public class LevelManager : MonoBehaviour, IHaveTheEvent
+public class LevelManager : MonoBehaviour, IWaitTheEvent
 {
     private PuntuationController _punC;
     private EnergyController _enC;
@@ -14,9 +14,6 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
     private static LevelManager _instance;
     private BlossomData _specialBlossom;
     private CatAnimationController _catAnimationController;
-
-    public event IHaveTheEvent.IHaveTheEvent IHTEvent;
-
     public static LevelManager Instance
     {
         get
@@ -29,7 +26,7 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
         }
     }
 
-    public EnumLibrary.TypeOfEvent Type { get => EnumLibrary.TypeOfEvent.EmergencyState; set => throw new System.NotImplementedException(); }
+    public EnumLibrary.TypeOfEvent Type { get => EnumLibrary.TypeOfEvent.AddACofee; set => throw new System.NotImplementedException(); }
 
     private void Awake()
     {
@@ -46,9 +43,11 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
     {
         _punC = GameObjectLibrary.Instance.PuntuationControllerScript;
         _enC = GameObjectLibrary.Instance.EnergyControllerScript;
+        _catAnimationController = GameObjectLibrary.Instance.CatAnimationControllerScript;
         _enC.Value = 100;
         UIManager.Instance.ModifyPunHUD(_punC.Value);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
+        GameManager.Instance.SubscribeEvent(this);
     }
 
     // Update is called once per frame
@@ -62,9 +61,24 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
 
     }
 
-    public void NotifyHitToThePlayer(float damage)
+    public void NotifyHitToThePlayer(float mod)
     {
+        if (mod < 0)
+        {
+            _catAnimationController.ChangeLayer(1, 1);
+            StartCoroutine(ChangePlayerStates(0.3f, 1, 0));
+        }
+        else
+        {
+            _catAnimationController.ChangeLayer(2, 1);
+            StartCoroutine(ChangePlayerStates(0.3f, 2, 0));
+        }
+    }
 
+    private IEnumerator ChangePlayerStates(float time, int layer, float weight)
+    {
+        yield return new WaitForSeconds(time);
+        _catAnimationController.ChangeLayer(layer, weight);
     }
 
     public void GetSpecialBlossom(BlossomData blossomData)
@@ -115,6 +129,7 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
 
     public void ModifyEnergy(int modEn)
     {
+        NotifyHitToThePlayer(modEn);
         if(!_enC.IsEnergyExahusted())
         {
             ((IModificableValue)_enC).ModifyValue(modEn);
@@ -136,5 +151,11 @@ public class LevelManager : MonoBehaviour, IHaveTheEvent
     public void CallGameOver()
     {
         GameManager.Instance.GameOver();
+    }
+
+    public void MethodForEvent(object value)
+    {
+        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnRightClick });
+        GameManager.Instance.DeSubscribeEvent(this);
     }
 }

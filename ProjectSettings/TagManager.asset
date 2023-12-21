@@ -8,6 +8,11 @@ TagManager:
   - Puntuation
   - Energy
   - Cofee
+  - Abutton
+  - Dbutton
+  - Enterbutton
+  - Shiftbutton
+  - InputManager
   layers:
   - Default
   - TransparentFX

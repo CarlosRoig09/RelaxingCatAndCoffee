@@ -19,14 +19,7 @@ public class UIManager : MonoBehaviour
     }
     private GameObject[] _cofees;
     private int _cofeesCount;
-    [SerializeField]
-    private Sprite[] _buttonA;
-    [SerializeField] 
-    private Sprite[] _buttonD;
-    [SerializeField]
-    private Sprite[] _buttonEnter;
-    [SerializeField]
-    private Sprite[] _buttonShift;
+    private bool _firstTime;
     private void Awake()
     {
         if (_instance != null)
@@ -51,6 +44,8 @@ public class UIManager : MonoBehaviour
             _cofees[i] = GameObjectLibrary.Instance.CofeePanel.transform.GetChild(i).gameObject;
         }
         _cofeesCount = 0;
+        ClickButton(EnumLibrary.ButtonType.Shift);
+        _firstTime= true;
     }
 
     // Update is called once per frame
@@ -72,14 +67,21 @@ public class UIManager : MonoBehaviour
 
     public void AddCofeeHUD()
     {
+        if (_firstTime)
+        {
+            ClickButton(EnumLibrary.ButtonType.Shift);
+            _firstTime = false;
+        }
         _cofees[_cofeesCount].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+        _cofees[_cofeesCount].GetComponent<Animator>().SetBool("Smoke", true);
         _cofeesCount += 1;
     }
 
     public void RemoveCofeeHUD()
     {
         _cofees[_cofeesCount-1].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
-        _cofeesCount-= 1;
+        _cofees[_cofeesCount-1].GetComponent<Animator>().SetBool("Smoke", false);
+        _cofeesCount -= 1;
     }
 
     public void CountCofee(int id,int count, int maxCount)
@@ -100,9 +102,28 @@ public class UIManager : MonoBehaviour
         _cofees[limit].GetComponent<TMP_Text>().text = count + "/" + maxCount;
     }
 
-    public void ClickButton()
+    public void ClickButton(EnumLibrary.ButtonType buttonType)
     {
-
+        GameObject[] buttonObject = new GameObject[0];
+        switch(buttonType)
+        {
+            case EnumLibrary.ButtonType.A:
+                buttonObject = new GameObject[] { GameObjectLibrary.Instance.AButton };
+                break;
+            case EnumLibrary.ButtonType.D:
+                buttonObject = new GameObject[] { GameObjectLibrary.Instance.DButton };
+                break;
+            case EnumLibrary.ButtonType.Enter:
+                buttonObject = GameObjectLibrary.Instance.EnterButton;
+                break;
+            case EnumLibrary.ButtonType.Shift:
+                buttonObject = GameObjectLibrary.Instance.ShiftButton;
+                break;
+        }
+        foreach(var button in buttonObject)
+        {
+            button.GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+        }
     }
 
     public void MenuButton()

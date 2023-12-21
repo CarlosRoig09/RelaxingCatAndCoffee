@@ -13,6 +13,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private InputAction _onRightClick;
     private CatBehaivour _catBehaivour;
     private GestionInventory _gestionInventory;
+    private float _lastKeyValue;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.AttackFinish;
 
@@ -31,7 +32,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private void Start()
     {
         GameManager.Instance.SubscribeEvent(this);
-        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
+        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
         _catBehaivour = GameObjectLibrary.Instance.CatBehaivourScript;
         _gestionInventory = GameObjectLibrary.Instance.GestionInventory;
     }
@@ -49,9 +50,11 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             {
                 case EnumLibrary.Inputs.OnLeftClick:
                     _onLeftClick.started += OnLeftClick;
+                    _onLeftClick.canceled += OnLeftCanceled;
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed+= OnRightClick;
+                    _onRightClick.canceled += OnRightCanceled;
                     break; 
                 case EnumLibrary.Inputs.OnScroll:
                     _onScroll.started += OnScroll;
@@ -77,6 +80,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed -= OnRightClick;
+                    _onRightClick.canceled -= OnRightCanceled;
                     break;
                 case EnumLibrary.Inputs.OnScroll:
                     _onScroll.started -= OnScroll;
@@ -93,25 +97,52 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     void OnScroll(InputAction.CallbackContext context)
     {
+        if (context.ReadValue<Vector2>().x>0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else { 
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            }
+        _lastKeyValue = context.ReadValue<Vector2>().x;
         _catBehaivour.Movement(context.ReadValue<Vector2>());
     }
 
     void OnScrollCancel(InputAction.CallbackContext context)
     {
+        if (_lastKeyValue> 0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+        }
         _catBehaivour.StopMovement();
 
     }
 
     void OnRightClick(InputAction.CallbackContext context)
     {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
         _gestionInventory.UseCofee();
+    }
+
+    void OnRightCanceled(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
     }
 
     void OnLeftClick(InputAction.CallbackContext context)
     {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
             Debug.Log("LeftClick");
             DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
             _catBehaivour.Attack();
+    }
+    void OnLeftCanceled(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
     }
 
     public void MethodForEvent(object value)

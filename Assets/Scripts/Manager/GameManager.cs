@@ -112,6 +112,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void DeSubscribeEvent(IWaitTheEvent waitTheEvent)
+    {
+        IHaveTheEvent[] eventors = FindObjectsOfType<MonoBehaviour>(true).OfType<IHaveTheEvent>().ToArray();
+        foreach (IHaveTheEvent eventor in eventors)
+        {
+            if (eventor.Type == waitTheEvent.Type)
+            {
+                eventor.IHTEvent -= waitTheEvent.MethodForEvent;
+            }
+        }
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over");

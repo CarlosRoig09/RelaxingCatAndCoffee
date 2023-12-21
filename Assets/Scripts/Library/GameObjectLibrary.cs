@@ -19,7 +19,7 @@ namespace personalLibrary
         }
         public  GameObject Cat { get; private set; }
         public  CatBehaivour CatBehaivourScript {get; private set;}
-
+        public CatAnimationController CatAnimationControllerScript { get; private set;}
         public GameObject Energy { get; private set; }
         public Slider EnergySlider { get; private set; }
         public EnergyController EnergyControllerScript { get; private set; }
@@ -29,6 +29,12 @@ namespace personalLibrary
 
         public GameObject CofeePanel { get; private set; }
         public GestionInventory GestionInventory { get; private set; }
+
+        public GameObject AButton { get; private set; }
+        public GameObject DButton { get; private set; }
+        public GameObject[] EnterButton { get; private set; }
+        public GameObject[] ShiftButton { get; private set; }
+        public InputController InputManager { get; private set; }
         private void Awake()
         {
             if (_instance != null)
@@ -41,6 +47,7 @@ namespace personalLibrary
             //Not in awake, this library have to wait to GameManager Orders.
             Cat = GameObject.FindGameObjectWithTag("Cat");
             CatBehaivourScript = Cat.GetComponent<CatBehaivour>();
+            CatAnimationControllerScript = Cat.GetComponent<CatAnimationController>();
             Energy = GameObject.FindGameObjectWithTag("Energy");
             EnergySlider = Energy.GetComponent<Slider>();
             EnergyControllerScript = Energy.GetComponent<EnergyController>();
@@ -49,6 +56,11 @@ namespace personalLibrary
             PuntuationControllerScript = Puntuation.GetComponent<PuntuationController>();
             CofeePanel = GameObject.FindGameObjectWithTag("Cofee");
             GestionInventory = CofeePanel.GetComponent<GestionInventory>();
+            AButton = GameObject.FindGameObjectWithTag("Abutton");
+            DButton = GameObject.FindGameObjectWithTag("Dbutton");
+            EnterButton = GameObject.FindGameObjectsWithTag("Enterbutton");
+            ShiftButton = GameObject.FindGameObjectsWithTag("Shiftbutton");
+            InputManager= GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputController>();
         }
     }
 }
