@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blossomData: {fileID: 0}
-  _elevation: 0.001
   _timeStoped: 0.3
 --- !u!50 &978252621803486375
 Rigidbody2D:

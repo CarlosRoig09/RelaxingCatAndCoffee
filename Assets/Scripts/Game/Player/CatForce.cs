@@ -43,7 +43,7 @@ public class CatForce : MonoBehaviour
         {
             if (!_startedCoroutine)
             {
-                StartCoroutine(WaitTime(0.5f));
+                StartCoroutine(WaitTime(0.03f));
             }
         }
     }
