@@ -103,8 +103,13 @@ public class BlossomBehaivour : MonoBehaviour
         _stop = false;
     }
 
-    public IEnumerator WaitTillChangeLayer(float time)
+    public void ChangeLayersCoroutine()
     {
+        StartCoroutine(WaitTillChangeLayer(0.3f));
+    }
+    private IEnumerator WaitTillChangeLayer(float time)
+    {
+        gameObject.layer = 8;
         yield return new WaitForSeconds(time);
         gameObject.layer = 6;
     }

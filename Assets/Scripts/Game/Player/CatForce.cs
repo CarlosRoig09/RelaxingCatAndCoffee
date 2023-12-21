@@ -90,8 +90,7 @@ public class CatForce : MonoBehaviour
             
             var force = (MaxForce / (vectorDistance/potencia)) * new Vector2(blossomBehaivour.transform.position.x - transform.position.x, blossomBehaivour.transform.position.y - transform.position.y);
             blossomBehaivour.Rb2D.AddForce(force);
-            blossomBehaivour.gameObject.layer = 8;
-            StartCoroutine(blossomBehaivour.WaitTillChangeLayer(0.3f));
+            blossomBehaivour.ChangeLayersCoroutine();
         }
     }
 

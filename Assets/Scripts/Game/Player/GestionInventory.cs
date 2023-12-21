@@ -37,15 +37,24 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     private void AddCofee(CofeeData cofeeData)
     {
-        if (_cloneInventory.Cofees.Count < _cloneInventory.Limit)
+        if (ComprobeCapacity())
         {
             _cloneInventory.Cofees.Enqueue(cofeeData);
             UIManager.Instance.AddCofeeHUD();
         }
+    }
+
+    private bool ComprobeCapacity()
+    {
+        if (_cloneInventory.Cofees.Count < _cloneInventory.Limit)
+        {
+            IHTEvent(false);
+            return true;
+        }
         else
         {
-            object placeholder = "";
-            IHTEvent(placeholder);
+            IHTEvent(true);
+            return false;
         }
     }
 
@@ -56,6 +65,8 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             LevelManager.Instance.ModifyEnergy(_cloneInventory.Cofees.Peek().Energy);
             var destroyCofee = _cloneInventory.Cofees.Dequeue();
             Destroy(destroyCofee);
+            UIManager.Instance.RemoveCofeeHUD();
+            ComprobeCapacity();
         }
     }
 }

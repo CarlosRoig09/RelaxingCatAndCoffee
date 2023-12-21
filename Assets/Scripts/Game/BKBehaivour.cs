@@ -75,14 +75,14 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
         cofeeCount = 0;
     }
 
-    private void StopCofeeCount()
+    private void StopCofeeCount(bool limit)
     {
-        countCofee = false;
+        countCofee = limit;
         cofeeCount= 0; 
     }
 
     public void MethodForEvent(object value)
     {
-        StopCofeeCount();
+        StopCofeeCount((bool)value);
     }
 }
