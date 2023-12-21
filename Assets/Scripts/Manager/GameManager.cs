@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     private EnumLibrary.Scene _scene;
     private bool _calledStartGame;
     public delegate void ChangeScene(string scene);
-    public event ChangeScene OnChangeScene;
     private bool _menuActions;
     private bool _gameOverActions;
     private void Awake()

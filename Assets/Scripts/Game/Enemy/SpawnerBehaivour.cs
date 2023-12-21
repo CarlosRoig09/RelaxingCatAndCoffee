@@ -42,6 +42,7 @@ public class SpawnerBehaivour : MonoBehaviour
         gameObject.GetComponent<BlossomBehaivour>().BlossomData= Instantiate(blossom);
         _time = 0;
        _maxTime = LevelManager.Instance.SpawnTimeByPun();
+        Debug.Log("Max Time: " + _maxTime);
     }
 
     private BlossomData BlossomRandomizer()

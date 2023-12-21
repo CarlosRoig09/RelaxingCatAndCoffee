@@ -92,18 +92,20 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         float comparePuntuation = _punC.Value/50;
         int[] marge = new int[] { 0, 1, 2, 4, 16, 24};
         bool endFor = false;
-        for (int i = 1; i < marge.Length-1&&!endFor;i++)
+        for (int i = 1; i < marge.Length&&!endFor;i++)
         {
-            if (comparePuntuation >= marge[i] && comparePuntuation < marge[i + 1])
+            if (marge[i] == marge[marge.Length - 1])
+            {
+                iteration += i;
+                _specialBlossom.SpawnPercentage += 50;
+            }
+            else if (comparePuntuation >= marge[i] && comparePuntuation < marge[i + 1])
             {
                 iteration += i;
                 _specialBlossom.SpawnPercentage += 10;
                 endFor = true;
             }
-            else if (marge[i] == marge[marge.Length-1])
-            {
-                iteration+= i;
-            }
+
         }
         var orderedPercentagesAndTime = CurrenOrderByIterations(iteration);
         return orderedPercentagesAndTime.Time[RandomMethods.ReturnARandomObject(orderedPercentagesAndTime.Percentages.ToArray(), 0, orderedPercentagesAndTime.Percentages.Count, 0)]; 
