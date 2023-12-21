@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
             if (!_menuActions)
             {
                 _menuActions = true;
-                GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
+                GameObject.Find("Game").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
             }
         }
     }
