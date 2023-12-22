@@ -37,11 +37,9 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     private void AddCofee(CofeeData cofeeData)
     {
-        if (ComprobeCapacity())
-        {
             _cloneInventory.Cofees.Enqueue(cofeeData);
             UIManager.Instance.AddCofeeHUD();
-        }
+        ComprobeCapacity();
     }
 
     private bool ComprobeCapacity()

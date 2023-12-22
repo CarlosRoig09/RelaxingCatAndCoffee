@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     private int _cofeesCount;
     private bool _firstTime;
     private GameObject _pauseMenu;
+    private GameObject _settingPopUp;
     private void Awake()
     {
         if (_instance != null)
@@ -57,9 +58,25 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void HideSettingsPopUp()
+    {
+       _settingPopUp = GameObject.Find("SettingPopUp");
+        _settingPopUp.SetActive(false);
+    }
+
+    public void ShowSettingsPopUp()
+    {
+        _settingPopUp.SetActive(true);
+    }
+
     public void ModifyPunHUD(int puntuation)
     {
         GameObjectLibrary.Instance.PuntuationText.text = puntuation.ToString();
+    }
+
+    public void ShowPuntuationGameOver(int puntuation)
+    {
+        GameObject.Find("Puntuation").GetComponent<TMP_Text>().text= puntuation.ToString();
     }
 
     public void ModifyEnergyHUD(float energy)

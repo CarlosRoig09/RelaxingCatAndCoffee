@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public delegate void ChangeScene(string scene);
     private bool _menuActions;
     private bool _gameOverActions;
+    private int _puntuation;
     private void Awake()
     {
         if (_instance != null)
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
                 _gameOverActions = true;
                 GameObject.Find("Retry").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
                 GameObject.Find("Menu").GetComponent<Button>().onClick.AddListener(UIManager.Instance.MenuButton);
+                UIManager.Instance.ShowPuntuationGameOver(_puntuation);
             }
         }
         else if (_scene == EnumLibrary.Scene.GameMenu)
@@ -80,8 +82,11 @@ public class GameManager : MonoBehaviour
             if (!_menuActions)
             {
                 _menuActions = true;
+                GameObject.Find("Escape").GetComponent<Button>().onClick.AddListener(UIManager.Instance.HideSettingsPopUp);
+                UIManager.Instance.HideSettingsPopUp();
                 GameObject.Find("Game").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
                 GameObject.Find("Exit").GetComponent<Button>().onClick.AddListener(UIManager.Instance.ExitGame);
+                GameObject.Find("Settings").GetComponent<Button>().onClick.AddListener(UIManager.Instance.ShowSettingsPopUp);
             }
         }
     }
@@ -135,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void ExitGameScene()
     {
-        //GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnRightClick });
+        _puntuation = GameObjectLibrary.Instance.PuntuationControllerScript.Value;
     }
 
     public void LoadScene(EnumLibrary.Scene escena)
@@ -148,6 +153,7 @@ public class GameManager : MonoBehaviour
         {
             case EnumLibrary.Scene.GameScreen:
                 _calledStartGame = false;
+                _puntuation = 0;
                 AudioManager.instance.Stop("MenuTheme");
                 AudioManager.instance.Play("Theme");
                 SceneManager.LoadScene("GameScene");

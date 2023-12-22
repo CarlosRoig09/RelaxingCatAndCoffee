@@ -76,8 +76,8 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             cofeeCount += puntuation/10;
             if(cofeeCount>_obtainCofee)
                 cofeeCount=_obtainCofee;
+            UIManager.Instance.CountCofee(_id, cofeeCount, _obtainCofee);
         }
-        UIManager.Instance.CountCofee(_id,cofeeCount,_obtainCofee);
     }
 
     private void SendCofee()

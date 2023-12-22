@@ -50,46 +50,54 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     Loop: 1
+    output: {fileID: 4069694682982112738, guid: 2793810e17de56b4682db52edc731bfb, type: 2}
     source: {fileID: 0}
   - name: Meow
     clip: {fileID: 8300000, guid: fc62916888d4f7f438251d36048083d8, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 24300002, guid: 790f91d6972fea446b0fbf7aa1ee15ce, type: 2}
     source: {fileID: 0}
   - name: GetHit
     clip: {fileID: 8300000, guid: b0b505aa19de346429dbc3954ad96a65, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 24300002, guid: 790f91d6972fea446b0fbf7aa1ee15ce, type: 2}
     source: {fileID: 0}
   - name: cofeeDrink
     clip: {fileID: 8300000, guid: c9b915f38fd0b0e4aa386b333e82a072, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 24300002, guid: 790f91d6972fea446b0fbf7aa1ee15ce, type: 2}
     source: {fileID: 0}
   - name: CofeeObtained
     clip: {fileID: 8300000, guid: 680db397a1a98bf49b7f205d9b36433f, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 0}
     source: {fileID: 0}
   - name: obtainedBlossom
     clip: {fileID: 8300000, guid: 79fb10beb91b965409cb55faeb38c76e, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 24300002, guid: 790f91d6972fea446b0fbf7aa1ee15ce, type: 2}
     source: {fileID: 0}
   - name: especialObtained
     clip: {fileID: 8300000, guid: 86652444f7360674e8b196321ede3db8, type: 3}
     volume: 1
     pitch: 1
     Loop: 0
+    output: {fileID: 24300002, guid: 790f91d6972fea446b0fbf7aa1ee15ce, type: 2}
     source: {fileID: 0}
   - name: MenuTheme
     clip: {fileID: 8300000, guid: 1ed21c1a7ee5e894cb42ca620d1d1cd0, type: 3}
     volume: 1
     pitch: 1
-    Loop: 0
+    Loop: 1
+    output: {fileID: -8499808983465276996, guid: 2793810e17de56b4682db52edc731bfb, type: 2}
     source: {fileID: 0}
