@@ -64,6 +64,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
 
     public void ResumeGame()
     {
+        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick });
         UIManager.Instance.ClosePause();
         Time.timeScale = 1;
     }
@@ -82,6 +83,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     {
         if (mod < 0)
         {
+            AudioManager.instance.Play("GetHit");
             _catAnimationController.ChangeLayer(1, 1);
             StartCoroutine(ChangePlayerStates(0.3f, 1, 0));
         }

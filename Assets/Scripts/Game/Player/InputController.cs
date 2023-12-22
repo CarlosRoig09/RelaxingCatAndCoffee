@@ -56,6 +56,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         InputAction.CallbackContext context = new InputAction.CallbackContext();
         OnEscClick(context);
         OnEscClickSecond(context);
+        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
     }
     // Update is called once per frame
     void Update()
@@ -102,11 +103,9 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             {
                 case EnumLibrary.Inputs.OnLeftClick:
                     _onLeftClick.started -= OnLeftClick;
-                    _onLeftClick.canceled -= OnLeftCanceled;
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed -= OnRightClick;
-                    _onRightClick.canceled -= OnRightCanceled;
                     break;
                 case EnumLibrary.Inputs.OnScroll:
                     _onScroll.started -= OnScroll;
@@ -116,7 +115,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
                 case EnumLibrary.Inputs.OnEscClick:
                     _onEscClick.started-= OnEscClick;
-                    _onEscClick.canceled -= OnEscCanceled;
                     break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
@@ -179,7 +177,9 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
         LevelManager.Instance.PauseGame();
-        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick });
+        _onEscClick.canceled += OnEscCanceled;
+        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick,EnumLibrary.Inputs.OnLeftClick});
+        _onLeftClick.canceled -= OnLeftCanceled;
         _onEscClick.started += OnEscClickSecond;
         _onLeftClick.canceled -= OnLeftCanceled;
     }
@@ -187,8 +187,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     void OnEscClickSecond(InputAction.CallbackContext context)
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        _onLeftClick.canceled += OnLeftCanceled;
         LevelManager.Instance.ResumeGame();
-        SubscribeEvents(new EnumLibrary.Inputs[] {EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick,EnumLibrary.Inputs.OnRightClick});
+        _onEscClick.started-= OnEscClickSecond;
+        _onEscClick.canceled -= OnEscCanceled;
     }
 
     void OnEscCanceled(InputAction.CallbackContext context)

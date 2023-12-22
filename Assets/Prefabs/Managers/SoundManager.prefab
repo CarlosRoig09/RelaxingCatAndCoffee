@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8746162795911344071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8746162795911344068}
+  - component: {fileID: 8746162795911344090}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8746162795911344068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746162795911344071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.009320576, y: -0.2378285, z: -0.052200105}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8746162795911344090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746162795911344071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df2a88ebc6cfff46a617ddf18fa9ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Theme
+    clip: {fileID: 8300000, guid: 8670757f20c5f2c4a882c38140c6cf51, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 1
+    source: {fileID: 0}
+  - name: Meow
+    clip: {fileID: 8300000, guid: fc62916888d4f7f438251d36048083d8, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: GetHit
+    clip: {fileID: 8300000, guid: b0b505aa19de346429dbc3954ad96a65, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: cofeeDrink
+    clip: {fileID: 8300000, guid: c9b915f38fd0b0e4aa386b333e82a072, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: CofeeObtained
+    clip: {fileID: 8300000, guid: 680db397a1a98bf49b7f205d9b36433f, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: obtainedBlossom
+    clip: {fileID: 8300000, guid: 79fb10beb91b965409cb55faeb38c76e, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: especialObtained
+    clip: {fileID: 8300000, guid: 86652444f7360674e8b196321ede3db8, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}
+  - name: MenuTheme
+    clip: {fileID: 8300000, guid: 1ed21c1a7ee5e894cb42ca620d1d1cd0, type: 3}
+    volume: 1
+    pitch: 1
+    Loop: 0
+    source: {fileID: 0}

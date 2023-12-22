@@ -148,14 +148,19 @@ public class GameManager : MonoBehaviour
         {
             case EnumLibrary.Scene.GameScreen:
                 _calledStartGame = false;
+                AudioManager.instance.Stop("MenuTheme");
+                AudioManager.instance.Play("Theme");
                 SceneManager.LoadScene("GameScene");
                 break;
             case EnumLibrary.Scene.GameMenu:
+                AudioManager.instance.Stop("Theme");
+                AudioManager.instance.Play("MenuTheme");
                 _menuActions = false;
                 SceneManager.LoadScene("Menú");
                 break;
             case EnumLibrary.Scene.GameOverScreen:
-                _gameOverActions= false;
+                AudioManager.instance.Stop("Theme");
+                _gameOverActions = false;
                 SceneManager.LoadScene("GameOver");
                 break;
             default:

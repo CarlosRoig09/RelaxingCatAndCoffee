@@ -75,6 +75,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     {
         StopMovement();
         _catAnimCon.StartMiauAttack();
+        AudioManager.instance.Play("Meow");
     }
 
     public void SpawnExplosion()

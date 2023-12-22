@@ -62,6 +62,7 @@ public class GestionInventory : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     {
         if (_cloneInventory.Cofees.Count > 0)
         {
+            AudioManager.instance.Play("cofeeDrink");
             LevelManager.Instance.ModifyEnergy(_cloneInventory.Cofees.Peek().Energy);
             var destroyCofee = _cloneInventory.Cofees.Dequeue();
             Destroy(destroyCofee);

@@ -45,13 +45,18 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     {
         if(collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
-            SendPuntuation(blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive));
-            _spritecount += blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive)/10;
+            var puntuation = blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive);
+            SendPuntuation(puntuation);
+            _spritecount += puntuation/10;
             if (_spritecount < _sprites.Length)
                 _spriteRenderer.sprite = _sprites[_spritecount];
+            if (puntuation < 30)
+                AudioManager.instance.Play("obtainedBlossom");
+            else
+                AudioManager.instance.Play("especialObtained");
 
             blossomBehaivour.Destroy();
-            CountCofee(blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive));
+            CountCofee(puntuation);
             if(cofeeCount==_obtainCofee)
             {
                 SendCofee();
@@ -77,6 +82,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
     private void SendCofee()
     {
+        AudioManager.instance.Play("CofeeObtained");
         IHTEvent(Instantiate(_cofeeData));
         cofeeCount = 0;
     }
