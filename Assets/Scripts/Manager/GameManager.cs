@@ -4,6 +4,7 @@ using personalLibrary;
 using Interfaces;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public enum GameFinish
 {
@@ -58,7 +59,10 @@ public class GameManager : MonoBehaviour
         {
            if (!_calledStartGame)
            {
-               _calledStartGame = true;
+                GameObject.Find("Continue").GetComponent<Button>().onClick.AddListener(UIManager.Instance.ResumeButton);
+                //GameObject.Find("Retry").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
+                GameObject.Find("ReturnToMenu").GetComponent<Button>().onClick.AddListener(UIManager.Instance.MenuButton);
+                _calledStartGame = true;
                 OnStartGame();
            }
         }
@@ -129,8 +133,17 @@ public class GameManager : MonoBehaviour
         LoadScene(EnumLibrary.Scene.GameOverScreen);
     }
 
+    public void ExitGameScene()
+    {
+        //GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnRightClick });
+    }
+
     public void LoadScene(EnumLibrary.Scene escena)
     {
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            ExitGameScene();
+        }
         switch (escena)
         {
             case EnumLibrary.Scene.GameScreen:

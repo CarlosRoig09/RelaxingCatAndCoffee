@@ -19,7 +19,8 @@ namespace personalLibrary
             A,
             D,
             Enter,
-            Shift
+            Shift,
+            Esc
         }
 
         public enum Inputs
@@ -28,6 +29,7 @@ namespace personalLibrary
             OnScrollCancel,
             OnRightClick,
             OnLeftClick,
+            OnEscClick
         }
 
         public enum PunType

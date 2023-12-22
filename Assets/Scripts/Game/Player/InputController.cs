@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using personalLibrary;
 using Interfaces;
+using Unity.VisualScripting;
 
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
+    private static InputController _instance;
     private PlayerInput _playerInput;
+    [SerializeField]
+    private InputActionAsset _actionAsset;
     private InputAction _onScroll;
     private InputAction _onLeftClick;
     private InputAction _onRightClick;
+    private InputAction _onEscClick;
     private CatBehaivour _catBehaivour;
     private GestionInventory _gestionInventory;
     private float _lastKeyValue;
@@ -20,21 +25,37 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     // Start is called before the first frame update
     void Awake()
     {
+        if (_instance != null)
+            Destroy(gameObject);
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+            _instance = this;
+        }
         try
         {
             _playerInput = GetComponent<PlayerInput>();
+            _playerInput.actions = _actionAsset;
             _onScroll = _playerInput.actions["Movement"];
             _onLeftClick = _playerInput.actions["Attack"];
             _onRightClick = _playerInput.actions["Drink"];
+            _onEscClick = _playerInput.actions["Pause"];
         }
         catch { Debug.LogError("ERROR: PlayerInput component is missing"); }
     }
     private void Start()
     {
+        GameManager.Instance.OnStartGame += OnStartGame;
+    }
+
+    private void OnStartGame()
+    {
         GameManager.Instance.SubscribeEvent(this);
-        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
         _catBehaivour = GameObjectLibrary.Instance.CatBehaivourScript;
         _gestionInventory = GameObjectLibrary.Instance.GestionInventory;
+        InputAction.CallbackContext context = new InputAction.CallbackContext();
+        OnEscClick(context);
+        OnEscClickSecond(context);
     }
     // Update is called once per frame
     void Update()
@@ -62,6 +83,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onScroll.canceled += OnScrollCancel;
                     break;
+                case EnumLibrary.Inputs.OnEscClick:
+                    _onEscClick.started += OnEscClick;
+                    _onEscClick.canceled += OnEscCanceled;
+                    break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
                     break;
@@ -77,6 +102,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             {
                 case EnumLibrary.Inputs.OnLeftClick:
                     _onLeftClick.started -= OnLeftClick;
+                    _onLeftClick.canceled -= OnLeftCanceled;
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed -= OnRightClick;
@@ -87,6 +113,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onScroll.canceled -= OnScrollCancel;
+                    break;
+                case EnumLibrary.Inputs.OnEscClick:
+                    _onEscClick.started-= OnEscClick;
+                    _onEscClick.canceled -= OnEscCanceled;
                     break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
@@ -137,12 +167,33 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
             Debug.Log("LeftClick");
-            DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
+            DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
             _catBehaivour.Attack();
     }
     void OnLeftCanceled(InputAction.CallbackContext context)
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+    }
+
+    void OnEscClick(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        LevelManager.Instance.PauseGame();
+        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnRightClick });
+        _onEscClick.started += OnEscClickSecond;
+        _onLeftClick.canceled -= OnLeftCanceled;
+    }
+
+    void OnEscClickSecond(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        LevelManager.Instance.ResumeGame();
+        SubscribeEvents(new EnumLibrary.Inputs[] {EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick,EnumLibrary.Inputs.OnRightClick});
+    }
+
+    void OnEscCanceled(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
     }
 
     public void MethodForEvent(object value)

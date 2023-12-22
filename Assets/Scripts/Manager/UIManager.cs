@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     private GameObject[] _cofees;
     private int _cofeesCount;
     private bool _firstTime;
+    private GameObject _pauseMenu;
     private void Awake()
     {
         if (_instance != null)
@@ -46,6 +47,8 @@ public class UIManager : MonoBehaviour
         _cofeesCount = 0;
         ClickButton(EnumLibrary.ButtonType.Shift);
         _firstTime= true;
+        _pauseMenu = GameObject.Find("PausePanel");
+        _pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -119,6 +122,9 @@ public class UIManager : MonoBehaviour
             case EnumLibrary.ButtonType.Shift:
                 buttonObject = GameObjectLibrary.Instance.ShiftButton;
                 break;
+            case EnumLibrary.ButtonType.Esc:
+                buttonObject = GameObjectLibrary.Instance.EscButton;
+                break;
         }
         foreach(var button in buttonObject)
         {
@@ -136,6 +142,24 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.LoadScene(EnumLibrary.Scene.GameScreen);
     }
 
+    public void PauseButton()
+    {
+        LevelManager.Instance.PauseGame();
+    }
+
+    public void ResumeButton()
+    {
+        LevelManager.Instance.ResumeGame();
+    }
+
+    public void PauseMenu()
+    {
+        _pauseMenu.SetActive(true);
+    }
+    public void ClosePause()
+    {
+        _pauseMenu.SetActive(false);
+    }
     public void ExitGame()
     {
         Application.Quit();

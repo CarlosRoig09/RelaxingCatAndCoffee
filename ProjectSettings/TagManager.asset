@@ -13,6 +13,8 @@ TagManager:
   - Enterbutton
   - Shiftbutton
   - InputManager
+  - Escbutton
+  - Pause
   layers:
   - Default
   - TransparentFX
@@ -49,6 +51,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 20055299
+    locked: 0
+  - name: Player
+    uniqueID: 2148378719
     locked: 0
   - name: Default
     uniqueID: 0

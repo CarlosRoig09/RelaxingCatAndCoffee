@@ -34,6 +34,7 @@ namespace personalLibrary
         public GameObject DButton { get; private set; }
         public GameObject[] EnterButton { get; private set; }
         public GameObject[] ShiftButton { get; private set; }
+        public GameObject[] EscButton { get; private set; }
         public InputController InputManager { get; private set; }
         private void Awake()
         {
@@ -60,6 +61,7 @@ namespace personalLibrary
             DButton = GameObject.FindGameObjectWithTag("Dbutton");
             EnterButton = GameObject.FindGameObjectsWithTag("Enterbutton");
             ShiftButton = GameObject.FindGameObjectsWithTag("Shiftbutton");
+            EscButton = GameObject.FindGameObjectsWithTag("Escbutton");
             InputManager= GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputController>();
         }
     }

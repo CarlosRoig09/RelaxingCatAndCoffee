@@ -56,6 +56,23 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         
     }
 
+    public void PauseGame()
+    {
+        UIManager.Instance.PauseMenu();
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        UIManager.Instance.ClosePause();
+        Time.timeScale = 1;
+    }
+
+    public void DelayGame(float delay)
+    {
+        Time.timeScale = delay;
+    }
+
     public void EmergencyState()
     {
 
@@ -94,7 +111,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         bool endFor = false;
         for (int i = 1; i < marge.Length&&!endFor;i++)
         {
-            if (marge[i] == marge[marge.Length - 1])
+            if (marge[i] == marge[marge.Length - 1]&&comparePuntuation >= marge[i])
             {
                 iteration += i;
                 _specialBlossom.SpawnPercentage += 50;
@@ -132,12 +149,9 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     public void ModifyEnergy(int modEn)
     {
         NotifyHitToThePlayer(modEn);
-        if(!_enC.IsEnergyExahusted())
-        {
-            ((IModificableValue)_enC).ModifyValue(modEn);
-            UIManager.Instance.ModifyEnergyHUD(_enC.Value);
-        }
-        else
+        ((IModificableValue)_enC).ModifyValue(modEn);
+        UIManager.Instance.ModifyEnergyHUD(_enC.Value);
+        if(_enC.IsEnergyExahusted())
         {
             CallGameOver();
         }
