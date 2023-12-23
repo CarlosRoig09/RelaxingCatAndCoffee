@@ -18,6 +18,7 @@ public class SpawnerBehaivour : MonoBehaviour
         _maxTime = 0;
         foreach (var specialBlossom in blossoms)
         {
+            specialBlossom.MaxSpeedY = specialBlossom.BaseMaxSppeedY;
             if (specialBlossom.Name == "Special")
             {
                 specialBlossom.SpawnPercentage = 10;
@@ -43,6 +44,14 @@ public class SpawnerBehaivour : MonoBehaviour
         _time = 0;
        _maxTime = LevelManager.Instance.SpawnTimeByPun();
         Debug.Log("Max Time: " + _maxTime);
+    }
+
+    public void SpeedUp()
+    {
+        foreach(var blossom in blossoms)
+        {
+            blossom.MaxSpeedY -= 0.1f;
+        }
     }
 
     private BlossomData BlossomRandomizer()

@@ -20,4 +20,4 @@ MonoBehaviour:
   MaxSpeedX: 0.5
   MinSpeedX: -0.5
   MaxSpeedY: -1.5
-  SpawnPercentage: 10
+  SpawnPercentage: 20

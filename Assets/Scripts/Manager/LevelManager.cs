@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private static LevelManager _instance;
     private BlossomData _specialBlossom;
     private CatAnimationController _catAnimationController;
+    private SpawnerBehaivour _spawnerBehaivour;
     public static LevelManager Instance
     {
         get
@@ -48,6 +49,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         UIManager.Instance.ModifyPunHUD(_punC.Value);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
         GameManager.Instance.SubscribeEvent(this);
+        _spawnerBehaivour = GameObject.Find("Spawner").GetComponent<SpawnerBehaivour>();
     }
 
     // Update is called once per frame
@@ -106,7 +108,11 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     }
     public float SpawnTimeByPun()
     {
-        _specialBlossom.SpawnPercentage = 10;
+        _specialBlossom.SpawnPercentage = 20;
+        if (_punC.Value % 250==0)
+        {
+            _spawnerBehaivour.SpeedUp();
+        }
        int iteration = 0;
         float comparePuntuation = _punC.Value/50;
         int[] marge = new int[] { 0, 1, 2, 4, 16, 24};

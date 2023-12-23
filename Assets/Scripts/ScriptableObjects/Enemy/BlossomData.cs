@@ -8,6 +8,7 @@ public class BlossomData : ScriptableObject
     public int PositivePuntuation;
     public int NegativePuntuation;
     public int EnergyLose;
+    public float BaseMaxSppeedY;
     public float MaxSpeedX;
     public float MinSpeedX;
     public float MaxSpeedY;
