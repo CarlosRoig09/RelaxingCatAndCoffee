@@ -48,8 +48,6 @@ public class SpawnerBehaivour : MonoBehaviour
 
     public void SpeedUp()
     {
-        foreach(var blossom in blossoms)
-
         foreach (var blossom in blossoms)
         {
             blossom.MaxSpeedY -= 0.1f;
