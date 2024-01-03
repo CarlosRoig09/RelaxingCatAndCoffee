@@ -12,5 +12,6 @@ public class BlossomData : ScriptableObject
     public float MaxSpeedX;
     public float MinSpeedX;
     public float MaxSpeedY;
+    public float BaseMaxSpeedY;
     public float SpawnPercentage;  
 }

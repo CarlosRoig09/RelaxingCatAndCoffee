@@ -16,9 +16,9 @@ public class SpawnerBehaivour : MonoBehaviour
     {
         _time = 0;
         _maxTime = 0;
+        RecoverBaseSpeed();
         foreach (var specialBlossom in blossoms)
         {
-            specialBlossom.MaxSpeedY = specialBlossom.BaseMaxSppeedY;
             if (specialBlossom.Name == "Special")
             {
                 specialBlossom.SpawnPercentage = 10;
@@ -39,28 +39,39 @@ public class SpawnerBehaivour : MonoBehaviour
     }
     private void SpawnBlossom(BlossomData blossom)
     {
-     GameObject gameObject = Instantiate(blossom.BlossomGameObject, new Vector3(Random.Range(_spawnPoints[0].transform.position.x, _spawnPoints[1].transform.position.x), _spawnPoints[0].transform.position.y), Quaternion.identity);
-        gameObject.GetComponent<BlossomBehaivour>().BlossomData= Instantiate(blossom);
+        GameObject gameObject = Instantiate(blossom.BlossomGameObject, new Vector3(Random.Range(_spawnPoints[0].transform.position.x, _spawnPoints[1].transform.position.x), _spawnPoints[0].transform.position.y), Quaternion.identity);
+        gameObject.GetComponent<BlossomBehaivour>().BlossomData = Instantiate(blossom);
         _time = 0;
-       _maxTime = LevelManager.Instance.SpawnTimeByPun();
+        _maxTime = LevelManager.Instance.SpawnTimeByPun();
         Debug.Log("Max Time: " + _maxTime);
     }
 
     public void SpeedUp()
     {
         foreach(var blossom in blossoms)
+
+        foreach (var blossom in blossoms)
         {
             blossom.MaxSpeedY -= 0.1f;
+        }
+    }
+
+
+    public void RecoverBaseSpeed()
+    {
+        foreach (var blossom in blossoms)
+        {
+            blossom.MaxSpeedY = blossom.BaseMaxSpeedY;
         }
     }
 
     private BlossomData BlossomRandomizer()
     {
         float[] BlossomPercentages = new float[blossoms.Length];
-        for(int i = 0; i < BlossomPercentages.Length; i++)
+        for (int i = 0; i < BlossomPercentages.Length; i++)
         {
             BlossomPercentages[i] = blossoms[i].SpawnPercentage;
         }
-        return blossoms[RandomMethods.ReturnARandomObject(BlossomPercentages,0,blossoms.Length,0)];
+        return blossoms[RandomMethods.ReturnARandomObject(BlossomPercentages, 0, blossoms.Length, 0)];
     }
 }

@@ -16,6 +16,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     [SerializeField]
     private GameObject _catAttack;
     private CatAnimationController _catAnimCon;
+    private SpriteRenderer _catSpriteRenderer;
 
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
@@ -27,6 +28,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
         _rb2D= GetComponent<Rigidbody2D>();
         _reduceSpeed = false;
         _catAnimCon= GetComponent<CatAnimationController>();
+        _catSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -61,9 +63,10 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
         _rb2D.velocity = new Vector2(_speed*direction.x,0);
         if (_rb2D.velocity.x < 0)
         {
-            _velSign= false;
+            _catSpriteRenderer.flipX = true;
+            _velSign = false;
         }
-        else _velSign= true;
+        else { _velSign = true; _catSpriteRenderer.flipX = false; }
     }
 
     public void StopMovement()

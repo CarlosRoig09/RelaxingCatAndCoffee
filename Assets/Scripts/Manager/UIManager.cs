@@ -18,7 +18,9 @@ public class UIManager : MonoBehaviour
         }
     }
     private GameObject[] _cofees;
+    public GameObject[] Cofees { get => _cofees; }
     private int _cofeesCount;
+    public int CofesCount { get => _cofeesCount; }
     private bool _firstTime;
     private GameObject _pauseMenu;
     private GameObject _settingPopUp;

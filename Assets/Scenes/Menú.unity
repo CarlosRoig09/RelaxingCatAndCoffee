@@ -1728,9 +1728,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Relaxing Cat and Coffee
-
-'
+  m_text: Relaxing Cat and Coffee
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f814c18dd74bcf945ad4885565461933, type: 2}
   m_sharedMaterial: {fileID: 639289729140238656, guid: f814c18dd74bcf945ad4885565461933, type: 2}
@@ -1793,7 +1791,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -393.45355, w: 0}
+  m_margin: {x: 0, y: 0, z: -410.50455, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

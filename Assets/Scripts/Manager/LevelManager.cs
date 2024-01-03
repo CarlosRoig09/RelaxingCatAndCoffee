@@ -15,6 +15,9 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private BlossomData _specialBlossom;
     private CatAnimationController _catAnimationController;
     private SpawnerBehaivour _spawnerBehaivour;
+ 
+    [SerializeField]
+    private GameObject _coffeeBean;
     public static LevelManager Instance
     {
         get
@@ -55,7 +58,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PauseGame()
@@ -75,6 +78,31 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     {
         Time.timeScale = delay;
     }
+
+    public void StopGameByTime(float time)
+    {
+        StartCoroutine(StopTillTime(time));
+    }
+
+    public void CofeeObatinedAnimation(Vector3 initialPosition)
+    {
+       var bean = Instantiate(_coffeeBean, initialPosition, Quaternion.identity);
+        var beanBehaivour = bean.GetComponent<CofeeBeanBehaivour>();
+        beanBehaivour.SpawnPosition = initialPosition;
+        beanBehaivour.SpawnDirection = UIManager.Instance.Cofees[UIManager.Instance.CofesCount].transform.position;
+        beanBehaivour.CofeeMovement();
+        StartCoroutine(StopTillTime(1f));
+    }
+
+
+
+    private IEnumerator StopTillTime(float time)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 1;
+    }
+
 
     public void EmergencyState()
     {
@@ -109,31 +137,38 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     public float SpawnTimeByPun()
     {
         _specialBlossom.SpawnPercentage = 20;
-        if (_punC.Value % 250==0)
-        {
-            _spawnerBehaivour.SpeedUp();
-        }
-       int iteration = 0;
-        float comparePuntuation = _punC.Value/50;
-        int[] marge = new int[] { 0, 1, 2, 4, 16, 24};
+
+        int iteration = 0;
+        float comparePuntuation = _punC.Value / 50;
+        int[] marge = new int[] { 0, 1, 2, 4, 16, 24 };
+
         bool endFor = false;
-        for (int i = 1; i < marge.Length&&!endFor;i++)
+        _spawnerBehaivour.RecoverBaseSpeed();
+        for (int i = 1; i < marge.Length && !endFor; i++)
         {
-            if (marge[i] == marge[marge.Length - 1]&&comparePuntuation >= marge[i])
+            if (marge[i] == marge[marge.Length - 1] && comparePuntuation >= marge[i])
             {
                 iteration += i;
                 _specialBlossom.SpawnPercentage += 50;
+                for(int y = 0; y < i; y++)
+                {
+                    _spawnerBehaivour.SpeedUp();
+                }
             }
             else if (comparePuntuation >= marge[i] && comparePuntuation < marge[i + 1])
             {
                 iteration += i;
                 _specialBlossom.SpawnPercentage += 10;
                 endFor = true;
+                for (int y = 0; y < i; y++)
+                {
+                    _spawnerBehaivour.SpeedUp();
+                }
             }
 
         }
         var orderedPercentagesAndTime = CurrenOrderByIterations(iteration);
-        return orderedPercentagesAndTime.Time[RandomMethods.ReturnARandomObject(orderedPercentagesAndTime.Percentages.ToArray(), 0, orderedPercentagesAndTime.Percentages.Count, 0)]; 
+        return orderedPercentagesAndTime.Time[RandomMethods.ReturnARandomObject(orderedPercentagesAndTime.Percentages.ToArray(), 0, orderedPercentagesAndTime.Percentages.Count, 0)];
     }
 
     private PercentagesAndTime CurrenOrderByIterations(int iterations)
@@ -141,7 +176,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         var clonePAndTime = Instantiate(_pAndTime);
         for (int i = clonePAndTime.Percentages.Count - (iterations + 1); i < clonePAndTime.Percentages.Count; i++)
         {
-            for (int y = i + 1; y < clonePAndTime.Percentages.Count;y++)
+            for (int y = i + 1; y < clonePAndTime.Percentages.Count; y++)
             {
                 if (clonePAndTime.Percentages[i] < clonePAndTime.Percentages[y])
                 {
@@ -159,7 +194,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         NotifyHitToThePlayer(modEn);
         ((IModificableValue)_enC).ModifyValue(modEn);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
-        if(_enC.IsEnergyExahusted())
+        if (_enC.IsEnergyExahusted())
         {
             CallGameOver();
         }
