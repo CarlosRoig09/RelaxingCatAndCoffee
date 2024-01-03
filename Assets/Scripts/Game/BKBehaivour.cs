@@ -18,7 +18,6 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private Sprite[] _sprites;
     private int _spritecount;
     private SpriteRenderer _spriteRenderer;
-    private bool _special;
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.StopCofeeProduction;
@@ -45,6 +44,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     {
         if(collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
+            blossomBehaivour.gameObject.GetComponent<Collider2D>().enabled= false;
             var puntuation = blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive);
             SendPuntuation(puntuation);
             _spritecount += puntuation/10;
