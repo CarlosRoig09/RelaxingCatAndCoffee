@@ -37,15 +37,13 @@ public class CofeeBeanBehaivour : MonoBehaviour
     public void CofeeMovement()
     {
         Physics.SyncTransforms();
-        StartCoroutine(MoveBeanTillTime(new float[] {0.5f,0.3f},new Vector3[] {Vector3.up,SpawnDirection},0,0,FollowDirection));
+        StartCoroutine(MoveBeanTillTime(new float[] {1.5f,1f,3.5f},new Vector3[] {Vector3.up,Vector3.zero,SpawnDirection},0,0,FollowDirection));
     }
     private IEnumerator MoveBeanTillTime(float[] times, Vector3[] directions, int directionCount, int timeCount, Func<Vector3,bool> firstFunction)
     {
         firstFunction(directions[directionCount]);
-        directionCount += 1;
         yield return new WaitForSecondsRealtime(times[timeCount]);
         timeCount+= 1;
-        firstFunction(directions[directionCount]);
         directionCount+= 1;
         if (directions.Length>directionCount&&times.Length>timeCount)
         {

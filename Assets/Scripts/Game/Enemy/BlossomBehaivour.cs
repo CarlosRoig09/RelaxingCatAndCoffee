@@ -127,9 +127,10 @@ public class BlossomBehaivour : MonoBehaviour
         return BlossomData.EnergyLose;
     }
 
-    public void Destroy()
+    public object Destroy(object nothing)
     {
         StopAllCoroutines();
-        Destroy(gameObject);
+        Destroy(gameObject,0.1f);
+        return null;
     }
 }

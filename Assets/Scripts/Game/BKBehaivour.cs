@@ -55,7 +55,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             else
                 AudioManager.instance.Play("especialObtained");
 
-            blossomBehaivour.Destroy();
+            blossomBehaivour.Destroy(null);
             CountCofee(puntuation);
             if(cofeeCount==_obtainCofee)
             {
@@ -83,7 +83,6 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private void SendCofee()
     {
         AudioManager.instance.Play("CofeeObtained");
-        LevelManager.Instance.CofeeObatinedAnimation(transform.GetChild(0).transform.position);
         IHTEvent(Instantiate(_cofeeData));
         cofeeCount = 0;
     }

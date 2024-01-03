@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class LevelManager : MonoBehaviour, IWaitTheEvent
 {
@@ -79,35 +80,22 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         Time.timeScale = delay;
     }
 
-    public void StopGameByTime(float time)
+
+
+    public IEnumerator StopTillTime(float time, Func<object, object>[] functions, object[] args)
     {
-        StartCoroutine(StopTillTime(time));
-    }
-
-    public void CofeeObatinedAnimation(Vector3 initialPosition)
-    {
-       var bean = Instantiate(_coffeeBean, initialPosition, Quaternion.identity);
-        var beanBehaivour = bean.GetComponent<CofeeBeanBehaivour>();
-        beanBehaivour.SpawnPosition = initialPosition;
-        beanBehaivour.SpawnDirection = UIManager.Instance.Cofees[UIManager.Instance.CofesCount].transform.position;
-        beanBehaivour.CofeeMovement();
-        StartCoroutine(StopTillTime(1f));
-    }
-
-
-
-    private IEnumerator StopTillTime(float time)
-    {
+        GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
         Time.timeScale = 0;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         Time.timeScale = 1;
+        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
+        for (int i = 0; i < functions.Length; i++)
+        {
+            functions[i](args[i]);
+        }
     }
 
 
-    public void EmergencyState()
-    {
-
-    }
 
     public void NotifyHitToThePlayer(float mod)
     {

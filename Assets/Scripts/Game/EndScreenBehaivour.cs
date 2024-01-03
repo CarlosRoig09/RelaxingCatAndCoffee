@@ -21,19 +21,19 @@ public class EndScreenBehaivour : MonoBehaviour
     {
         if (collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
-            SendPuntuation(blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Negative));
-            SendEnergy(blossomBehaivour.LoseEnergy());
-            blossomBehaivour.Destroy();
+            StartCoroutine(LevelManager.Instance.StopTillTime(0.5f,new System.Func<object, object>[] {SendPuntuation,SendEnergy, blossomBehaivour.Destroy},new object[] { blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Negative), blossomBehaivour.LoseEnergy(),null}));
         }
     }
 
-    private void SendPuntuation(int pun)
+    private object SendPuntuation(object pun)
     {
-        LevelManager.Instance.ModifyPuntuation(pun);
+        LevelManager.Instance.ModifyPuntuation((int)pun);
+        return null;
     }
 
-    private void SendEnergy(int energy)
+    private object SendEnergy(object energy)
     {
-        LevelManager.Instance.ModifyEnergy(energy);
+        LevelManager.Instance.ModifyEnergy((int)energy);
+        return null;
     }
 }
