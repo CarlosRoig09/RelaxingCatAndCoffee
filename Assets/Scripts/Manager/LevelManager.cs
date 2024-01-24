@@ -84,11 +84,11 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
 
     public IEnumerator StopTillTime(float time, Func<object, object>[] functions, object[] args)
     {
-        GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
-        Time.timeScale = 0;
+        //GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
+        //Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(time);
-        Time.timeScale = 1;
-        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
+        //Time.timeScale = 1;
+        //GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
         for (int i = 0; i < functions.Length; i++)
         {
             functions[i](args[i]);
