@@ -61,7 +61,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 
             blossomBehaivour.Destroy(null);
             CountCofee(puntuation);
-            if(cofeeCount==_obtainCofee)
+            if (cofeeCount == _obtainCofee)
             {
                 SendCofee();
             }
