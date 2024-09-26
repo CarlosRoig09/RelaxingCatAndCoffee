@@ -11,11 +11,17 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private PuntuationController _punC;
     private EnergyController _enC;
     [SerializeField]
+    private int _maxEnergyValue;
+    [SerializeField]
     private PercentagesAndTime _pAndTime;
     private static LevelManager _instance;
     private BlossomData _specialBlossom;
     private CatAnimationController _catAnimationController;
     private SpawnerBehaivour _spawnerBehaivour;
+    [SerializeField]
+    private int _punDifDividing;
+    [SerializeField]
+    private int[] _difFaseQuotient;
  
     [SerializeField]
     private GameObject _coffeeBean;
@@ -49,17 +55,11 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         _punC = GameObjectLibrary.Instance.PuntuationControllerScript;
         _enC = GameObjectLibrary.Instance.EnergyControllerScript;
         _catAnimationController = GameObjectLibrary.Instance.CatAnimationControllerScript;
-        _enC.Value = 100;
+        _enC.Value = _maxEnergyValue;
         UIManager.Instance.ModifyPunHUD(_punC.Value);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
         GameManager.Instance.SubscribeEvent(this);
         _spawnerBehaivour = GameObject.Find("Spawner").GetComponent<SpawnerBehaivour>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void PauseGame()
@@ -127,30 +127,33 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         _specialBlossom.SpawnPercentage = 20;
 
         int iteration = 0;
-        float comparePuntuation = _punC.Value / 50;
-        int[] marge = new int[] { 0, 1, 2, 4, 16, 24 };
+        float comparePuntuation = _punC.Value / _punDifDividing;
+        int[] marge = _difFaseQuotient;
 
         bool endFor = false;
         _spawnerBehaivour.RecoverBaseSpeed();
         for (int i = 1; i < marge.Length && !endFor; i++)
         {
-            if (marge[i] == marge[marge.Length - 1] && comparePuntuation >= marge[i])
+            if (comparePuntuation >= marge[i])
             {
-                iteration += i;
-                _specialBlossom.SpawnPercentage += 50;
-                for(int y = 0; y < i; y++)
+                if (marge[i] == marge[^1])
                 {
-                    _spawnerBehaivour.SpeedUp();
+                    iteration += i;
+                    _specialBlossom.SpawnPercentage += 50;
+                    for (int y = 0; y < i; y++)
+                    {
+                        _spawnerBehaivour.SpeedUp();
+                    }
                 }
-            }
-            else if (comparePuntuation >= marge[i] && comparePuntuation < marge[i + 1])
-            {
-                iteration += i;
-                _specialBlossom.SpawnPercentage += 10;
-                endFor = true;
-                for (int y = 0; y < i; y++)
+                else if (comparePuntuation < marge[i + 1])
                 {
-                    _spawnerBehaivour.SpeedUp();
+                    iteration += i;
+                    _specialBlossom.SpawnPercentage += 10;
+                    endFor = true;
+                    for (int y = 0; y < i; y++)
+                    {
+                        _spawnerBehaivour.SpeedUp();
+                    }
                 }
             }
 

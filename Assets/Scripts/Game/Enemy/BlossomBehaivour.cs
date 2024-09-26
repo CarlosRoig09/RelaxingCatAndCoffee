@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using personalLibrary;
+using System.Collections;
+using UnityEngine;
 
 public class BlossomBehaivour : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class BlossomBehaivour : MonoBehaviour
     public BlossomData BlossomData { get { return _blossomData; } set { _blossomData = value; } }
     private Rigidbody2D _rb2D;
     public Rigidbody2D Rb2D { get { return _rb2D; } }
-    private bool _sentido;
+    private int _sentido;
     private bool _stop;
     [SerializeField]
     private float _elevation;
@@ -21,8 +20,8 @@ public class BlossomBehaivour : MonoBehaviour
     void Start()
     {
         _rb2D = GetComponent<Rigidbody2D>();
-        _sentido = true;
-        _rb2D.velocity = new Vector2(BlossomData.MaxSpeedX, BlossomData.MaxSpeedY);
+        _sentido = 1;
+        //_rb2D.velocity = new Vector2(BlossomData.MaxSpeedX, BlossomData.MaxSpeedY);
         _stop = false;
         _parabolaEquation = CalculteParabolaEcuation(new float[] { 0, BlossomData.MaxSpeedY }, new float[] { BlossomData.MaxSpeedX, 0 });
     }
@@ -38,26 +37,17 @@ public class BlossomBehaivour : MonoBehaviour
 
     private void Movement()
     {
-        if (_sentido)
-        {
-            _rb2D.velocity = new Vector2(_rb2D.velocity.x + BlossomData.MaxSpeedX / 100, _parabolaEquation[0] * Mathf.Pow(_rb2D.velocity.x, 2) + _parabolaEquation[1] * _rb2D.velocity.x + _parabolaEquation[2]);
-        }
-        else
-        {
-            _rb2D.velocity = new Vector2(_rb2D.velocity.x + BlossomData.MinSpeedX / 100, _parabolaEquation[0] * Mathf.Pow(_rb2D.velocity.x, 2) + _parabolaEquation[1] * _rb2D.velocity.x + _parabolaEquation[2]);
-        }
+        _rb2D.velocity = new Vector2(_rb2D.velocity.x + BlossomData.MaxSpeedX * _sentido * Time.deltaTime, (_parabolaEquation[0] * Mathf.Pow(_rb2D.velocity.x, 2) + _parabolaEquation[1] * _rb2D.velocity.x + _parabolaEquation[2]));
         if (_rb2D.velocity.x >= BlossomData.MaxSpeedX)
         {
-            _sentido = false;
+            _sentido = -1;
             StopVertically();
-            //_rb2D.velocity = new Vector2(_maxSpeedX, 0);
         }
 
-        if (_rb2D.velocity.x <= BlossomData.MinSpeedX)
+        if (_rb2D.velocity.x <= BlossomData.MaxSpeedX * -1)
         {
-            _sentido = true;
+            _sentido = 1;
             StopVertically();
-            //_rb2D.velocity = new Vector2(_minSpeedX, 0);
         }
     }
 
@@ -81,7 +71,7 @@ public class BlossomBehaivour : MonoBehaviour
     private IEnumerator WaitTime(float time)
     {
         _stop = true;
-        _rb2D.velocity = new Vector2(_rb2D.velocity.x/2, 0);
+        _rb2D.velocity = new Vector2(_rb2D.velocity.x / 2, 0);
         yield return new WaitForSeconds(time);
         _rb2D.velocity = new Vector2(_rb2D.velocity.x, 0);
         _stop = false;
@@ -130,7 +120,7 @@ public class BlossomBehaivour : MonoBehaviour
     public object Destroy(object nothing)
     {
         StopAllCoroutines();
-        Destroy(gameObject,0.1f);
+        Destroy(gameObject, 0.1f);
         return null;
     }
 }

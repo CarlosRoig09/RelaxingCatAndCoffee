@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
            if (!_calledStartGame)
            {
                 GameObject.Find("Continue").GetComponent<Button>().onClick.AddListener(UIManager.Instance.ResumeButton);
-                //GameObject.Find("Retry").GetComponent<Button>().onClick.AddListener(UIManager.Instance.GameButton);
                 GameObject.Find("ReturnToMenu").GetComponent<Button>().onClick.AddListener(UIManager.Instance.MenuButton);
                 _calledStartGame = true;
                 OnStartGame();
