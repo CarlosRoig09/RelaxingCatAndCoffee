@@ -19,6 +19,10 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private int _spritecount;
     private SpriteRenderer _spriteRenderer;
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
+    [SerializeField]
+    private int _normalBlossomPun;
+    [SerializeField]
+    private int _specialBlossomPun;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.StopCofeeProduction;
 
@@ -47,10 +51,10 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             blossomBehaivour.gameObject.GetComponent<Collider2D>().enabled= false;
             var puntuation = blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Positive);
             SendPuntuation(puntuation);
-            _spritecount += puntuation/10;
+            _spritecount += puntuation/_normalBlossomPun;
             if (_spritecount < _sprites.Length)
                 _spriteRenderer.sprite = _sprites[_spritecount];
-            if (puntuation < 30)
+            if (puntuation < _specialBlossomPun)
                 AudioManager.instance.Play("obtainedBlossom");
             else
                 AudioManager.instance.Play("especialObtained");
@@ -73,7 +77,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     {
         if(countCofee)
         {
-            cofeeCount += puntuation/10;
+            cofeeCount += puntuation/_normalBlossomPun;
             if(cofeeCount>_obtainCofee)
                 cofeeCount=_obtainCofee;
             UIManager.Instance.CountCofee(_id, cofeeCount, _obtainCofee);

@@ -17,8 +17,8 @@ MonoBehaviour:
   PositivePuntuation: 30
   NegativePuntuation: -10
   EnergyLose: -40
-  MaxSpeedX: 0.5
-  MinSpeedX: -0.5
-  MaxSpeedY: -1.6
-  BaseMaxSpeedY: -1.5
-  SpawnPercentage: 30
+  BaseMaxSppeedY: 0
+  MaxSpeedX: 5
+  MaxSpeedY: -1
+  BaseMaxSpeedY: -1
+  SpawnPercentage: 20

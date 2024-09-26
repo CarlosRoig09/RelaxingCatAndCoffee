@@ -12,12 +12,24 @@ public class CatForce : MonoBehaviour
     public float MaxForce { private get; set ;}
     public delegate void IFinishedTheAttack();
     public event IFinishedTheAttack OnFinishedTheAttack;
+    public float AmountToScaleX;
+    public float AmountToScaleY;
+    public float MaxScaleX;
+    public float WaitTimeTillDestroy;
+    public float WaitBlossomTime;
+    public float MinVectorDistance;
+    public float MediumVectorDistance;
+    public float MaxVectorDistance;
+    public float MaxStrenght;
+    public float MediumStrenght;
+    public float BeforeMinStrenght;
+    public float MinStrenght;
+
     // Start is called before the first frame update
     void Start()
     {
         _spriteRenderer= GetComponent<SpriteRenderer>();
         _state = EnumLibrary.CatForceState.Expand;
-        MaxForce = 300;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _startedCoroutine = false;
         OnFinishedTheAttack += GameObjectLibrary.Instance.CatBehaivourScript.WaitTillAtackFinish;
@@ -34,16 +46,16 @@ public class CatForce : MonoBehaviour
 
     private void Expand()
     {
-        if (transform.localScale.x < 15.36f)
+        if (transform.localScale.x < MaxScaleX)
         {
-            transform.localScale = new Vector3(transform.localScale.x + 1f, transform.localScale.y + 0.6f);
+            transform.localScale = new Vector3(transform.localScale.x + AmountToScaleX, transform.localScale.y + AmountToScaleY);
         }
         
         else 
         {
             if (!_startedCoroutine)
             {
-                StartCoroutine(WaitTime(0.3f));
+                StartCoroutine(WaitTime(WaitTimeTillDestroy));
             }
         }
     }
@@ -74,18 +86,18 @@ public class CatForce : MonoBehaviour
     {
         if (collision.TryGetComponent<BlossomBehaivour>(out var blossomBehaivour))
         {
-            blossomBehaivour.StopAllForce(0.3f);
+            blossomBehaivour.StopAllForce(WaitBlossomTime);
             var vectorDistance = Mathf.Sqrt(Mathf.Pow(blossomBehaivour.transform.position.x - transform.position.x, 2) + Mathf.Pow(blossomBehaivour.transform.position.y - transform.position.y, 2));
             float potencia;
-            if (vectorDistance < 0.7f)
-                potencia = 2.5f;
+            if (vectorDistance < MinVectorDistance)
+                potencia = MaxStrenght;
 
-            else if (vectorDistance > 0.7f && vectorDistance < 1.3f)
-                potencia = 2f;
-            else if (vectorDistance > 1.3 && vectorDistance < 1.9f)
-                potencia = 1.5f;
+            else if (vectorDistance > MinVectorDistance && vectorDistance < MediumVectorDistance)
+                potencia = MediumStrenght;
+            else if (vectorDistance > MediumVectorDistance && vectorDistance < MediumVectorDistance)
+                potencia = BeforeMinStrenght;
             else
-                potencia = 1f;
+                potencia = MinStrenght;
             
             var force = (MaxForce / (vectorDistance/potencia)) * new Vector2(blossomBehaivour.transform.position.x - transform.position.x, blossomBehaivour.transform.position.y - transform.position.y);
             blossomBehaivour.Rb2D.AddForce(force);

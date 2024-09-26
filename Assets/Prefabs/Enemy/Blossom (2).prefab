@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bde39cec8dd3e46b142879232cc61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blossomData: {fileID: 0}
+  _blossomData: {fileID: 11400000, guid: a0257a97f2ae10140810275a602a021d, type: 2}
   _elevation: 0
   _timeStoped: 0.1
 --- !u!50 &978252621803486375
