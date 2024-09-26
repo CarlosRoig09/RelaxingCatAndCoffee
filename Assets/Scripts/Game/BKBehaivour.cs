@@ -59,7 +59,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             else
                 AudioManager.instance.Play("especialObtained");
 
-            blossomBehaivour.Destroy(null);
+            blossomBehaivour.Destroy();
             CountCofee(puntuation);
             if (cofeeCount == _obtainCofee)
             {

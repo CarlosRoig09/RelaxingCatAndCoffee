@@ -38,15 +38,9 @@ public class BlossomBehaivour : MonoBehaviour
     private void Movement()
     {
         _rb2D.velocity = new Vector2(_rb2D.velocity.x + BlossomData.MaxSpeedX * _sentido * Time.deltaTime, (_parabolaEquation[0] * Mathf.Pow(_rb2D.velocity.x, 2) + _parabolaEquation[1] * _rb2D.velocity.x + _parabolaEquation[2]));
-        if (_rb2D.velocity.x >= BlossomData.MaxSpeedX)
+        if (_rb2D.velocity.x >= BlossomData.MaxSpeedX || _rb2D.velocity.x <= BlossomData.MaxSpeedX * -1)
         {
-            _sentido = -1;
-            StopVertically();
-        }
-
-        if (_rb2D.velocity.x <= BlossomData.MaxSpeedX * -1)
-        {
-            _sentido = 1;
+            _sentido *=-1;
             StopVertically();
         }
     }
@@ -117,10 +111,9 @@ public class BlossomBehaivour : MonoBehaviour
         return BlossomData.EnergyLose;
     }
 
-    public object Destroy(object nothing)
+    public void Destroy()
     {
-        StopAllCoroutines();
-        Destroy(gameObject, 0.1f);
-        return null;
+        //StopAllCoroutines();
+        Destroy(gameObject);
     }
 }

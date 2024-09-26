@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using personalLibrary;
 using Interfaces;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
@@ -29,7 +30,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             Destroy(gameObject);
         else
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             _instance = this;
         }
         try
@@ -61,7 +62,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     // Update is called once per frame
     void Update()
     {
-        
+        if (SceneManager.GetActiveScene().name != "GameScene")
+        {
+            DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick } );
+        }
     }
 
     public void SubscribeEvents(EnumLibrary.Inputs[] inputs)
