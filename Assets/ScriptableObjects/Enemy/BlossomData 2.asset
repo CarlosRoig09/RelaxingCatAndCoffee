@@ -18,7 +18,7 @@ MonoBehaviour:
   NegativePuntuation: -6
   EnergyLose: -20
   BaseMaxSppeedY: 0
-  MaxSpeedX: 2
-  MaxSpeedY: -0.7
-  BaseMaxSpeedY: -0.7
+  MaxSpeedX: 1.5
+  MaxSpeedY: -0.5
+  BaseMaxSpeedY: -0.5
   SpawnPercentage: 90
