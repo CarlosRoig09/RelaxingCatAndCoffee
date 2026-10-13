@@ -20,8 +20,8 @@ public class CatAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _anim.SetFloat("Movement",_rb2d.velocity.x);
-        if (_rb2d.velocity.x == 0)
+        _anim.SetFloat("Movement",_rb2d.linearVelocity.x);
+        if (_rb2d.linearVelocity.x == 0)
         {
             _anim.SetBool("Idle", true);
             if(_idleTime<_idleMaxTime)

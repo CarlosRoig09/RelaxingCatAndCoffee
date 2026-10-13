@@ -72,20 +72,20 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
         {
             if (_velSign)
             {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x - _reduceSpeedValue, 0);
-                if (_rb2D.velocity.x <= 0)
+                _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x - _reduceSpeedValue, 0);
+                if (_rb2D.linearVelocity.x <= 0)
                 {
                     _reduceSpeed = false;
-                    _rb2D.velocity = Vector2.zero;
+                    _rb2D.linearVelocity = Vector2.zero;
                 }
             }
             else
             {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x + _reduceSpeedValue, 0);
-                if (_rb2D.velocity.x >= 0)
+                _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x + _reduceSpeedValue, 0);
+                if (_rb2D.linearVelocity.x >= 0)
                 {
                     _reduceSpeed = false;
-                    _rb2D.velocity = Vector2.zero;
+                    _rb2D.linearVelocity = Vector2.zero;
                 }
             }
         }
@@ -94,8 +94,8 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     public void Movement(Vector2 direction)
     {
         _reduceSpeed = false;
-        _rb2D.velocity = new Vector2(_speed*direction.x,0);
-        if (_rb2D.velocity.x < 0)
+        _rb2D.linearVelocity = new Vector2(_speed*direction.x,0);
+        if (_rb2D.linearVelocity.x < 0)
         {
             _catSpriteRenderer.flipX = true;
             _velSign = false;

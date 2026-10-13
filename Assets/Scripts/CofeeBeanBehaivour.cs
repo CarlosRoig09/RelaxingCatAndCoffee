@@ -20,13 +20,13 @@ public class CofeeBeanBehaivour : MonoBehaviour
 
     public bool FollowDirection(Vector3 direction)
     {
-        _rb2D.velocity = direction * _speed;
+        _rb2D.linearVelocity = direction * _speed;
         return true;
     }
 
     public void Stop()
     {
-        _rb2D.velocity = Vector3.zero;
+        _rb2D.linearVelocity = Vector3.zero;
     }
 
     private void DestroyGameObject()

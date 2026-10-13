@@ -37,8 +37,8 @@ public class BlossomBehaivour : MonoBehaviour
 
     private void Movement()
     {
-        _rb2D.velocity = new Vector2(_rb2D.velocity.x + BlossomData.MaxSpeedX * _sentido * Time.deltaTime, (_parabolaEquation[0] * Mathf.Pow(_rb2D.velocity.x, 2) + _parabolaEquation[1] * _rb2D.velocity.x + _parabolaEquation[2]));
-        if (_rb2D.velocity.x >= BlossomData.MaxSpeedX)
+        _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x + BlossomData.MaxSpeedX * _sentido * Time.deltaTime, (_parabolaEquation[0] * Mathf.Pow(_rb2D.linearVelocity.x, 2) + _parabolaEquation[1] * _rb2D.linearVelocity.x + _parabolaEquation[2]));
+        if (_rb2D.linearVelocity.x >= BlossomData.MaxSpeedX || _rb2D.linearVelocity.x <= BlossomData.MaxSpeedX * -1)
         {
             _sentido = -1;
             StopVertically();
@@ -64,16 +64,16 @@ public class BlossomBehaivour : MonoBehaviour
 
     private void StopVertically()
     {
-        _rb2D.velocity = new Vector2(_rb2D.velocity.x, 0);
+        _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x, 0);
         StartCoroutine(WaitTime(_timeStoped));
     }
 
     private IEnumerator WaitTime(float time)
     {
         _stop = true;
-        _rb2D.velocity = new Vector2(_rb2D.velocity.x / 2, 0);
+        _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x / 2, 0);
         yield return new WaitForSeconds(time);
-        _rb2D.velocity = new Vector2(_rb2D.velocity.x, 0);
+        _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x, 0);
         _stop = false;
     }
 
@@ -84,12 +84,12 @@ public class BlossomBehaivour : MonoBehaviour
 
     private IEnumerator WaitTimeStop(float time)
     {
-        float speedX = _rb2D.velocity.x;
-        float speedY = _rb2D.velocity.y;
+        float speedX = _rb2D.linearVelocity.x;
+        float speedY = _rb2D.linearVelocity.y;
         _stop = true;
-        _rb2D.velocity = new Vector2(0, 0);
+        _rb2D.linearVelocity = new Vector2(0, 0);
         yield return new WaitForSeconds(time);
-        _rb2D.velocity = new Vector2(speedX, speedY);
+        _rb2D.linearVelocity = new Vector2(speedX, speedY);
         _stop = false;
     }
     public void ChangeLayersCoroutine()

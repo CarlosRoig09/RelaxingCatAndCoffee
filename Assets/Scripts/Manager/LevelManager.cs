@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
-using Newtonsoft.Json.Linq;
 using System;
 
 public class LevelManager : MonoBehaviour, IWaitTheEvent
