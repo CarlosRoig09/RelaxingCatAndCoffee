@@ -71,9 +71,9 @@
                 },
                 {
                     "name": "TouchAttack",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "124ca51a-df9f-435a-a1c7-8d0e05469ba4",
-                    "expectedControlType": "Touch",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -358,7 +358,7 @@
                 {
                     "name": "",
                     "id": "e531b4cb-723e-4392-a1c2-f07ae33149d3",
-                    "path": "<Touchscreen>/touch1",
+                    "path": "<Touchscreen>/touch*/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
