@@ -94,7 +94,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     public void Movement(Vector2 direction)
     {
         _reduceSpeed = false;
-        _rb2D.linearVelocity = new Vector2(_speed*direction.x,0);
+        _rb2D.linearVelocity = _speed*direction;
         if (_rb2D.linearVelocity.x < 0)
         {
             _catSpriteRenderer.flipX = true;

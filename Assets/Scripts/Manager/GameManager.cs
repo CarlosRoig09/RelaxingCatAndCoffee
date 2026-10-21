@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             case "demo":
                 _scene = EnumLibrary.Scene.GameScreen;
                 break;
-            case "Menú":
+            case "Menï¿½":
                 _scene = EnumLibrary.Scene.GameMenu;
                 break;
             case "GameOver":
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     }
     public void SubscribeEvent(IWaitTheEvent waitTheEvent)
     {
-        IHaveTheEvent[] eventors = FindObjectsOfType<MonoBehaviour>(true).OfType<IHaveTheEvent>().ToArray();
+        IHaveTheEvent[] eventors = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID).OfType<IHaveTheEvent>().ToArray();
         foreach (IHaveTheEvent eventor in eventors)
         {
                 if (eventor.Type == waitTheEvent.Type)
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     public void DeSubscribeEvent(IWaitTheEvent waitTheEvent)
     {
-        IHaveTheEvent[] eventors = FindObjectsOfType<MonoBehaviour>(true).OfType<IHaveTheEvent>().ToArray();
+        IHaveTheEvent[] eventors = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID).OfType<IHaveTheEvent>().OfType<IHaveTheEvent>().ToArray();
         foreach (IHaveTheEvent eventor in eventors)
         {
             if (eventor.Type == waitTheEvent.Type)
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
                 AudioManager.instance.Stop("Theme");
                 AudioManager.instance.Play("MenuTheme");
                 _menuActions = false;
-                SceneManager.LoadScene("Menú");
+                SceneManager.LoadScene("Menï¿½");
                 break;
             case EnumLibrary.Scene.GameOverScreen:
                 AudioManager.instance.Stop("Theme");

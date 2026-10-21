@@ -5,20 +5,30 @@ using UnityEngine.InputSystem;
 using personalLibrary;
 using Interfaces;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem.LowLevel;
 
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
     private static InputController _instance;
     private PlayerInput _playerInput;
+    private Vector3 _catInitialPosition;
     [SerializeField]
     private InputActionAsset _actionAsset;
-    private InputAction _onScroll;
+    [SerializeField]
+    private InputActionAsset _mobileActionAsset;
+    private InputAction _onMovement;
     private InputAction _onLeftClick;
     private InputAction _onRightClick;
     private InputAction _onEscClick;
+
+    private InputAction _onStartMovement;
+
+    private Vector2 _touchPosition;
     private CatBehaivour _catBehaivour;
     private GestionInventory _gestionInventory;
     private float _lastKeyValue;
+
+    private bool _isOnMobile;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.AttackFinish;
 
@@ -32,17 +42,26 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             DontDestroyOnLoad(gameObject);
             _instance = this;
         }
+        _isOnMobile = BBApplication.isTouchInterface;
         try
         {
             _playerInput = GetComponent<PlayerInput>();
             _playerInput.actions = _actionAsset;
-            _onScroll = _playerInput.actions["Movement"];
+            if(!_isOnMobile){
+            _onMovement = _playerInput.actions["Movement"];
             _onLeftClick = _playerInput.actions["Attack"];
             _onRightClick = _playerInput.actions["Drink"];
+            }
+            else
+            {
+              _onStartMovement  = _playerInput.actions["TouchStartMove"];
+              _onMovement = _playerInput.actions["TouchMove"];
+              _onLeftClick = _playerInput.actions["TouchAttack"];
+            }
             _onEscClick = _playerInput.actions["Pause"];
         }
         catch { Debug.LogError("ERROR: PlayerInput component is missing"); }
-    }
+        }
     private void Start()
     {
         GameManager.Instance.OnStartGame += OnStartGame;
@@ -53,6 +72,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         GameManager.Instance.SubscribeEvent(this);
         _catBehaivour = GameObjectLibrary.Instance.CatBehaivourScript;
         _gestionInventory = GameObjectLibrary.Instance.GestionInventory;
+        if (_isOnMobile)
+        {
+            _catInitialPosition = _catBehaivour.transform.position;
+        }
         InputAction.CallbackContext context = new InputAction.CallbackContext();
         OnEscClick(context);
         OnEscClickSecond(context);
@@ -66,6 +89,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     public void SubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
+        if(!_isOnMobile){
         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
@@ -79,10 +103,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     _onRightClick.canceled += OnRightCanceled;
                     break; 
                 case EnumLibrary.Inputs.OnScroll:
-                    _onScroll.started += OnScroll;
+                    _onMovement.started += OnMovement;
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
-                    _onScroll.canceled += OnScrollCancel;
+                    _onMovement.canceled += OnMovementCancel;
                     break;
                 case EnumLibrary.Inputs.OnEscClick:
                     _onEscClick.started += OnEscClick;
@@ -93,10 +117,42 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
             }
         }
+        }
+        else
+        {
+            foreach (EnumLibrary.Inputs input in inputs)
+        {
+            switch (input)
+            {
+                case EnumLibrary.Inputs.OnLeftClick:
+                    _onLeftClick.started += OnLeftClick;
+                    _onLeftClick.canceled += OnLeftCanceled;
+                    break;
+                case EnumLibrary.Inputs.OnRightClick:
+                    _onRightClick.performed+= OnRightClick;
+                    _onRightClick.canceled += OnRightCanceled;
+                    break; 
+                case EnumLibrary.Inputs.OnScroll:
+                    _onStartMovement.started += OnTouchStartMovement;
+                    break;
+                case EnumLibrary.Inputs.OnScrollCancel:
+                    _onStartMovement.canceled += OnMovementCancel;
+                    break;
+                case EnumLibrary.Inputs.OnEscClick:
+                    _onEscClick.started += OnEscClick;
+                    _onEscClick.canceled += OnEscCanceled;
+                    break;
+                default:
+                    Debug.LogError("Error: This input doesn't exist");
+                    break;
+            }
+        }
+        }
     }
 
     public void DesubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
+        if(!_isOnMobile){
         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
@@ -108,10 +164,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     _onRightClick.performed -= OnRightClick;
                     break;
                 case EnumLibrary.Inputs.OnScroll:
-                    _onScroll.started -= OnScroll;
+                    _onMovement.started -= OnMovement;
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
-                    _onScroll.canceled -= OnScrollCancel;
+                    _onMovement.canceled -= OnMovementCancel;
                     break;
                 case EnumLibrary.Inputs.OnEscClick:
                     _onEscClick.started-= OnEscClick;
@@ -121,9 +177,37 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
             }
         }
+        }
+        else
+        {
+            foreach (EnumLibrary.Inputs input in inputs)
+        {
+            switch (input)
+            {
+                case EnumLibrary.Inputs.OnLeftClick:
+                    _onLeftClick.started -= OnLeftClick;
+                    break;
+                case EnumLibrary.Inputs.OnRightClick:
+                    _onRightClick.performed -= OnRightClick;
+                    break;
+                case EnumLibrary.Inputs.OnScroll:
+                    _onStartMovement.started -= OnTouchStartMovement;
+                    break;
+                case EnumLibrary.Inputs.OnScrollCancel:
+                    _onStartMovement.canceled -= OnMovementCancel;
+                    break;
+                case EnumLibrary.Inputs.OnEscClick:
+                    _onEscClick.started-= OnEscClick;
+                    break;
+                default:
+                    Debug.LogError("Error: This input doesn't exist");
+                    break;
+            }
+        }
+        }
     }
 
-    void OnScroll(InputAction.CallbackContext context)
+    void OnMovement(InputAction.CallbackContext context)
     {
         if (context.ReadValue<Vector2>().x>0)
         {
@@ -132,12 +216,29 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         else { 
             UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
             }
-        _lastKeyValue = context.ReadValue<Vector2>().x;
-        _catBehaivour.Movement(context.ReadValue<Vector2>());
+        Vector3 screenToWorlPosition = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
+        _lastKeyValue = screenToWorlPosition.x>_catInitialPosition.x ? 1:-1;
+        
+        _catBehaivour.Movement(_lastKeyValue*Vector2.right);
     }
 
-    void OnScrollCancel(InputAction.CallbackContext context)
+    void OnTouchStartMovement(InputAction.CallbackContext context)
     {
+        Vector2 touchScreenPosition = _onMovement.ReadValue<Vector2>();
+        _touchPosition = Camera.main.ScreenToWorldPoint(touchScreenPosition);
+         if (_touchPosition.x>0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else { 
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            }
+        _lastKeyValue = _touchPosition.x>_catInitialPosition.x ? 1:-1;
+        _catBehaivour.Movement(_lastKeyValue*Vector2.right);
+    }
+    void OnMovementCancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("Canceled");
         if (_lastKeyValue> 0)
         {
             UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);

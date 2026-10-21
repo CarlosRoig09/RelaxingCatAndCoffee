@@ -44,7 +44,7 @@ public class BlossomBehaivour : MonoBehaviour
             StopVertically();
         }
 
-        if (_rb2D.velocity.x <= BlossomData.MaxSpeedX * -1)
+        if (_rb2D.linearVelocity.x <= BlossomData.MaxSpeedX * -1)
         {
             _sentido = 1;
             StopVertically();
