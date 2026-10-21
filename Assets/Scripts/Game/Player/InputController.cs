@@ -28,6 +28,8 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private GestionInventory _gestionInventory;
     private float _lastKeyValue;
 
+    private bool _attacking = false;
+
     private bool _isOnMobile;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.AttackFinish;
@@ -224,17 +226,21 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     void OnTouchStartMovement(InputAction.CallbackContext context)
     {
-        Vector2 touchScreenPosition = _onMovement.ReadValue<Vector2>();
-        _touchPosition = Camera.main.ScreenToWorldPoint(touchScreenPosition);
-         if (_touchPosition.x>0)
+        if (!_attacking)
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
-        }
-        else { 
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            Vector2 touchScreenPosition = _onMovement.ReadValue<Vector2>();
+            _touchPosition = Camera.main.ScreenToWorldPoint(touchScreenPosition);
+            if (_touchPosition.x > 0)
+            {
+                UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
             }
-        _lastKeyValue = _touchPosition.x>_catInitialPosition.x ? 1:-1;
-        _catBehaivour.Movement(_lastKeyValue*Vector2.right);
+            else
+            {
+                UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            }
+            _lastKeyValue = _touchPosition.x > _catInitialPosition.x ? 1 : -1;
+            _catBehaivour.Movement(_lastKeyValue * Vector2.right);
+        }
     }
     void OnMovementCancel(InputAction.CallbackContext context)
     {
@@ -265,12 +271,14 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     void OnLeftClick(InputAction.CallbackContext context)
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+        _attacking = true;
             Debug.Log("LeftClick");
             DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
             _catBehaivour.Attack();
     }
     void OnLeftCanceled(InputAction.CallbackContext context)
     {
+        _attacking = false;
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
     }
 

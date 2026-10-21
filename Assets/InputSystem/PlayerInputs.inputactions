@@ -37,7 +37,7 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "11f2ef2d-8bd4-44b3-904a-0c0c2c02a63d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TouchAttack",
+                    "type": "Button",
+                    "id": "124ca51a-df9f-435a-a1c7-8d0e05469ba4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "TouchMove",
@@ -65,15 +74,6 @@
                     "type": "Button",
                     "id": "0b61f831-c24d-4d56-94e6-3a03963fd3c0",
                     "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "TouchAttack",
-                    "type": "Value",
-                    "id": "124ca51a-df9f-435a-a1c7-8d0e05469ba4",
-                    "expectedControlType": "Touch",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -358,7 +358,7 @@
                 {
                     "name": "",
                     "id": "e531b4cb-723e-4392-a1c2-f07ae33149d3",
-                    "path": "<Touchscreen>/touch1",
+                    "path": "<Touchscreen>/touch1/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
