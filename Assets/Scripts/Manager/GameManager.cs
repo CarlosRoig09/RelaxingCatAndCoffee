@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             case "demo":
                 _scene = EnumLibrary.Scene.GameScreen;
                 break;
-            case "Men�":
+            case "Menu":
                 _scene = EnumLibrary.Scene.GameMenu;
                 break;
             case "GameOver":
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
                 AudioManager.instance.Stop("Theme");
                 AudioManager.instance.Play("MenuTheme");
                 _menuActions = false;
-                SceneManager.LoadScene("Men�");
+                SceneManager.LoadScene("Menu");
                 break;
             case EnumLibrary.Scene.GameOverScreen:
                 AudioManager.instance.Stop("Theme");

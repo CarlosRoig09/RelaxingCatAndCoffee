@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using personalLibrary;
 using Interfaces;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using TimerSystem;
+using NUnit.Framework;
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
     private static InputController _instance;
@@ -24,16 +22,17 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     private InputAction _onStartMovement;
     [SerializeField]
-    private Button _attackButton;
+    private InGameButtonsHandle _attackButton;
     [SerializeField]
-    private Button _moveButtonA;
+    private InGameButtonsHandle _moveButtonA;
     [SerializeField]
-    private Button _moveButtonD;
+    private InGameButtonsHandle _moveButtonD;
     [SerializeField]
-    private Button _pauseButton;
+    private InGameButtonsHandle _pauseButton;
     [SerializeField]
-    private Button _coffeeButton;
+    private InGameButtonsHandle _coffeeButton;
 
+    private float _delayButtonNotTouch = 0.2f;
     private Vector2 _touchPosition;
     private float _yTouchScreenLimit = 3.07f;
     private float _xTouchScreenLimit = 7.54f;
@@ -54,7 +53,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             Destroy(gameObject);
         else
         {
-            DontDestroyOnLoad(gameObject);
             _instance = this;
         }
         _isOnMobile = BBApplication.isTouchInterface;
@@ -101,131 +99,105 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     public void SubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
-        if(!_isOnMobile){
         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
             {
                 case EnumLibrary.Inputs.OnLeftClick:
+                    if(!_isOnMobile){
                     _onLeftClick.started += OnLeftClick;
                     _onLeftClick.canceled += OnLeftCanceled;
-                    _attackButton.onClick.AddListener(OnEnterClick);
+                    }
+                    _attackButton.onClickButtonStart.AddListener(OnEnterClick);
+                    _attackButton.onClickButtonCancelled.AddListener(OnEnterCancelled);
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
+                    if(!_isOnMobile){
                     _onRightClick.performed+= OnRightClick;
                     _onRightClick.canceled += OnRightCanceled;
-                    _coffeeButton.onClick.AddListener(OnShiftClick);
+                    }
+                    _coffeeButton.onClickButtonStart.AddListener(OnShiftClick);
+                    _coffeeButton.onClickButtonCancelled.AddListener(OnShiftCanceled);
                     break; 
                 case EnumLibrary.Inputs.OnScroll:
-                    _onMovement.started += OnMovement;
-                    _moveButtonA.onClick.AddListener(OnMovementLeft);
-                    _moveButtonD.onClick.AddListener(OnMovementRight);
+                    if(!_isOnMobile)
+                        _onMovement.started += OnMovement;
+                    else
+                        _onStartMovement.started += OnTouchStartMovement;
+                    _moveButtonA.onClickButtonStart.AddListener(OnMovementLeft);
+                    _moveButtonD.onClickButtonStart.AddListener(OnMovementRight);
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
-                    _onMovement.canceled += OnMovementCancel;
+                    if(!_isOnMobile)
+                        _onMovement.canceled += OnMovementCancel;
+                    else
+                        _onStartMovement.canceled += OnMovementCancel;
+                    _moveButtonA.onClickButtonCancelled.AddListener(OnMovementCancel);
+                    _moveButtonD.onClickButtonCancelled.AddListener(OnMovementCancel);
                     break;
                 case EnumLibrary.Inputs.OnEscClick:
-                    _onEscClick.started += OnEscClick;
-                    _onEscClick.canceled += OnEscCanceled;
-                    _pauseButton.onClick.AddListener(OnEscButtonClick);
+                    if(!_isOnMobile){
+                        _onEscClick.started += OnEscClick;
+                        _onEscClick.canceled += OnEscCanceled;
+                    }
+                    _pauseButton.onClickButtonStart.AddListener(OnEscButtonClick);
                     break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
                     break;
             }
-        }
-        }
-        else
-        {
-            foreach (EnumLibrary.Inputs input in inputs)
-        {
-            switch (input)
-            {
-                case EnumLibrary.Inputs.OnLeftClick:
-                        _attackButton.onClick.AddListener(OnEnterClick);
-                        break;
-                case EnumLibrary.Inputs.OnRightClick:
-                       _coffeeButton.onClick.AddListener(OnShiftClick);
-                       break; 
-                case EnumLibrary.Inputs.OnScroll:
-                    _onStartMovement.started += OnTouchStartMovement;
-                    _moveButtonA.onClick.AddListener(OnMovementLeft);
-                    _moveButtonD.onClick.AddListener(OnMovementRight);
-                    break;
-                case EnumLibrary.Inputs.OnScrollCancel:
-                    _onStartMovement.canceled += OnMovementCancel;
-                    break;
-                case EnumLibrary.Inputs.OnEscClick:
-                     _pauseButton.onClick.AddListener(OnEscButtonClick);
-                      break;
-                default:
-                    Debug.LogError("Error: This input doesn't exist");
-                    break;
-            }
-        }
         }
     }
 
     public void DesubscribeEvents(EnumLibrary.Inputs[] inputs)
     {
-        if(!_isOnMobile){
-        foreach (EnumLibrary.Inputs input in inputs)
+         foreach (EnumLibrary.Inputs input in inputs)
         {
             switch (input)
             {
                 case EnumLibrary.Inputs.OnLeftClick:
+                    if(!_isOnMobile){
                     _onLeftClick.started -= OnLeftClick;
-                    _attackButton.onClick.RemoveAllListeners();
+                    _onLeftClick.canceled -= OnLeftCanceled;
+                    }
+                    _attackButton.onClickButtonStart.RemoveListener(OnEnterClick);
+                    _attackButton.onClickButtonCancelled.RemoveListener(OnEnterCancelled);
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
-                    _onRightClick.performed -= OnRightClick;
-                    _coffeeButton.onClick.RemoveAllListeners();
-                    break;
-                case EnumLibrary.Inputs.OnScroll:
-                    _onMovement.started -= OnMovement;
-                    _moveButtonA.onClick.RemoveAllListeners();
-                    _moveButtonD.onClick.RemoveAllListeners();
+                    if(!_isOnMobile){
+                    _onRightClick.performed-= OnRightClick;
+                    _onRightClick.canceled -= OnRightCanceled;
+                    }
+                    _coffeeButton.onClickButtonStart.RemoveListener(OnShiftClick);
+                    _coffeeButton.onClickButtonCancelled.RemoveListener(OnShiftCanceled);
+                    break; 
+                 case EnumLibrary.Inputs.OnScroll:
+                    if(!_isOnMobile)
+                        _onMovement.started -= OnMovement;
+                    else
+                        _onStartMovement.started -= OnTouchStartMovement;
+                    _moveButtonA.onClickButtonStart.RemoveListener(OnMovementLeft);
+                    _moveButtonD.onClickButtonStart.RemoveListener(OnMovementRight);
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
-                    _onMovement.canceled -= OnMovementCancel;
+                    if(!_isOnMobile)
+                        _onMovement.canceled -= OnMovementCancel;
+                    else
+                        _onStartMovement.canceled -= OnMovementCancel;
+                    _moveButtonA.onClickButtonCancelled.RemoveListener(OnMovementCancel);
+                    _moveButtonD.onClickButtonCancelled.RemoveListener(OnMovementCancel);
                     break;
                 case EnumLibrary.Inputs.OnEscClick:
-                    _onEscClick.started-= OnEscClick;
+                    if(!_isOnMobile){
+                        _onEscClick.started -= OnEscClick;
+                        _onEscClick.canceled -= OnEscCanceled;
+                    }
+                    _pauseButton.onClickButtonStart.RemoveListener(OnEscButtonClick);
                     break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
                     break;
             }
-        }
-        }
-        else
-        {
-            foreach (EnumLibrary.Inputs input in inputs)
-        {
-            switch (input)
-            {
-                case EnumLibrary.Inputs.OnLeftClick:
-                    _attackButton.onClick.RemoveAllListeners();
-                    break;
-                case EnumLibrary.Inputs.OnRightClick:
-                    _coffeeButton.onClick.RemoveAllListeners();
-                    break;
-                case EnumLibrary.Inputs.OnScroll:
-                    _onStartMovement.started -= OnTouchStartMovement;
-                    _moveButtonA.onClick.RemoveAllListeners();
-                    _moveButtonD.onClick.RemoveAllListeners();
-                    break;
-                case EnumLibrary.Inputs.OnScrollCancel:
-                    _onStartMovement.canceled -= OnMovementCancel;
-                    break;
-                case EnumLibrary.Inputs.OnEscClick:
-                        _pauseButton.onClick.RemoveAllListeners();
-                    break;
-                default:
-                    Debug.LogError("Error: This input doesn't exist");
-                    break;
-            }
-        }
         }
     }
 
@@ -295,7 +267,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     }
     void OnMovementCancel(InputAction.CallbackContext context)
     {
-        Debug.Log("Canceled");
         if (_lastKeyValue> 0)
         {
             UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
@@ -306,6 +277,19 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         }
         _catBehaivour.StopMovement();
 
+    }
+
+    void OnMovementCancel()
+    {
+        if (_lastKeyValue> 0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+        }
+        _catBehaivour.StopMovement();
     }
 
     void OnRightClick(InputAction.CallbackContext context)
@@ -321,6 +305,11 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     }
 
     void OnRightCanceled(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
+    }
+
+    void OnShiftCanceled()
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
     }
@@ -344,6 +333,11 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
     }
 
+    void OnEnterCancelled()
+    {
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+    }
+
     void OnEscClick(InputAction.CallbackContext context)
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
@@ -357,8 +351,8 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
         LevelManager.Instance.PauseGame();
         DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick });
-        _pauseButton.onClick.RemoveAllListeners();
-        _pauseButton.onClick.AddListener(OnEscButtonClickSecond);
+        _pauseButton.onClickButtonStart.RemoveAllListeners();
+        _pauseButton.onClickButtonStart.AddListener(OnEscButtonClickSecond);
         if (!_isOnMobile)
         {
             _onEscClick.started += OnEscClickSecond;
@@ -377,8 +371,8 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
         LevelManager.Instance.ResumeGame();
-        _pauseButton.onClick.RemoveAllListeners();
-        _pauseButton.onClick.AddListener(OnEscButtonClick);
+        _pauseButton.RemoveAllListeners();
+        _pauseButton.AddListener(OnEscButtonClick);
     }
 
     void OnEscCanceled(InputAction.CallbackContext context)
@@ -388,7 +382,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     public void MethodForEvent(object value)
     {
-        Debug.Log("SuscribeteAAAAAAAAA");
         SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnLeftClick});
     }
 }
