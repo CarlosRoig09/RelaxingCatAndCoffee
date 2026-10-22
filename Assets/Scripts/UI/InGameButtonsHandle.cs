@@ -9,8 +9,9 @@ public class InGameButtonsHandle : ButtonHandle
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        AddEventTrigger(EventTriggerType.PointerEnter,(UnityAction<PointerEventData>)OnPointerEnter);
-        AddEventTrigger(EventTriggerType.PointerExit,(UnityAction<PointerEventData>)OnPointerExit);
+        base.Start();
+        AddEventTrigger(EventTriggerType.PointerEnter,OnPointerEnter);
+        AddEventTrigger(EventTriggerType.PointerExit,OnPointerExit);
     }
 
     public override void OnPointerEnter(PointerEventData pointerEventData)

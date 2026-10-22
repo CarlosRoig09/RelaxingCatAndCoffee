@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
             _cofees[i] = GameObjectLibrary.Instance.CofeePanel.transform.GetChild(i).gameObject;
         }
         _cofeesCount = 0;
-        ClickButton(EnumLibrary.ButtonType.Shift);
+        ClickButton(EnumLibrary.ButtonType.Shift,true);
         _firstTime= true;
         _pauseMenu = GameObject.Find("PausePanel");
         _pauseMenu.SetActive(false);
@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
     {
         if (_firstTime)
         {
-            ClickButton(EnumLibrary.ButtonType.Shift);
+            ClickButton(EnumLibrary.ButtonType.Shift,false);
             _firstTime = false;
         }
         _cofees[_cofeesCount].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
         _cofees[limit].GetComponent<TMP_Text>().text = count + "/" + maxCount;
     }
 
-    public void ClickButton(EnumLibrary.ButtonType buttonType)
+    public void ClickButton(EnumLibrary.ButtonType buttonType,bool selected)
     {
         GameObject[] buttonObject = new GameObject[0];
         switch(buttonType)
@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
         }
         foreach(var button in buttonObject)
         {
-            button?.GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+            button?.GetComponent<SpritesMethods>().ChangeToSpecificSprite(selected ? 1:0);
         }
     }
 

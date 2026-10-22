@@ -29,6 +29,7 @@ namespace personalLibrary
             OnScrollCancel,
             OnRightClick,
             OnLeftClick,
+            OnLeftClickCancelled,
             OnEscClick
         }
 

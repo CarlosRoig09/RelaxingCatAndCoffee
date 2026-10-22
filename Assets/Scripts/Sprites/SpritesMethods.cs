@@ -21,4 +21,9 @@ public class SpritesMethods : MonoBehaviour
             _spritescount = 0;
         }
     }
+
+    public void ChangeToSpecificSprite(int i)
+    {
+        GetComponent<SpriteRenderer>().sprite = _sprites[i];
+    }
 }

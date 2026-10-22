@@ -12,8 +12,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private Vector2 _catInitialPosition;
     [SerializeField]
     private InputActionAsset _actionAsset;
-    [SerializeField]
-    private InputActionAsset _mobileActionAsset;
     private InputAction _onMovement;
     private InputAction _onLeftClick;
     private InputAction _onRightClick;
@@ -74,8 +72,18 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             _onEscClick = _playerInput.actions["Pause"];
         }
         catch { Debug.LogError("ERROR: PlayerInput component is missing"); }
-        }
-    private void Start()
+    }
+
+    void OnEnable()
+    {
+        SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
+    }
+
+    void OnDisable()
+    {
+        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
+    }
+    void Start()
     {
         GameManager.Instance.OnStartGame += OnStartGame;
     }
@@ -201,154 +209,140 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         }
     }
 
-    void OnMovement(InputAction.CallbackContext context)
+    public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 direction = context.ReadValue<Vector2>().normalized;
         float directionX = direction.x;
-        if (directionX>0)
+        if (directionX==1)
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D,true);
         }
         else { 
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A,true);
             }
         _lastKeyValue = directionX;
         _catBehaivour.Movement(_lastKeyValue*Vector2.right);
     }
 
-    void OnMovementLeft()
+    public void OnMovementLeft()
     {
         float directionX = -1;
-         if (directionX>0)
-        {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
-        }
-        else { 
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
-            }
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A,true);
         _lastKeyValue = directionX;
         _catBehaivour.Movement(_lastKeyValue*Vector2.right);
     }
 
-    void OnMovementRight()
+    public void OnMovementRight()
     {
          float directionX = 1;
-         if (directionX>0)
-        {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
-        }
-        else { 
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
-            }
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D,true);
         _lastKeyValue = directionX;
         _catBehaivour.Movement(_lastKeyValue*Vector2.right);
     }
 
-    void OnTouchStartMovement(InputAction.CallbackContext context)
+    public void OnTouchStartMovement(InputAction.CallbackContext context)
     {
-        if (!_attacking)
+        Vector2 touchScreenPosition = _onMovement.ReadValue<Vector2>();
+        _touchPosition = Camera.main.ScreenToWorldPoint(touchScreenPosition);
+        if (Mathf.Abs(_touchPosition.x) < _xTouchScreenLimit && Mathf.Abs(_touchPosition.y) < _yTouchScreenLimit)
         {
-            Vector2 touchScreenPosition = _onMovement.ReadValue<Vector2>();
-            _touchPosition = Camera.main.ScreenToWorldPoint(touchScreenPosition);
-            if (Mathf.Abs(_touchPosition.x) < _xTouchScreenLimit && Mathf.Abs(_touchPosition.y) < _yTouchScreenLimit)
+
+            _lastKeyValue = _touchPosition.x > _catInitialPosition.x ? 1 : -1;
+            if (_lastKeyValue == 1)
             {
-                if (_touchPosition.x > 0)
-                {
-                    UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
-                }
-                else
-                {
-                    UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
-                }
-                _lastKeyValue = _touchPosition.x > _catInitialPosition.x ? 1 : -1;
-                _catBehaivour.Movement(_lastKeyValue * Vector2.right);
+                UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D,true);
             }
+            else
+            {
+                UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A,true);
+            }
+            _catBehaivour.Movement(_lastKeyValue * Vector2.right);
         }
     }
-    void OnMovementCancel(InputAction.CallbackContext context)
+    public void OnMovementCancel(InputAction.CallbackContext context)
     {
-        if (_lastKeyValue> 0)
+        if (_lastKeyValue==1)
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D,false);
         }
         else
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A,false);
         }
         _catBehaivour.StopMovement();
 
     }
 
-    void OnMovementCancel()
+    public void OnMovementCancel()
     {
-        if (_lastKeyValue> 0)
+        if (_lastKeyValue ==1)
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D,false);
         }
         else
         {
-            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A,false);
         }
         _catBehaivour.StopMovement();
     }
 
-    void OnRightClick(InputAction.CallbackContext context)
+    public void OnRightClick(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift,true);
         _gestionInventory.UseCofee();
     }
 
-    void OnShiftClick()
+    public void OnShiftClick()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift,true);
         _gestionInventory.UseCofee();
     }
 
-    void OnRightCanceled(InputAction.CallbackContext context)
+    public void OnRightCanceled(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift,false);
     }
 
-    void OnShiftCanceled()
+    public void OnShiftCanceled()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Shift,false);
     }
 
-    void OnLeftClick(InputAction.CallbackContext context)
+    public void OnLeftClick(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter,true);
             Debug.Log("LeftClick");
-            DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
+            DesubscribeEvents(new EnumLibrary.Inputs[] {EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel});
             _catBehaivour.Attack();
     }
-    void OnEnterClick()
+    public void OnEnterClick()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter,true);
         Debug.Log("LeftClick");
-        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
+        DesubscribeEvents(new EnumLibrary.Inputs[] {EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel });
         _catBehaivour.Attack();
     }
-    void OnLeftCanceled(InputAction.CallbackContext context)
+    public void OnLeftCanceled(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter,false);
     }
 
-    void OnEnterCancelled()
+    public void OnEnterCancelled()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Enter,false);
     }
 
-    void OnEscClick(InputAction.CallbackContext context)
+    public void OnEscClick(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,true);
         LevelManager.Instance.PauseGame();
         DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick,EnumLibrary.Inputs.OnLeftClick});
         _onEscClick.started += OnEscClickSecond;
     }
 
-    void OnEscButtonClick()
+    public void OnEscButtonClick()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,true);
         LevelManager.Instance.PauseGame();
         DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick });
         _pauseButton.onClickButtonStart.RemoveAllListeners();
@@ -359,25 +353,24 @@ public class InputController : MonoBehaviour, IWaitTheEvent
         }
     }
 
-    void OnEscClickSecond(InputAction.CallbackContext context)
+    public void OnEscClickSecond(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,false);
         _onLeftClick.canceled += OnLeftCanceled;
         LevelManager.Instance.ResumeGame();
         _onEscClick.started-= OnEscClickSecond;
         _onEscClick.canceled -= OnEscCanceled;
     }
-    void OnEscButtonClickSecond()
+    public void OnEscButtonClickSecond()
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,false);
         LevelManager.Instance.ResumeGame();
         _pauseButton.RemoveAllListeners();
-        _pauseButton.AddListener(OnEscButtonClick);
     }
 
-    void OnEscCanceled(InputAction.CallbackContext context)
+    public void OnEscCanceled(InputAction.CallbackContext context)
     {
-        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
+        UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,false);
     }
 
     public void MethodForEvent(object value)

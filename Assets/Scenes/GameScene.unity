@@ -2116,6 +2116,8 @@ GameObject:
   - component: {fileID: 609396684}
   - component: {fileID: 609396683}
   - component: {fileID: 609396682}
+  - component: {fileID: 609396686}
+  - component: {fileID: 609396685}
   m_Layer: 5
   m_Name: EscMeow
   m_TagString: Untagged
@@ -2226,6 +2228,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609396680}
   m_CullTransparentMesh: 1
+--- !u!114 &609396685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609396680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f59efdc566df4f499659f7cb9aae48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  eventTrigger: {fileID: 0}
+  onClickButtonStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickButtonCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &609396686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609396680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &632717924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,6 +2409,8 @@ GameObject:
   - component: {fileID: 657386645}
   - component: {fileID: 657386644}
   - component: {fileID: 657386643}
+  - component: {fileID: 657386647}
+  - component: {fileID: 657386646}
   m_Layer: 5
   m_Name: EnterMeow
   m_TagString: Untagged
@@ -2484,6 +2521,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657386641}
   m_CullTransparentMesh: 1
+--- !u!114 &657386646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657386641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f59efdc566df4f499659f7cb9aae48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  eventTrigger: {fileID: 0}
+  onClickButtonStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickButtonCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &657386647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657386641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &680734573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,6 +3510,8 @@ GameObject:
   - component: {fileID: 898684406}
   - component: {fileID: 898684405}
   - component: {fileID: 898684404}
+  - component: {fileID: 898684408}
+  - component: {fileID: 898684407}
   m_Layer: 5
   m_Name: MeowD
   m_TagString: Untagged
@@ -3550,6 +3622,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898684402}
   m_CullTransparentMesh: 1
+--- !u!114 &898684407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898684402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f59efdc566df4f499659f7cb9aae48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  eventTrigger: {fileID: 0}
+  onClickButtonStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickButtonCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &898684408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898684402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &971027434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,6 +3754,8 @@ GameObject:
   - component: {fileID: 979126020}
   - component: {fileID: 979126019}
   - component: {fileID: 979126018}
+  - component: {fileID: 979126022}
+  - component: {fileID: 979126021}
   m_Layer: 5
   m_Name: MeowA
   m_TagString: Untagged
@@ -3759,6 +3866,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979126016}
   m_CullTransparentMesh: 1
+--- !u!114 &979126021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979126016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f59efdc566df4f499659f7cb9aae48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  eventTrigger: {fileID: 0}
+  onClickButtonStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickButtonCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &979126022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979126016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1007022333
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,12 +4202,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionAsset: {fileID: -944628639613478452, guid: 4d096b45c88d20a4583aa1c2951dccf8, type: 3}
-  _mobileActionAsset: {fileID: -944628639613478452, guid: 4d096b45c88d20a4583aa1c2951dccf8, type: 3}
-  _attackButton: {fileID: 657386643}
-  _moveButtonA: {fileID: 979126018}
-  _moveButtonD: {fileID: 898684404}
-  _pauseButton: {fileID: 609396682}
-  _coffeeButton: {fileID: 1471645825}
+  _attackButton: {fileID: 657386646}
+  _moveButtonA: {fileID: 979126021}
+  _moveButtonD: {fileID: 898684407}
+  _pauseButton: {fileID: 609396685}
+  _coffeeButton: {fileID: 1471645828}
 --- !u!114 &1098390333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4081,7 +4220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4d096b45c88d20a4583aa1c2951dccf8, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -4092,7 +4231,39 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f03b3831-dd8d-4f16-bd88-ba25ca359990
+    m_ActionName: 'Cat/Movement[/Keyboard/a,/Keyboard/d,/Mouse/scroll/down,/Mouse/scroll/up]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d95193a4-7b95-4d60-a449-d5b854dc8f79
+    m_ActionName: 'Cat/Attack[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c63c038-b63b-4119-b13b-445ee6cfb362
+    m_ActionName: 'Cat/Drink[/Mouse/rightButton,/Keyboard/rightShift,/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 11f2ef2d-8bd4-44b3-904a-0c0c2c02a63d
+    m_ActionName: 'Cat/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c34167f-1daa-496d-aacd-f3c9054a7ec0
+    m_ActionName: Cat/StartMovement
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 124ca51a-df9f-435a-a1c7-8d0e05469ba4
+    m_ActionName: Cat/TouchAttack
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf654b76-5918-40ba-828b-7e29badc54cd
+    m_ActionName: Cat/TouchMove
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b61f831-c24d-4d56-94e6-3a03963fd3c0
+    m_ActionName: Cat/TouchStartMove
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Cat
@@ -5514,6 +5685,8 @@ GameObject:
   - component: {fileID: 1471645827}
   - component: {fileID: 1471645826}
   - component: {fileID: 1471645825}
+  - component: {fileID: 1471645829}
+  - component: {fileID: 1471645828}
   m_Layer: 5
   m_Name: ShiftMeow
   m_TagString: Untagged
@@ -5624,6 +5797,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471645823}
   m_CullTransparentMesh: 1
+--- !u!114 &1471645828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471645823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f59efdc566df4f499659f7cb9aae48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  eventTrigger: {fileID: 0}
+  onClickButtonStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickButtonCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1471645829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471645823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1001 &1476764905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8064,7 +8270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1877685166
 RectTransform:
   m_ObjectHideFlags: 0
