@@ -2316,7 +2316,6 @@ GameObject:
   - component: {fileID: 656937248}
   - component: {fileID: 656937250}
   - component: {fileID: 656937249}
-  - component: {fileID: 656937251}
   m_Layer: 5
   m_Name: CofePanel
   m_TagString: Cofee
@@ -2384,19 +2383,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656937247}
   m_CullTransparentMesh: 1
---- !u!114 &656937251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656937247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb57a32581e2ccb4ca4a2cd469cf706f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 2e5d5c4263d27464eb64d265d7a39f01, type: 2}
 --- !u!1 &657386641
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,6 +4026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1051929446}
+  - component: {fileID: 1051929447}
   m_Layer: 5
   m_Name: CoffeeCups
   m_TagString: Untagged
@@ -4069,6 +4056,19 @@ RectTransform:
   m_AnchoredPosition: {x: -14, y: 10.5}
   m_SizeDelta: {x: -28, y: -73}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1051929447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051929445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb57a32581e2ccb4ca4a2cd469cf706f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory: {fileID: 11400000, guid: 2e5d5c4263d27464eb64d265d7a39f01, type: 2}
 --- !u!1 &1067079361
 GameObject:
   m_ObjectHideFlags: 0
