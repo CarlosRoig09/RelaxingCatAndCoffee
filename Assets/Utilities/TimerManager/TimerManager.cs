@@ -21,7 +21,6 @@ public class TimerManager : AbstractSingleton<TimerManager>
      }
         Timer currentTimer = new Timer(time,timerType,onTimerStart,onTimerUpdate,onTimerComplete);
         _activeTimers.Add(currentTimer);
-        StartTimer(currentTimer);
       return currentTimer;   
     }
 
