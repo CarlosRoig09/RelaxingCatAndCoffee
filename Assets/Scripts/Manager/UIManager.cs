@@ -17,8 +17,8 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-    private GameObject[] _cofees;
-    public GameObject[] Cofees { get => _cofees; }
+    private GameObject[] _coffees;
+    public GameObject[] Cofees { get => _coffees; }
     private int _cofeesCount;
     public int CofesCount { get => _cofeesCount; }
     private bool _firstTime;
@@ -42,10 +42,10 @@ public class UIManager : MonoBehaviour
 
     void OnStartGame()
     {
-        _cofees = new GameObject[GameObjectLibrary.Instance.CofeePanel.transform.childCount];
-        for (int i = 0; i < _cofees.Length; i++)
+        _coffees = new GameObject[GameObjectLibrary.Instance.CofeePanel.transform.childCount];
+        for (int i = 0; i < _coffees.Length; i++)
         {
-            _cofees[i] = GameObjectLibrary.Instance.CofeePanel.transform.GetChild(i).gameObject;
+            _coffees[i] = GameObjectLibrary.Instance.CofeePanel.transform.GetChild(i).gameObject;
         }
         _cofeesCount = 0;
         ClickButton(EnumLibrary.ButtonType.Shift,true);
@@ -94,15 +94,15 @@ public class UIManager : MonoBehaviour
             ClickButton(EnumLibrary.ButtonType.Shift,false);
             _firstTime = false;
         }
-        _cofees[_cofeesCount].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
-        _cofees[_cofeesCount].GetComponent<Animator>().SetBool("Smoke", true);
+        _coffees[_cofeesCount].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+        _coffees[_cofeesCount].GetComponent<Animator>().SetBool("Smoke", true);
         _cofeesCount += 1;
     }
 
     public void RemoveCofeeHUD()
     {
-        _cofees[_cofeesCount-1].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
-        _cofees[_cofeesCount-1].GetComponent<Animator>().SetBool("Smoke", false);
+        _coffees[_cofeesCount-1].GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+        _coffees[_cofeesCount-1].GetComponent<Animator>().SetBool("Smoke", false);
         _cofeesCount -= 1;
     }
 
@@ -112,16 +112,16 @@ public class UIManager : MonoBehaviour
         switch (id)
         {
             case 0:
-                limit = _cofees.Length-2;
+                limit = _coffees.Length-2;
                 break;
             case 1:
-                limit = _cofees.Length-1;
+                limit = _coffees.Length-1;
                 break;
             default:
-                limit = _cofees.Length-2;
+                limit = _coffees.Length-2;
                 break;
         }
-        _cofees[limit].GetComponent<TMP_Text>().text = count + "/" + maxCount;
+        _coffees[limit].GetComponent<TMP_Text>().text = count + "/" + maxCount;
     }
 
     public void ClickButton(EnumLibrary.ButtonType buttonType,bool selected)

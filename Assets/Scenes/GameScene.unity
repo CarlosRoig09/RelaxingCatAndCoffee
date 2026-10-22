@@ -2721,7 +2721,7 @@ GameObject:
   - component: {fileID: 708291265}
   m_Layer: 5
   m_Name: Cofee1
-  m_TagString: Cofee
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
