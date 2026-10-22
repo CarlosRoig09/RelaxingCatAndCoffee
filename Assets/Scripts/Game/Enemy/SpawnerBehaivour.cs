@@ -11,6 +11,9 @@ public class SpawnerBehaivour : MonoBehaviour
     private GameObject[] _spawnPoints;
     private float _time;
     private float _maxTime;
+
+    [SerializeField]
+    private float speedUpY = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +53,7 @@ public class SpawnerBehaivour : MonoBehaviour
     {
         foreach (var blossom in blossoms)
         {
-            blossom.MaxSpeedY -= 0.1f;
+            blossom.MaxSpeedY -= speedUpY;
         }
     }
 

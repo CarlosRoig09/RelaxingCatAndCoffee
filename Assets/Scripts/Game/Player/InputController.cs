@@ -7,12 +7,11 @@ using Interfaces;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
-
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
     private static InputController _instance;
     private PlayerInput _playerInput;
-    private Vector3 _catInitialPosition;
+    private Vector2 _catInitialPosition;
     [SerializeField]
     private InputActionAsset _actionAsset;
     [SerializeField]
@@ -26,6 +25,10 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     private InputAction _onStartMovement;
     [SerializeField]
     private Button _attackButton;
+    [SerializeField]
+    private Button _moveButtonA;
+    [SerializeField]
+    private Button _moveButtonD;
     [SerializeField]
     private Button _pauseButton;
     [SerializeField]
@@ -106,13 +109,17 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                 case EnumLibrary.Inputs.OnLeftClick:
                     _onLeftClick.started += OnLeftClick;
                     _onLeftClick.canceled += OnLeftCanceled;
+                    _attackButton.onClick.AddListener(OnEnterClick);
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed+= OnRightClick;
                     _onRightClick.canceled += OnRightCanceled;
+                    _coffeeButton.onClick.AddListener(OnShiftClick);
                     break; 
                 case EnumLibrary.Inputs.OnScroll:
                     _onMovement.started += OnMovement;
+                    _moveButtonA.onClick.AddListener(OnMovementLeft);
+                    _moveButtonD.onClick.AddListener(OnMovementRight);
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onMovement.canceled += OnMovementCancel;
@@ -120,6 +127,7 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                 case EnumLibrary.Inputs.OnEscClick:
                     _onEscClick.started += OnEscClick;
                     _onEscClick.canceled += OnEscCanceled;
+                    _pauseButton.onClick.AddListener(OnEscButtonClick);
                     break;
                 default:
                     Debug.LogError("Error: This input doesn't exist");
@@ -141,6 +149,8 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                        break; 
                 case EnumLibrary.Inputs.OnScroll:
                     _onStartMovement.started += OnTouchStartMovement;
+                    _moveButtonA.onClick.AddListener(OnMovementLeft);
+                    _moveButtonD.onClick.AddListener(OnMovementRight);
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onStartMovement.canceled += OnMovementCancel;
@@ -165,12 +175,16 @@ public class InputController : MonoBehaviour, IWaitTheEvent
             {
                 case EnumLibrary.Inputs.OnLeftClick:
                     _onLeftClick.started -= OnLeftClick;
+                    _attackButton.onClick.RemoveAllListeners();
                     break;
                 case EnumLibrary.Inputs.OnRightClick:
                     _onRightClick.performed -= OnRightClick;
+                    _coffeeButton.onClick.RemoveAllListeners();
                     break;
                 case EnumLibrary.Inputs.OnScroll:
                     _onMovement.started -= OnMovement;
+                    _moveButtonA.onClick.RemoveAllListeners();
+                    _moveButtonD.onClick.RemoveAllListeners();
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onMovement.canceled -= OnMovementCancel;
@@ -198,6 +212,8 @@ public class InputController : MonoBehaviour, IWaitTheEvent
                     break;
                 case EnumLibrary.Inputs.OnScroll:
                     _onStartMovement.started -= OnTouchStartMovement;
+                    _moveButtonA.onClick.RemoveAllListeners();
+                    _moveButtonD.onClick.RemoveAllListeners();
                     break;
                 case EnumLibrary.Inputs.OnScrollCancel:
                     _onStartMovement.canceled -= OnMovementCancel;
@@ -215,16 +231,44 @@ public class InputController : MonoBehaviour, IWaitTheEvent
 
     void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<Vector2>().x>0)
+        Vector2 direction = context.ReadValue<Vector2>().normalized;
+        float directionX = direction.x;
+        if (directionX>0)
         {
             UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
         }
         else { 
             UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
             }
-        Vector3 screenToWorlPosition = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
-        _lastKeyValue = screenToWorlPosition.x>_catInitialPosition.x ? 1:-1;
-        
+        _lastKeyValue = directionX;
+        _catBehaivour.Movement(_lastKeyValue*Vector2.right);
+    }
+
+    void OnMovementLeft()
+    {
+        float directionX = -1;
+         if (directionX>0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else { 
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            }
+        _lastKeyValue = directionX;
+        _catBehaivour.Movement(_lastKeyValue*Vector2.right);
+    }
+
+    void OnMovementRight()
+    {
+         float directionX = 1;
+         if (directionX>0)
+        {
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.D);
+        }
+        else { 
+            UIManager.Instance.ClickButton(EnumLibrary.ButtonType.A);
+            }
+        _lastKeyValue = directionX;
         _catBehaivour.Movement(_lastKeyValue*Vector2.right);
     }
 
@@ -304,21 +348,21 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
         LevelManager.Instance.PauseGame();
-        _onEscClick.canceled += OnEscCanceled;
         DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick,EnumLibrary.Inputs.OnLeftClick});
-        _onLeftClick.canceled -= OnLeftCanceled;
         _onEscClick.started += OnEscClickSecond;
-        _onLeftClick.canceled -= OnLeftCanceled;
     }
 
     void OnEscButtonClick()
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc);
         LevelManager.Instance.PauseGame();
-        //_onEscClick.canceled += OnEscCanceled;
         DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick });
         _pauseButton.onClick.RemoveAllListeners();
         _pauseButton.onClick.AddListener(OnEscButtonClickSecond);
+        if (!_isOnMobile)
+        {
+            _onEscClick.started += OnEscClickSecond;
+        }
     }
 
     void OnEscClickSecond(InputAction.CallbackContext context)
