@@ -18,6 +18,8 @@ public class BBApplication : MonoBehaviour
              return RuntimePlatform.OSXPlayer;
 #elif UNITY_STANDALONE_WIN
             return RuntimePlatform.WindowsPlayer;
+#elif UNITY_STANDALONE_LINUX
+            return RuntimePlatform.LinuxPlayer;
 #endif
         }
     }
