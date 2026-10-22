@@ -38,7 +38,7 @@ public class BlossomBehaivour : MonoBehaviour
     private void Movement()
     {
         _rb2D.linearVelocity = new Vector2(_rb2D.linearVelocity.x + BlossomData.MaxSpeedX * _sentido * Time.deltaTime, (_parabolaEquation[0] * Mathf.Pow(_rb2D.linearVelocity.x, 2) + _parabolaEquation[1] * _rb2D.linearVelocity.x + _parabolaEquation[2]));
-        if (_rb2D.linearVelocity.x >= BlossomData.MaxSpeedX || _rb2D.linearVelocity.x <= BlossomData.MaxSpeedX * -1)
+        if (_rb2D.linearVelocity.x >= BlossomData.MaxSpeedX)
         {
             _sentido = -1;
             StopVertically();

@@ -52,6 +52,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     [SerializeField]
     private float _maxForce;
 
+
     public event IHaveTheEvent.IHaveTheEvent IHTEvent;
 
     public EnumLibrary.TypeOfEvent Type { get => EnumLibrary.TypeOfEvent.AttackFinish; set => throw new System.NotImplementedException(); }

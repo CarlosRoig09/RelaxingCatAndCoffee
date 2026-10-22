@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
         }
         foreach(var button in buttonObject)
         {
-            button.GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
+            button?.GetComponent<SpritesMethods>().ChangeSpriteToTheNextOne();
         }
     }
 
