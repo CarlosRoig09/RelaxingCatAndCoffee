@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using personalLibrary;
 using Interfaces;
 using UnityEngine.UI;
-using TimerSystem;
 using NUnit.Framework;
 public class InputController : MonoBehaviour, IWaitTheEvent
 {
