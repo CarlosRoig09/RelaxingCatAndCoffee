@@ -21,6 +21,10 @@ public class EndScreenBehaivour : MonoBehaviour
     {
         if (collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
+            if (blossomBehaivour.BlossomData.Name == "Negative")
+            {
+                AudioManager.instance.Play("obtainedBlossom");
+            }
             StartCoroutine(LevelManager.Instance.StopTillTime(0.5f,new System.Func<object, object>[] {SendPuntuation,SendEnergy, blossomBehaivour.Destroy},new object[] { blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Negative), blossomBehaivour.LoseEnergy(),null}));
         }
     }
