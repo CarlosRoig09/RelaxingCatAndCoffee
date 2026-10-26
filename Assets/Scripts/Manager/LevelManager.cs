@@ -24,6 +24,8 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
  
     [SerializeField]
     private GameObject _coffeeBean;
+
+    private bool _isPaused = false;
     public static LevelManager Instance
     {
         get
@@ -61,14 +63,32 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         _spawnerBehaivour = GameObject.Find("Spawner").GetComponent<SpawnerBehaivour>();
     }
 
+    void OnEnable()
+    {
+         if (_isPaused)
+        {
+            ResumeGame();
+        }
+    }
+
+    void OnDisable()
+    {
+        if (_isPaused)
+        {
+            ResumeGame();
+        }
+    }
+
     public void PauseGame()
     {
+        _isPaused = true;
         UIManager.Instance.PauseMenu();
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
+        _isPaused = false;
         GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick });
         UIManager.Instance.ClosePause();
         Time.timeScale = 1;
