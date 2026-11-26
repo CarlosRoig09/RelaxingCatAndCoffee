@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     private bool _firstTime;
     private GameObject _pauseMenu;
     private GameObject _settingPopUp;
+    private GameObject _tutorialPanel;
     private void Awake()
     {
         if (_instance != null)
@@ -69,6 +70,11 @@ public class UIManager : MonoBehaviour
     public void ShowSettingsPopUp()
     {
         _settingPopUp.SetActive(true);
+    }
+
+    public void ShowTutorislPopUp()
+    {
+
     }
 
     public void ModifyPunHUD(int puntuation)

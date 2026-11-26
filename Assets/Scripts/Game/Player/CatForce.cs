@@ -86,7 +86,7 @@ public class CatForce : MonoBehaviour
     {
         if (collision.TryGetComponent<BlossomBehaivour>(out var blossomBehaivour))
         {
-            blossomBehaivour.StopAllForce(WaitBlossomTime);
+            blossomBehaivour.StopMovement(WaitBlossomTime);
             var vectorDistance = Mathf.Sqrt(Mathf.Pow(blossomBehaivour.transform.position.x - transform.position.x, 2) + Mathf.Pow(blossomBehaivour.transform.position.y - transform.position.y, 2));
             float potencia;
             if (vectorDistance < MinVectorDistance)
