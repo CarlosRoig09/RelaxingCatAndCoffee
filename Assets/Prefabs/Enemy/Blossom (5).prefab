@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4365370125793198598}
   - component: {fileID: 4365370125793198599}
   - component: {fileID: 4365370125793198596}
+  - component: {fileID: -3698697871660968147}
   m_Layer: 6
   m_Name: Blossom (5)
   m_TagString: Untagged
@@ -178,3 +179,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.3626726, y: 2.2130198}
   m_EdgeRadius: 0
+--- !u!114 &-3698697871660968147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365370125793198595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6f300d407acdd589175891cf8aa39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbodyToPause: {fileID: 0}

@@ -4,15 +4,16 @@ using Utilities.Managers.PauseSystem;
 
 public class PhysicsPausable : MonoBehaviour, IPausable
 {
-    [SerializeField] private Rigidbody rigidbodyToPause;
+    [SerializeField] private Rigidbody2D rigidbodyToPause;
     private Vector3 _originalVelocity;
-    private Vector3 _originalAngularVelocity;
+    private float _originalAngularVelocity;
+    private RigidbodyType2D _beforePauseRigidbodyType;
     bool _wasKinematic;
     void Start()
     {
         if (!rigidbodyToPause)
         {
-            rigidbodyToPause = GetComponentInChildren<Rigidbody>();
+            rigidbodyToPause = GetComponentInChildren<Rigidbody2D>();
         }
 
         PauseManager.Instance.RegisterPausable(this);
@@ -29,15 +30,15 @@ public class PhysicsPausable : MonoBehaviour, IPausable
         _originalVelocity = rigidbodyToPause.linearVelocity;
         _originalAngularVelocity = rigidbodyToPause.angularVelocity;
         rigidbodyToPause.linearVelocity = Vector3.zero;
-        rigidbodyToPause.angularVelocity = Vector3.zero;
-        _wasKinematic = rigidbodyToPause.isKinematic;
-        rigidbodyToPause.isKinematic = true;
+        rigidbodyToPause.angularVelocity = 0;
+        _beforePauseRigidbodyType = rigidbodyToPause.bodyType;
+        rigidbodyToPause.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public void OnResume()
     {
         if (rigidbodyToPause == null){ return;}
-        rigidbodyToPause.isKinematic = _wasKinematic; 
+        rigidbodyToPause.bodyType = _beforePauseRigidbodyType;
         rigidbodyToPause.linearVelocity = _originalVelocity;
         rigidbodyToPause.angularVelocity = _originalAngularVelocity;
 

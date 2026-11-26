@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 978252621803486375}
   - component: {fileID: 978252621803486372}
   - component: {fileID: 8857282976543416749}
+  - component: {fileID: -5583049535325250410}
   m_Layer: 6
   m_Name: Blossom (2)
   m_TagString: Untagged
@@ -201,3 +202,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5583049535325250410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978252621803486371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6f300d407acdd589175891cf8aa39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbodyToPause: {fileID: 0}
