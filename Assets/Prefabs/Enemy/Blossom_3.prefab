@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1025281957774736200}
   - component: {fileID: -6917363964441352297}
   m_Layer: 6
-  m_Name: Blossom (4)
+  m_Name: Blossom_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bde39cec8dd3e46b142879232cc61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blossomData: {fileID: 0}
+  _blossomData: {fileID: 11400000, guid: 005fcc0e4d341294cb65fc2f0b441af9, type: 2}
+  pooltype: 0
   _elevation: 0
   _timeStoped: 0.7
 --- !u!50 &1025281957774736203
@@ -191,4 +192,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6f300d407acdd589175891cf8aa39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyToPause: {fileID: 0}
+  rigidbodyToPause: {fileID: 1025281957774736203}

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa86ad8183a01cb41b7e59b696ecbf52, type: 3}
-  m_Name: BlossomData
+  m_Name: BlossomData_1
   m_EditorClassIdentifier: 
-  Name: Special
-  BlossomGameObject: {fileID: 4365370125793198595, guid: 278f67fd64c0b8b4bb5e5f26b1b95dec, type: 3}
-  PositivePuntuation: 30
-  NegativePuntuation: -10
-  EnergyLose: -40
+  Name: 
+  BlossomGameObject: {fileID: 978252621803486371, guid: bd643e39e7e3636489825bbf9e306e56, type: 3}
+  PositivePuntuation: 10
+  NegativePuntuation: -6
+  EnergyLose: -20
   BaseMaxSppeedY: 0
-  MaxSpeedX: 5
-  MaxSpeedY: -1
-  BaseMaxSpeedY: -1
-  SpawnPercentage: 20
+  MaxSpeedX: 2
+  MaxSpeedY: -0.7
+  BaseMaxSpeedY: -0.7
+  SpawnPercentage: 90

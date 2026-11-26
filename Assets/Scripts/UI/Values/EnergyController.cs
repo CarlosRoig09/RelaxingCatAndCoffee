@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
-public class EnergyController : MonoBehaviour, IModificableValue
+public class EnergyController : ModificableValue
 {
     [SerializeField]
     private int _maxEnergy;
@@ -12,7 +12,7 @@ public class EnergyController : MonoBehaviour, IModificableValue
     // Start is called before the first frame update
     void Start()
     {
-        Value= _maxEnergy;
+        Value = _maxEnergy;
     }
 
     public bool IsEnergyExahusted()

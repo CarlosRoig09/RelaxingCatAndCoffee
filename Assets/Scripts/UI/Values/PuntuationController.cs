@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
 
-public class PuntuationController : MonoBehaviour, IModificableValue
+public class PuntuationController : ModificableValue
 {
     [SerializeField]
     private int _puntuation;

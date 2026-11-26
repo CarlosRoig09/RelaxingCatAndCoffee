@@ -1,18 +1,31 @@
 using personalLibrary;
 using System.Collections;
 using TimerSystem;
+using Unity.VisualScripting;
 using UnityEngine;
+using Utilities;
 using Utilities.Managers.PauseSystem;
 
-public class BlossomBehaivour : MonoBehaviour, IPausable
+public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
 {
     [SerializeField]
     private BlossomData _blossomData;
     public BlossomData BlossomData { get { return _blossomData; } set { _blossomData = value; } }
+
+    public float MaxSpeedY { get => _maxSpeedY; set { _maxSpeedY = value; } }
+
+    private float _maxSpeedY;
     private Rigidbody2D _rb2D;
     public Rigidbody2D Rb2D { get { return _rb2D; } }
+
+    public Pooltype Pooltype { get => pooltype; set => pooltype = value; }
+    [SerializeField]
+    private Pooltype pooltype = Pooltype.Blossom_1;
+    public bool InitValues => true;
+
     private int _sentido;
     private bool _stop;
+    private bool _paused = false;
     [SerializeField]
     private float _elevation;
     [SerializeField]
@@ -21,18 +34,20 @@ public class BlossomBehaivour : MonoBehaviour, IPausable
 
     private const float CHANGE_LAYER_TIME = 0.5f;
     // Start is called before the first frame update
-    void Start()
+    public void InitializeValues()
     {
         _rb2D = GetComponent<Rigidbody2D>();
-        _sentido = 1;
-        _stop = false;
-        _parabolaEquation = CalculteParabolaEcuation(new float[] { 0, BlossomData.MaxSpeedY }, new float[] { BlossomData.MaxSpeedX, 0 });
+        _maxSpeedY = BlossomData.MaxSpeedY;
     }
 
+    void Start()
+    {
+        PauseManager.Instance.RegisterPausable(this);
+    }
     // Update is called once per frame
     void Update()
     {
-        if (!_stop)
+        if (!_stop&&!_paused)
         {
             Movement();
         }
@@ -121,20 +136,30 @@ public class BlossomBehaivour : MonoBehaviour, IPausable
         return BlossomData.EnergyLose;
     }
 
-    //Why destroy needs an object. Change it to object pull
-    public object Destroy(object nothing)
+    public void OnStartUsing()
     {
-        Destroy(gameObject, 0.1f);
-        return null;
+        _sentido = 1;
+        _stop = false;
+        _parabolaEquation = CalculteParabolaEcuation(new float[] { 0, _maxSpeedY }, new float[] { BlossomData.MaxSpeedX, 0 });
+    }
+
+    public void OnStopUsing()
+    {
+        _stop = true;
     }
 
     public void OnPause()
     {
-        throw new System.NotImplementedException();
+       _paused = true;
     }
 
     public void OnResume()
     {
-        throw new System.NotImplementedException();
+        _paused = false;
+    }
+
+    private void OnDestroy()
+    {
+      PauseManager.Instance.UnregisterPausable(this);
     }
 }

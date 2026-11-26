@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
 using System;
+using Utilities.Managers.PauseSystem;
+using TimerSystem;
+using Utilities;
 
 public class LevelManager : MonoBehaviour, IWaitTheEvent
 {
@@ -11,10 +14,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private EnergyController _enC;
     [SerializeField]
     private int _maxEnergyValue;
-    [SerializeField]
-    private PercentagesAndTime _pAndTime;
     private static LevelManager _instance;
-    private BlossomData _specialBlossom;
     private CatAnimationController _catAnimationController;
     private SpawnerBehaivour _spawnerBehaivour;
     [SerializeField]
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     {
          if (_isPaused)
         {
-            ResumeGame();
+            ResumeGame(true);
         }
     }
 
@@ -75,23 +75,26 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     {
         if (_isPaused)
         {
-            ResumeGame();
+            ResumeGame(true);
         }
     }
 
-    public void PauseGame()
+    public void PauseGame(bool activeUI = true)
     {
         _isPaused = true;
-        UIManager.Instance.PauseMenu();
-        Time.timeScale = 0;
+        GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
+        if(activeUI)
+            UIManager.Instance.PauseMenu();
+        PauseManager.Instance.PauseGame();
     }
 
-    public void ResumeGame()
+    public void ResumeGame(bool desactivateUI = true)
     {
         _isPaused = false;
         GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick });
-        UIManager.Instance.ClosePause();
-        Time.timeScale = 1;
+        if(desactivateUI)
+            UIManager.Instance.ClosePause();
+        PauseManager.Instance.ResumeGame();
     }
 
     public void DelayGame(float delay)
@@ -101,22 +104,21 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
 
 
 
-    public IEnumerator StopTillTime(float time, Func<object, object>[] functions, object[] args)
+    public void OnEndScreenReach(float time, BlossomBehaivour blossomBehaivour, int puntuation, int energy)
     {
-        GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(time);
-        Time.timeScale = 1;
-        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick});
-        for (int i = 0; i < functions.Length; i++)
+        PauseGame(false);
+        TimerManager.Instance.CreateTimer(time, onTimerComplete: () =>
         {
-            functions[i](args[i]);
-        }
+            ModifyEnergy(energy);
+            ModifyPuntuation(puntuation);
+            ObjectPoolManager.Instance.DesactivatePooledObject(blossomBehaivour, blossomBehaivour.gameObject);
+            ResumeGame(false);
+        });
     }
 
 
 
-    public void NotifyHitToThePlayer(float mod)
+    private void NotifyHitToThePlayer(float mod)
     {
         if (mod < 0)
         {
@@ -136,73 +138,20 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         yield return new WaitForSeconds(time);
         _catAnimationController.ChangeLayer(layer, weight);
     }
-
-    public void GetSpecialBlossom(BlossomData blossomData)
-    {
-        _specialBlossom = blossomData;
-    }
     public float SpawnTimeByPun()
     {
-        _specialBlossom.SpawnPercentage = 20;
-
-        int iteration = 0;
-        float comparePuntuation = _punC.Value / _punDifDividing;
-        int[] marge = _difFaseQuotient;
-
-        bool endFor = false;
-        _spawnerBehaivour.RecoverBaseSpeed();
-        for (int i = 1; i < marge.Length && !endFor; i++)
-        {
-            if (comparePuntuation >= marge[i])
-            {
-                if (marge[i] == marge[^1])
-                {
-                    iteration += i;
-                    _specialBlossom.SpawnPercentage += 50;
-                    for (int y = 0; y < i; y++)
-                    {
-                        _spawnerBehaivour.SpeedUp();
-                    }
-                }
-                else if (comparePuntuation < marge[i + 1])
-                {
-                    iteration += i;
-                    _specialBlossom.SpawnPercentage += 10;
-                    endFor = true;
-                    for (int y = 0; y < i; y++)
-                    {
-                        _spawnerBehaivour.SpeedUp();
-                    }
-                }
-            }
-
-        }
-        var orderedPercentagesAndTime = CurrenOrderByIterations(iteration);
-        return orderedPercentagesAndTime.Time[RandomMethods.ReturnARandomObject(orderedPercentagesAndTime.Percentages.ToArray(), 0, orderedPercentagesAndTime.Percentages.Count, 0)];
+        return 0;
     }
 
-    private PercentagesAndTime CurrenOrderByIterations(int iterations)
+    public float SpeedIncreaseByPun()
     {
-        var clonePAndTime = Instantiate(_pAndTime);
-        for (int i = clonePAndTime.Percentages.Count - (iterations + 1); i < clonePAndTime.Percentages.Count; i++)
-        {
-            for (int y = i + 1; y < clonePAndTime.Percentages.Count; y++)
-            {
-                if (clonePAndTime.Percentages[i] < clonePAndTime.Percentages[y])
-                {
-                    (clonePAndTime.Percentages[i], clonePAndTime.Percentages[y]) = (clonePAndTime.Percentages[y], clonePAndTime.Percentages[i]);
-                }
-                else
-                    return clonePAndTime;
-            }
-        }
-        return clonePAndTime;
+        return 0;
     }
 
     public void ModifyEnergy(int modEn)
     {
         NotifyHitToThePlayer(modEn);
-        ((IModificableValue)_enC).ModifyValue(modEn);
+        _enC.ModifyValue(modEn);
         UIManager.Instance.ModifyEnergyHUD(_enC.Value);
         if (_enC.IsEnergyExahusted())
         {
@@ -212,7 +161,7 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
 
     public void ModifyPuntuation(int modPun)
     {
-        ((IModificableValue)_punC).ModifyValue(modPun);
+        _punC.ModifyValue(modPun);
         _punC.IsPuntuationBelow0();
         UIManager.Instance.ModifyPunHUD(_punC.Value);
     }

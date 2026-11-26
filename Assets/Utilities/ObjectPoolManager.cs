@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using personalLibrary;
 using UnityEngine;
 
 namespace Utilities
@@ -83,7 +84,7 @@ namespace Utilities
             return gameObjectsPooled;
         }
 
-        public GameObject GivePooledObject(Pooltype pooltype, Vector3? position = null)
+        public GameObject GivePooledObject(Pooltype pooltype, Vector2? position = null)
         {
             var objectPool = FindObjectPoolInList(pooltype);
             if (objectPool != null)
@@ -98,9 +99,10 @@ namespace Utilities
                         {
                             if (position != null)
                             {
-                                objectPooled.transform.position = (Vector3)position;
+                                objectPooled.transform.position = (Vector2)position;
                             }
                             objectPooled.SetActive(true);
+                            IpooledObject.OnStartUsing();
                             return objectPooled;
                         }
                     }
@@ -109,20 +111,26 @@ namespace Utilities
             return null;
         }
 
-        public T GivePooledObjectOfType<T>(Pooltype pooltype) where T : IPooledObject
+        public T GivePooledObjectOfType<T>(Pooltype pooltype, Vector2? position = null) where T : IPooledObject
         {
             var objectPool = FindObjectPoolInList(pooltype);
             if (objectPool != null)
             {
                 if (!objectPool.IsNextObjectActive())
                 {
+
                     objectPool.NextIndex();
                     GameObject objectPooled = objectPool.GetCurrentObject(out var IpooledObject);
                     if (IpooledObject != null)
                     {
                         if (!objectPooled.activeSelf)
                         {
+                            if (position != null)
+                            {
+                                objectPooled.transform.position = (Vector3)position;
+                            }
                             objectPooled.SetActive(true);
+                            IpooledObject.OnStartUsing();
                             return (T)IpooledObject;
                         }
                     }
@@ -130,6 +138,8 @@ namespace Utilities
             }
             return default;
         }
+
+         
 
         public List<GameObject> GiveAllMyPooledObjects(Pooltype pooltype)
         {
@@ -140,11 +150,46 @@ namespace Utilities
             return null;
         }
 
+        public T GiveAPooledObjectFromARandomList<T>(Vector2? position = null) where T : IPooledObject
+        {
+            float[] poolPercentage = new float[poolSOList.Count];
+            for (int i = 0; i < poolPercentage.Length; i++)
+            {
+                poolPercentage[i] = poolSOList[i].spawnRate;
+            }
+            Pooltype randomPoolType = poolSOList[RandomMethods.ReturnARandomObject(poolPercentage, 0, poolSOList.Count, 0)].pooltype;
+            var objectPool = FindObjectPoolInList(randomPoolType);
+            if (objectPool != null)
+            {
+                if (!objectPool.IsNextObjectActive())
+                {
+
+                    objectPool.NextIndex();
+                    GameObject objectPooled = objectPool.GetCurrentObject(out var IpooledObject);
+                    if (IpooledObject != null)
+                    {
+                        if (!objectPooled.activeSelf)
+                        {
+                            if (position != null)
+                            {
+                                objectPooled.transform.position = (Vector3)position;
+                            }
+                            objectPooled.SetActive(true);
+                            IpooledObject.OnStartUsing();
+                            return (T)IpooledObject;
+                        }
+                    }
+                }
+            }
+            return default;
+        }
+
         public void DesactivatePooledObject(IPooledObject pooledObject,GameObject instance)
         {
             ObjectPool objectPool = FindObjectPoolInList(pooledObject.Pooltype);
                 if (objectPool.IsIntheList(instance))
                 {
+                    pooledObject.OnStopUsing();
                     instance.SetActive(false);
                 }
         }

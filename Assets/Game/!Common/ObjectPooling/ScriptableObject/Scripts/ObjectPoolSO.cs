@@ -10,5 +10,6 @@ namespace Utilities
         public GameObject prefab;
         public GameObject[] prefabVariants;
         public int poolNum;
+        public float spawnRate;
     }
 }

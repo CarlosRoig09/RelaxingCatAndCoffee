@@ -13,7 +13,7 @@ public class TimerManager : AbstractSingleton<TimerManager>
        UpdateTimers(Time.deltaTime);
     }
 
-    public Timer CreateTimer(float time, TimerType timerType = TimerType.Descend, Action onTimerStart = null, Action<float> onTimerUpdate = null, Action onTimerComplete = null)
+    public Timer CreateTimer(float time, bool startOnCreate = true, TimerType timerType = TimerType.Descend, Action onTimerStart = null, Action<float> onTimerUpdate = null, Action onTimerComplete = null)
     {
      if(time<0){
         Debug.LogError("The time value given was negative and time can't be negative.");
@@ -21,6 +21,7 @@ public class TimerManager : AbstractSingleton<TimerManager>
      }
         Timer currentTimer = new Timer(time,timerType,onTimerStart,onTimerUpdate,onTimerComplete);
         _activeTimers.Add(currentTimer);
+        if(startOnCreate)
             StartTimer(currentTimer);
       return currentTimer;   
     }

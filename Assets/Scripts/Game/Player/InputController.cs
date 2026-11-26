@@ -343,7 +343,6 @@ public class InputController : MonoBehaviour, IWaitTheEvent
     {
         UIManager.Instance.ClickButton(EnumLibrary.ButtonType.Esc,true);
         LevelManager.Instance.PauseGame();
-        DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnLeftClick });
         _pauseButton.onClickButtonStart.RemoveAllListeners();
         _pauseButton.onClickButtonStart.AddListener(OnEscButtonClickSecond);
         if (!_isOnMobile)

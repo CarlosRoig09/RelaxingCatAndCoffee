@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using personalLibrary;
+using TimerSystem;
+using Utilities;
 
 public class SpawnerBehaivour : MonoBehaviour
 {
-    [SerializeField]
-    private BlossomData[] blossoms;
     [SerializeField]
     private GameObject[] _spawnPoints;
     private float _time;
@@ -14,65 +14,52 @@ public class SpawnerBehaivour : MonoBehaviour
 
     [SerializeField]
     private float speedUpY = 0.2f;
+    private Timer _spawnTimer;
     // Start is called before the first frame update
     void Start()
     {
-        _time = 0;
         _maxTime = 0;
-        RecoverBaseSpeed();
-        foreach (var specialBlossom in blossoms)
-        {
-            if (specialBlossom.Name == "Special")
-            {
-                specialBlossom.SpawnPercentage = 10;
-                LevelManager.Instance.GetSpecialBlossom(specialBlossom);
-            }
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_time >= _maxTime)
+        if (_spawnTimer == null)
         {
-            SpawnBlossom(BlossomRandomizer());
+            _spawnTimer = TimerManager.Instance.CreateTimer(_maxTime, onTimerComplete: () =>
+            {
+                SpawnBlossom();
+                _spawnTimer = null;
+            });
         }
-        else
-            _time += Time.deltaTime;
     }
-    private void SpawnBlossom(BlossomData blossom)
+    private void SpawnBlossom()
     {
-        GameObject gameObject = Instantiate(blossom.BlossomGameObject, new Vector3(Random.Range(_spawnPoints[0].transform.position.x, _spawnPoints[1].transform.position.x), _spawnPoints[0].transform.position.y), Quaternion.identity);
-        gameObject.GetComponent<BlossomBehaivour>().BlossomData = Instantiate(blossom);
-        _time = 0;
+       BlossomBehaivour blossomBehaivour = ObjectPoolManager.Instance.GiveAPooledObjectFromARandomList<BlossomBehaivour>(RandomSpawnPosition());
+       
         _maxTime = LevelManager.Instance.SpawnTimeByPun();
         Debug.Log("Max Time: " + _maxTime);
     }
 
-    public void SpeedUp()
+    private Vector2? RandomSpawnPosition()
     {
-        foreach (var blossom in blossoms)
-        {
-            blossom.MaxSpeedY -= speedUpY;
-        }
+        return new Vector3(Random.Range(_spawnPoints[0].transform.position.x, _spawnPoints[1].transform.position.x), _spawnPoints[0].transform.position.y);
     }
 
+    //public void SpeedUp()
+    //{
+    //    foreach (var blossom in blossoms)
+    //    {
+    //        blossom.MaxSpeedY -= speedUpY;
+    //    }
+    //}
 
-    public void RecoverBaseSpeed()
-    {
-        foreach (var blossom in blossoms)
-        {
-            blossom.MaxSpeedY = blossom.BaseMaxSpeedY;
-        }
-    }
 
-    private BlossomData BlossomRandomizer()
-    {
-        float[] BlossomPercentages = new float[blossoms.Length];
-        for (int i = 0; i < BlossomPercentages.Length; i++)
-        {
-            BlossomPercentages[i] = blossoms[i].SpawnPercentage;
-        }
-        return blossoms[RandomMethods.ReturnARandomObject(BlossomPercentages, 0, blossoms.Length, 0)];
-    }
+    //public void RecoverBaseSpeed()
+    //{
+    //    foreach (var blossom in blossoms)
+    //    {
+    //        blossom.MaxSpeedY = blossom.BaseMaxSpeedY;
+    //    }
+    //}
 }

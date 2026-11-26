@@ -5,35 +5,13 @@ using UnityEngine;
 
 public class EndScreenBehaivour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private const float END_SCREEN_TIME = 0.5f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out BlossomBehaivour blossomBehaivour))
         {
-            StartCoroutine(LevelManager.Instance.StopTillTime(0.5f,new System.Func<object, object>[] {SendPuntuation,SendEnergy, blossomBehaivour.Destroy},new object[] { blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Negative), blossomBehaivour.LoseEnergy(),null}));
+            LevelManager.Instance.OnEndScreenReach(END_SCREEN_TIME, blossomBehaivour, blossomBehaivour.GivePuntuation(EnumLibrary.PunType.Negative),blossomBehaivour.LoseEnergy());
         }
-    }
-
-    private object SendPuntuation(object pun)
-    {
-        LevelManager.Instance.ModifyPuntuation((int)pun);
-        return null;
-    }
-
-    private object SendEnergy(object energy)
-    {
-        LevelManager.Instance.ModifyEnergy((int)energy);
-        return null;
     }
 }

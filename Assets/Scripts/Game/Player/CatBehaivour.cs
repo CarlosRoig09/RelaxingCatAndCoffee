@@ -24,7 +24,8 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
     [Header("CatAttack")]
 
     [SerializeField]
-    private GameObject _catAttack;
+    private CatForce _catAttack;
+
     [SerializeField]
     private float _amountToScaleX;
     [SerializeField]
@@ -64,6 +65,7 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
         _reduceSpeed = false;
         _catAnimCon= GetComponent<CatAnimationController>();
         _catSpriteRenderer = GetComponent<SpriteRenderer>();
+        _catAttack.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -118,21 +120,21 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
 
     public void SpawnExplosion()
     {
-      if(Instantiate(_catAttack, transform.GetChild(0).transform)
-            .TryGetComponent<CatForce>(out var catForceScript))
+      if(_catAttack!=null)
         {
-            catForceScript.AmountToScaleX = _amountToScaleX;
-            catForceScript.AmountToScaleY = _amountToScaleY;
-            catForceScript.WaitTimeTillDestroy = _waiTimeTillDestroy;
-            catForceScript.WaitBlossomTime = _waitBlossomTime;
-            catForceScript.MinVectorDistance = _minVectorDistance;
-            catForceScript.MediumVectorDistance = _mediumVectorDistance;
-            catForceScript.MaxVectorDistance = _maxVectorDistance;
-            catForceScript.MinStrenght = _minStrenght;
-            catForceScript.MaxStrenght = _maxStrenght;
-            catForceScript.MediumStrenght = _mediumStrenght;
-            catForceScript.BeforeMinStrenght = _beforeMinStrenght;
-            catForceScript.MaxForce = _maxForce;
+            _catAttack.AmountToScaleX = _amountToScaleX;
+            _catAttack.AmountToScaleY = _amountToScaleY;
+            _catAttack.WaitTimeTillDestroy = _waiTimeTillDestroy;
+            _catAttack.WaitBlossomTime = _waitBlossomTime;
+            _catAttack.MinVectorDistance = _minVectorDistance;
+            _catAttack.MediumVectorDistance = _mediumVectorDistance;
+            _catAttack.MaxVectorDistance = _maxVectorDistance;
+            _catAttack.MinStrenght = _minStrenght;
+            _catAttack.MaxStrenght = _maxStrenght;
+            _catAttack.MediumStrenght = _mediumStrenght;
+            _catAttack.BeforeMinStrenght = _beforeMinStrenght;
+            _catAttack.MaxForce = _maxForce;
+            _catAttack.StartExpand();
         }
     }
 

@@ -1,14 +1,13 @@
-namespace Interfaces
+using UnityEngine;
+public  abstract class ModificableValue : MonoBehaviour
 {
-    public interface IModificableValue
+    int Value { get; set; }
+
+    public void ModifyValue(int mod)
     {
-        int Value { get; set; }
-
-        public void ModifyValue(int mod)
-        {
-            Value += mod;
-        }
-
-        public int GetValue() { return Value; }
+        Value += mod;
     }
+
+    public int GetValue() { return Value; }
 }
+

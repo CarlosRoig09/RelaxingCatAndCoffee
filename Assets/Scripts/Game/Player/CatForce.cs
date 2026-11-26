@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using personalLibrary;
 using UnityEngine.UI;
+using TimerSystem;
+using Utilities.Managers.PauseSystem;
 
-public class CatForce : MonoBehaviour
+public class CatForce : MonoBehaviour, IPausable
 {
     private EnumLibrary.CatForceState _state;
+    private EnumLibrary.CatForceState _stateBeforePause;
     private SpriteRenderer _spriteRenderer;
-    private bool _startedCoroutine;
+    private Color _baseColor;
+    private bool _startedTimer;
+
+    private Vector3 _intialScale;
+
     public float MaxForce { private get; set ;}
     public delegate void IFinishedTheAttack();
     public event IFinishedTheAttack OnFinishedTheAttack;
@@ -29,19 +36,37 @@ public class CatForce : MonoBehaviour
     void Start()
     {
         _spriteRenderer= GetComponent<SpriteRenderer>();
-        _state = EnumLibrary.CatForceState.Expand;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _startedCoroutine = false;
         OnFinishedTheAttack += GameObjectLibrary.Instance.CatBehaivourScript.WaitTillAtackFinish;
+        _intialScale = transform.localScale;
+        _baseColor = _spriteRenderer.color;
+        PauseManager.Instance.RegisterPausable(this);
+    }
+
+    public void StartExpand()
+    {
+        gameObject.SetActive(true);
+        _state = EnumLibrary.CatForceState.Expand;
+        _startedTimer = false;
+        transform.localScale = _intialScale;
+        _spriteRenderer.color = _baseColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_state== EnumLibrary.CatForceState.Expand)
-        Expand();
-        else
-            Destroy();
+        switch (_state)
+        {
+            case EnumLibrary.CatForceState.Expand:
+                Expand();
+                break;
+            case EnumLibrary.CatForceState.Pause:
+                break;
+            case EnumLibrary.CatForceState.Destroy:
+                Destroy();
+                break;
+
+        }
     }
 
     private void Expand()
@@ -53,9 +78,14 @@ public class CatForce : MonoBehaviour
         
         else 
         {
-            if (!_startedCoroutine)
+            if (!_startedTimer)
             {
-                StartCoroutine(WaitTime(WaitTimeTillDestroy));
+                _startedTimer = true;
+                TimerManager.Instance.CreateTimer(WaitTimeTillDestroy, onTimerComplete: () =>
+                {
+                    _state = EnumLibrary.CatForceState.Destroy;
+                    _startedTimer = false;
+                });
             }
         }
     }
@@ -66,18 +96,9 @@ public class CatForce : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x + 0.1f * Time.deltaTime, transform.localScale.y + 0.06f*Time.deltaTime);
         if (_spriteRenderer.color.a <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             OnFinishedTheAttack();
         }
-
-    }
-
-    private IEnumerator WaitTime(float time)
-    {
-        _startedCoroutine= true;
-        yield return new WaitForSeconds(time);
-        _state = EnumLibrary.CatForceState.Destroy;
-        _startedCoroutine= false;
     }
 
     //See the distance between the center and the object and give a direction and force depending of the resultant vector.
@@ -105,4 +126,19 @@ public class CatForce : MonoBehaviour
         }
     }
 
+    public void OnPause()
+    {
+        _stateBeforePause = _state;
+        _state = EnumLibrary.CatForceState.Pause;
+    }
+
+    public void OnResume()
+    {
+        _state = _stateBeforePause;
+    }
+
+    private void OnDestroy()
+    {
+        PauseManager.Instance.UnregisterPausable(this);
+    }
 }

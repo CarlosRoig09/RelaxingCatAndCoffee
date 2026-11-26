@@ -43,6 +43,7 @@ namespace personalLibrary
         public enum CatForceState
         {
             Expand,
+            Pause,
             Destroy
         }
         public enum Scene

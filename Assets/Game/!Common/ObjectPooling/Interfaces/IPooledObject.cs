@@ -12,5 +12,8 @@ namespace Utilities {
         /// Method called at the PooledObject creation.
         /// </summary>
         public abstract void InitializeValues();
+
+        public abstract void OnStartUsing();
+        public abstract void OnStopUsing();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using personalLibrary;
 using Interfaces;
+using Utilities;
 
 public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
 {
@@ -59,7 +60,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
             else
                 AudioManager.instance.Play("especialObtained");
 
-            blossomBehaivour.Destroy(null);
+            ObjectPoolManager.Instance.DesactivatePooledObject(blossomBehaivour, blossomBehaivour.gameObject);
             CountCofee(puntuation);
             if (cofeeCount == _obtainCofee)
             {
