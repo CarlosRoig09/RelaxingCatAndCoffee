@@ -40,7 +40,7 @@ public class CatForce : MonoBehaviour, IPausable
         OnFinishedTheAttack += GameObjectLibrary.Instance.CatBehaivourScript.WaitTillAtackFinish;
         _intialScale = transform.localScale;
         _baseColor = _spriteRenderer.color;
-        PauseManager.Instance.RegisterPausable(this);
+        gameObject.SetActive(false);
     }
 
     public void StartExpand()
@@ -137,7 +137,12 @@ public class CatForce : MonoBehaviour, IPausable
         _state = _stateBeforePause;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        PauseManager.Instance.RegisterPausable(this);
+    }
+
+    private void OnDisable()
     {
         PauseManager.Instance.UnregisterPausable(this);
     }

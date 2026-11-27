@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TimerSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -21,7 +22,7 @@ namespace Utilities.Managers.PauseSystem
         
         public void PauseGame()
         {
-            if (_isGamePaused) return;  
+            if (_isGamePaused) return;
 
             _isGamePaused = true;
             //Time.timeScale = 0f;
@@ -36,11 +37,10 @@ namespace Utilities.Managers.PauseSystem
             }
 
         }
-
        
         public void ResumeGame()
         {
-            if (!_isGamePaused) return; 
+            if (!_isGamePaused) return;
 
             _isGamePaused = false;
             Time.timeScale = 1f;

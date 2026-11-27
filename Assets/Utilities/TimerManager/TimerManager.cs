@@ -1,25 +1,40 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.Managers.PauseSystem;
 namespace TimerSystem{
-public class TimerManager : AbstractSingleton<TimerManager>
-{
+public class TimerManager : AbstractSingleton<TimerManager>, IPausable
+    {
     public List<Timer> ActiveTimers {get=>_activeTimers;}
     private List<Timer> _activeTimers = new List<Timer>();
     private List<Timer> _timersToRemove = new List<Timer>();
+    private List<Timer>  _timersToResume = new List<Timer>();
+    private bool _paused = false;
+    protected override void Start()
+    {
+       base.Start();
+       PauseManager.Instance.RegisterPausable(this);
+    }
+
+    void OnDisable()
+    {
+       PauseManager.Instance?.UnregisterPausable(this);
+    }
     // Update is called once per frame
     void Update()
     {
-       UpdateTimers(Time.deltaTime);
+        if (_paused)
+            return;
+        UpdateTimers(Time.deltaTime);
     }
 
-    public Timer CreateTimer(float time, bool startOnCreate = true, TimerType timerType = TimerType.Descend, Action onTimerStart = null, Action<float> onTimerUpdate = null, Action onTimerComplete = null)
+    public Timer CreateTimer(float time, bool startOnCreate = true, bool isPausable = true, TimerType timerType = TimerType.Descend, Action onTimerStart = null, Action<float> onTimerUpdate = null, Action onTimerComplete = null)
     {
      if(time<0){
         Debug.LogError("The time value given was negative and time can't be negative.");
         return null;
      }
-        Timer currentTimer = new Timer(time,timerType,onTimerStart,onTimerUpdate,onTimerComplete);
+        Timer currentTimer = new Timer(time,timerType, isPausable, onTimerStart,onTimerUpdate,onTimerComplete);
         _activeTimers.Add(currentTimer);
         if(startOnCreate)
             StartTimer(currentTimer);
@@ -93,5 +108,15 @@ public class TimerManager : AbstractSingleton<TimerManager>
             timer.OnTimerComplete = onTimerComplete;    
         }      
     }
-}
+
+        public void OnPause()
+        {
+           _paused = true;
+        }
+
+        public void OnResume()
+        {
+            _paused = false;
+        }
+    }
 }

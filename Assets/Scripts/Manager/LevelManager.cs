@@ -1,12 +1,13 @@
-using personalLibrary;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Interfaces;
-using System;
-using Utilities.Managers.PauseSystem;
+using personalLibrary;
 using TimerSystem;
+using UnityEngine;
 using Utilities;
+using Utilities.Managers.PauseSystem;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class LevelManager : MonoBehaviour, IWaitTheEvent
 {
@@ -26,6 +27,8 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private GameObject _coffeeBean;
 
     private bool _isPaused = false;
+
+    private Timer _stopMomentumTimer = null;
     public static LevelManager Instance
     {
         get
@@ -79,8 +82,10 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         }
     }
 
-    public void PauseGame(bool activeUI = true)
+    public void PauseGame(bool activeUI = true, bool pauseTimer = true)
     {
+        if (pauseTimer && _stopMomentumTimer != null)
+            _stopMomentumTimer.PauseTimer();
         _isPaused = true;
         GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
         if(activeUI)
@@ -88,8 +93,10 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         PauseManager.Instance.PauseGame();
     }
 
-    public void ResumeGame(bool desactivateUI = true)
+    public void ResumeGame(bool desactivateUI = true, bool pauseTimer = true)
     {
+        if (pauseTimer && _stopMomentumTimer != null)
+            _stopMomentumTimer.ResumeTimer();
         _isPaused = false;
         GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick });
         if(desactivateUI)
@@ -106,16 +113,21 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
 
     public void OnEndScreenReach(float time, BlossomBehaivour blossomBehaivour, int puntuation, int energy)
     {
-        PauseGame(false);
-        TimerManager.Instance.CreateTimer(time, onTimerComplete: () =>
-        {
-            ModifyEnergy(energy);
-            ModifyPuntuation(puntuation);
-            ObjectPoolManager.Instance.DesactivatePooledObject(blossomBehaivour, blossomBehaivour.gameObject);
-            ResumeGame(false);
-        });
+        GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
+        StartCoroutine(StopMomentum(time, puntuation, energy, blossomBehaivour));
     }
 
+    //Provisional Impact Frame
+    private IEnumerator StopMomentum(float time, int puntuation, int energy, BlossomBehaivour blossomBehaivour)
+    {
+        PauseGame();
+        yield return new WaitForSeconds(time);
+        ModifyEnergy(energy);
+        ModifyPuntuation(puntuation);
+        ObjectPoolManager.Instance.DesactivatePooledObject(blossomBehaivour, blossomBehaivour.gameObject);
+        ResumeGame();
+        GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
+    }
 
 
     private void NotifyHitToThePlayer(float mod)
@@ -124,18 +136,17 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         {
             AudioManager.instance.Play("GetHit");
             _catAnimationController.ChangeLayer(1, 1);
-            StartCoroutine(ChangePlayerStates(0.3f, 1, 0));
+            TimerManager.Instance.CreateTimer(0.3f, onTimerComplete:()=> ChangePlayerStates(1, 0));
         }
         else
         {
             _catAnimationController.ChangeLayer(2, 1);
-            StartCoroutine(ChangePlayerStates(0.3f, 2, 0));
+            TimerManager.Instance.CreateTimer(0.3f, onTimerComplete: () => ChangePlayerStates(2, 0));
         }
     }
 
-    private IEnumerator ChangePlayerStates(float time, int layer, float weight)
+    private void ChangePlayerStates(int layer, float weight)
     {
-        yield return new WaitForSeconds(time);
         _catAnimationController.ChangeLayer(layer, weight);
     }
     public float SpawnTimeByPun()

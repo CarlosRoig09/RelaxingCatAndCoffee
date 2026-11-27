@@ -26,6 +26,9 @@ public class Timer
    private bool _isRunning = false;
    public bool IsPaused {get=>_isPaused;}
    private bool _isPaused = false;
+    
+    public bool IsPausable { get => _isPausable; }
+    private bool _isPausable = true;
    public Action OnTimerStart{get=>_onTimerStart;set=>_onTimerStart = value;}
    public Action _onTimerStart;
    public Action OnTimerComplete{get=>_onTimerComplete; set=>_onTimerComplete = value;}
@@ -39,7 +42,7 @@ public class Timer
     {
       
     }
-   public Timer(float time, TimerType type, Action onTimerStart, Action<float> onTimerUpdate, System.Action onTimerComplete)
+   public Timer(float time, TimerType type, bool isPausable, Action onTimerStart, Action<float> onTimerUpdate, System.Action onTimerComplete)
    {
      _totalTime = time;
      _initTime = type==TimerType.Descend? _totalTime : TIME_ZERO;
@@ -49,6 +52,7 @@ public class Timer
      _onTimerUpdate = onTimerUpdate;
      _onTimerComplete = onTimerComplete;
      _type = type;
+    _isPausable = isPausable;
    }
 
    public void StartTimer()

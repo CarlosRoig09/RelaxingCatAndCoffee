@@ -36,13 +36,9 @@ public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
     // Start is called before the first frame update
     public void InitializeValues()
     {
+        PauseManager.Instance.RegisterPausable(this);
         _rb2D = GetComponent<Rigidbody2D>();
         _maxSpeedY = BlossomData.MaxSpeedY;
-    }
-
-    void Start()
-    {
-        PauseManager.Instance.RegisterPausable(this);
     }
     // Update is called once per frame
     void Update()
@@ -90,7 +86,7 @@ public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
         float lerpValue = 0;
         TimerManager.Instance.CreateTimer(_timeStoped, onTimerUpdate:(float time)=> 
         {
-            lerpValue += lerpSumXTime;
+           lerpValue += lerpSumXTime;
           _rb2D.linearVelocity = Vector2.Lerp(initialVelocity,velocityDuringTimePause, lerpValue);
         },
         onTimerComplete: () =>
@@ -157,9 +153,8 @@ public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
     {
         _paused = false;
     }
-
     private void OnDestroy()
     {
-      PauseManager.Instance.UnregisterPausable(this);
+      PauseManager.Instance?.UnregisterPausable(this);
     }
 }

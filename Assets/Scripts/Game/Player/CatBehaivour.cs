@@ -65,7 +65,6 @@ public class CatBehaivour : MonoBehaviour, IHaveTheEvent
         _reduceSpeed = false;
         _catAnimCon= GetComponent<CatAnimationController>();
         _catSpriteRenderer = GetComponent<SpriteRenderer>();
-        _catAttack.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
