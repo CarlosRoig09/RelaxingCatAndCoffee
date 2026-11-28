@@ -15,6 +15,8 @@ public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
     public float MaxSpeedY { get => _maxSpeedY; set { _maxSpeedY = value; } }
 
     private float _maxSpeedY;
+    public float BaseSpeedY { get => _baseSpeedY; set => _baseSpeedY = value; }
+    private float _baseSpeedY;
     private Rigidbody2D _rb2D;
     public Rigidbody2D Rb2D { get { return _rb2D; } }
 
@@ -39,6 +41,7 @@ public class BlossomBehaivour : MonoBehaviour, IPooledObject, IPausable
         PauseManager.Instance.RegisterPausable(this);
         _rb2D = GetComponent<Rigidbody2D>();
         _maxSpeedY = BlossomData.MaxSpeedY;
+        _baseSpeedY = _maxSpeedY;
     }
     // Update is called once per frame
     void Update()

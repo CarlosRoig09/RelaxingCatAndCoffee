@@ -15,6 +15,10 @@ public class SpawnerBehaivour : MonoBehaviour
     [SerializeField]
     private float speedUpY = 0.2f;
     private Timer _spawnTimer;
+    [SerializeField]
+    private float maxSpawnTime = 5f;
+    [SerializeField]
+    private float maxExtraSpeedY = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +40,11 @@ public class SpawnerBehaivour : MonoBehaviour
     private void SpawnBlossom()
     {
        BlossomBehaivour blossomBehaivour = ObjectPoolManager.Instance.GiveAPooledObjectFromARandomList<BlossomBehaivour>(RandomSpawnPosition());
-       
-        _maxTime = LevelManager.Instance.SpawnTimeByPun();
+    if (blossomBehaivour == null)
+        return;
+        float puntuationEvaluate = LevelManager.Instance.CurrentPuntuationCurve();
+        blossomBehaivour.MaxSpeedY = blossomBehaivour.BaseSpeedY - (maxExtraSpeedY - maxExtraSpeedY * puntuationEvaluate);
+        _maxTime = maxSpawnTime * puntuationEvaluate;
         Debug.Log("Max Time: " + _maxTime);
     }
 

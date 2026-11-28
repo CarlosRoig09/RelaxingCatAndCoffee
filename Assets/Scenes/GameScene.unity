@@ -1002,6 +1002,8 @@ MonoBehaviour:
   - {fileID: 1326239635}
   - {fileID: 1699271524}
   speedUpY: 0.2
+  maxSpawnTime: 5
+  maxExtraSpeedY: 0.5
 --- !u!1 &221096940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,8 +4710,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxEnergyValue: 100
-  _punDifDividing: 50
-  _difFaseQuotient: 000000000100000002000000040000001000000018000000
+  maxPuntuationReference: 5000
+  _puntuationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _coffeeBean: {fileID: 843049890083918950, guid: 014575188a6366449b3455c37e96558e, type: 3}
 --- !u!1 &1239661996
 GameObject:

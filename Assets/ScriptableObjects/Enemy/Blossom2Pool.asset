@@ -16,5 +16,5 @@ MonoBehaviour:
   poolName: Blossom2Pool
   prefab: {fileID: 6066535154501333564, guid: 2bc281729462f6f44b89908f31d147dd, type: 3}
   prefabVariants: []
-  poolNum: 10
+  poolNum: 30
   spawnRate: 90

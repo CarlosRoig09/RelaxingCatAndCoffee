@@ -19,16 +19,14 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     private CatAnimationController _catAnimationController;
     private SpawnerBehaivour _spawnerBehaivour;
     [SerializeField]
-    private int _punDifDividing;
+    private int maxPuntuationReference = 1000;
     [SerializeField]
-    private int[] _difFaseQuotient;
+    private AnimationCurve _puntuationCurve;
  
     [SerializeField]
     private GameObject _coffeeBean;
 
     private bool _isPaused = false;
-
-    private Timer _stopMomentumTimer = null;
     public static LevelManager Instance
     {
         get
@@ -82,10 +80,8 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         }
     }
 
-    public void PauseGame(bool activeUI = true, bool pauseTimer = true)
+    public void PauseGame(bool activeUI = true)
     {
-        if (pauseTimer && _stopMomentumTimer != null)
-            _stopMomentumTimer.PauseTimer();
         _isPaused = true;
         GameObjectLibrary.Instance.InputManager.DesubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
         if(activeUI)
@@ -93,10 +89,8 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
         PauseManager.Instance.PauseGame();
     }
 
-    public void ResumeGame(bool desactivateUI = true, bool pauseTimer = true)
+    public void ResumeGame(bool desactivateUI = true)
     {
-        if (pauseTimer && _stopMomentumTimer != null)
-            _stopMomentumTimer.ResumeTimer();
         _isPaused = false;
         GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick });
         if(desactivateUI)
@@ -120,12 +114,12 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     //Provisional Impact Frame
     private IEnumerator StopMomentum(float time, int puntuation, int energy, BlossomBehaivour blossomBehaivour)
     {
-        PauseGame();
+        PauseGame(false);
         yield return new WaitForSeconds(time);
         ModifyEnergy(energy);
         ModifyPuntuation(puntuation);
         ObjectPoolManager.Instance.DesactivatePooledObject(blossomBehaivour, blossomBehaivour.gameObject);
-        ResumeGame();
+        ResumeGame(false);
         GameObjectLibrary.Instance.InputManager.SubscribeEvents(new EnumLibrary.Inputs[] { EnumLibrary.Inputs.OnLeftClick, EnumLibrary.Inputs.OnEscClick, EnumLibrary.Inputs.OnScroll, EnumLibrary.Inputs.OnScrollCancel, EnumLibrary.Inputs.OnEscClick });
     }
 
@@ -149,14 +143,10 @@ public class LevelManager : MonoBehaviour, IWaitTheEvent
     {
         _catAnimationController.ChangeLayer(layer, weight);
     }
-    public float SpawnTimeByPun()
-    {
-        return 0;
-    }
 
-    public float SpeedIncreaseByPun()
+    public float CurrentPuntuationCurve()
     {
-        return 0;
+        return _puntuationCurve.Evaluate(_punC.Value / maxPuntuationReference);
     }
 
     public void ModifyEnergy(int modEn)
