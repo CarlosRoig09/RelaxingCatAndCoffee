@@ -1,9 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 public  abstract class ModificableValue : MonoBehaviour
 {
-    int Value { get; set; }
+    public int Value { get=> modValue; set=> modValue = value; }
+    protected int modValue;
+    [SerializeField]
+    protected int startValue = 0;
 
-    public void ModifyValue(int mod)
+    protected virtual void Start()
+    {
+        modValue = startValue;
+    }
+    public virtual void ModifyValue(int mod)
     {
         Value += mod;
     }

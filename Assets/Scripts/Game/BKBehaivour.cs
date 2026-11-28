@@ -24,6 +24,8 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     private int _normalBlossomPun;
     [SerializeField]
     private int _specialBlossomPun;
+    [SerializeField]
+    private int obtainedCoffeePuntuation = 20;
 
     public EnumLibrary.TypeOfEvent Type => EnumLibrary.TypeOfEvent.StopCofeeProduction;
 
@@ -89,6 +91,7 @@ public class BKBehaivour : MonoBehaviour, IWaitTheEvent, IHaveTheEvent
     {
         AudioManager.instance.Play("CofeeObtained");
         IHTEvent(Instantiate(_cofeeData));
+        SendPuntuation(obtainedCoffeePuntuation);
         cofeeCount = 0;
     }
 

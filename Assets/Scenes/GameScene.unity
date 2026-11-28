@@ -1002,7 +1002,7 @@ MonoBehaviour:
   - {fileID: 1326239635}
   - {fileID: 1699271524}
   speedUpY: 0.2
-  maxSpawnTime: 5
+  maxSpawnTime: 10.5
   maxExtraSpeedY: 0.5
 --- !u!1 &221096940
 GameObject:
@@ -4710,7 +4710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxEnergyValue: 100
-  maxPuntuationReference: 5000
+  maxPuntuationReference: 1000
   _puntuationCurve:
     serializedVersion: 2
     m_Curve:
@@ -5007,19 +5007,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Size.x
-      value: 12.102358
+      value: 13.15205
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Size.y
-      value: 2.0765293
+      value: 3.7410715
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Offset.x
-      value: 0.023225546
+      value: 0.06413269
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Offset.y
-      value: 0.4059993
+      value: -0.4234885
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196773, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: _id
@@ -7311,7 +7311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2287d1f89cfde9f468536732bb196542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _puntuation: 0
+  startValue: 0
 --- !u!1 &1585470706
 GameObject:
   m_ObjectHideFlags: 0
@@ -8706,7 +8706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2fc805b1b388d4a90e273c186482d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxEnergy: 100
+  startValue: 100
 --- !u!1 &1950413490
 GameObject:
   m_ObjectHideFlags: 0
@@ -9483,19 +9483,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Size.x
-      value: 11.948729
+      value: 13.15205
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Size.y
-      value: 2.0976014
+      value: 3.7410715
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Offset.x
-      value: -0.00000071525574
+      value: 0.06413269
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196772, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: m_Offset.y
-      value: 0.39824677
+      value: -0.4234885
       objectReference: {fileID: 0}
     - target: {fileID: 317402589497196773, guid: b638f90bfd290a540a59d3f870621f34, type: 3}
       propertyPath: _id
